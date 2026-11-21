@@ -5,6 +5,8 @@ import { useAuth } from "@/lib/auth";
 import { USE_MOCKS } from "@/lib/env";
 import { SidebarSettings } from "@/components/Switchers";
 import MockRoleSwitcher from "@/components/MockRoleSwitcher";
+import NotificationSlot from "@/components/NotificationSlot";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
 
 // Desktop layout: a sticky sidebar on the side, language and theme switches at its bottom (design deck, admin screens)
 export default function AdminLayout({ children }) {
@@ -14,8 +16,11 @@ export default function AdminLayout({ children }) {
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
       <aside className="flex w-full shrink-0 flex-col bg-espresso p-4 text-white md:sticky md:top-0 md:h-screen md:w-56 md:overflow-y-auto">
-        <div className="mb-4 flex items-center gap-2 font-heading text-xl font-bold">
-          <span className="rounded-lg bg-white/20 px-2 py-0.5 text-base">ID</span> Fast
+        <div className="mb-4 flex items-center justify-between gap-2">
+          <span className="flex items-center gap-2 font-heading text-xl font-bold">
+            <span className="rounded-lg bg-white/20 px-2 py-0.5 text-base">ID</span> Fast
+          </span>
+          <NotificationSlot />
         </div>
 
         <nav className="flex gap-2 overflow-x-auto md:flex-col" aria-label="main">
@@ -48,7 +53,10 @@ export default function AdminLayout({ children }) {
         </div>
       </aside>
 
-      <main className="min-w-0 flex-1 p-4 md:p-6">{children}</main>
+      <main className="min-w-0 flex-1 p-4 md:p-6">
+        <AnnouncementBanner />
+        {children}
+      </main>
     </div>
   );
 }

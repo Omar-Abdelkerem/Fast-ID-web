@@ -10,8 +10,14 @@ export const routes = Object.values(modules).flatMap((module) => module.routes |
 
 const navEntries = Object.values(modules).flatMap((module) => module.nav || []);
 
-// menu entries of one layout, lowest order first
-export const navFor = (layout) => navEntries.filter((entry) => entry.layout === layout).sort((a, b) => a.order - b.order);
+const byOrder = (a, b) => a.order - b.order;
+
+// entries that belong to one layout only
+const ownNavFor = (layout) => navEntries.filter((entry) => entry.layout === layout).sort(byOrder);
+
+// the menu of a layout: its own entries plus the "shared" ones (notifications, profile...), lowest order first
+export const navFor = (layout) =>
+  navEntries.filter((entry) => entry.layout === layout || (entry.layout === "shared" && layout !== "public")).sort(byOrder);
 
 // the layout each role works in
 const layoutOfRole = { ADMIN: "admin", AGENT: "agent", CITIZEN: "citizen" };
@@ -21,7 +27,7 @@ const layoutOfRole = { ADMIN: "admin", AGENT: "agent", CITIZEN: "citizen" };
 export function getAvailableHome(role) {
   const home = getRoleHome(role);
   if (routes.some((route) => route.path === home)) return home;
-  return navFor(layoutOfRole[role])[0]?.to || home;
+  return ownNavFor(layoutOfRole[role])[0]?.to || home;
 }
 
 // menu entries of every role, used by the demo page that lists what already exists

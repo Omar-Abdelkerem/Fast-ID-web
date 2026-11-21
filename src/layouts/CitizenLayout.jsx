@@ -5,6 +5,8 @@ import { useAuth } from "@/lib/auth";
 import { USE_MOCKS } from "@/lib/env";
 import { LanguageSwitcher, ThemeSwitcher } from "@/components/Switchers";
 import MockRoleSwitcher from "@/components/MockRoleSwitcher";
+import NotificationSlot from "@/components/NotificationSlot";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
 
 // Citizen layout: top bar with the menu, content centred below
 export default function CitizenLayout({ children }) {
@@ -27,6 +29,7 @@ export default function CitizenLayout({ children }) {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <NotificationSlot />
             <LanguageSwitcher />
             <ThemeSwitcher />
             {user && !USE_MOCKS && (
@@ -38,6 +41,7 @@ export default function CitizenLayout({ children }) {
         </div>
       </header>
       <main className="mx-auto max-w-5xl p-4 md:p-6">
+        <AnnouncementBanner />
         {children}
         <MockRoleSwitcher className="mt-8 max-w-[10rem] rounded-xl bg-espresso p-2 text-white" />
       </main>

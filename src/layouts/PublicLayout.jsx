@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { navFor } from "@/lib/registry";
 import { LanguageSwitcher, ThemeSwitcher } from "@/components/Switchers";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
 
 // Public pages (no login): simple header and centred content
 export default function PublicLayout({ children }) {
@@ -26,7 +27,10 @@ export default function PublicLayout({ children }) {
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-5xl p-4 md:p-6">{children}</main>
+      <main className="mx-auto max-w-5xl p-4 md:p-6">
+        <AnnouncementBanner />
+        {children}
+      </main>
     </div>
   );
 }

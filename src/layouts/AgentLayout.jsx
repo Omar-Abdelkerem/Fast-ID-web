@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { navFor } from "@/lib/registry";
 import { LanguageSwitcher, ThemeSwitcher } from "@/components/Switchers";
 import MockRoleSwitcher from "@/components/MockRoleSwitcher";
+import NotificationSlot from "@/components/NotificationSlot";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
 
 // Phone layout for delivery agents: header on top, bottom navigation, single column
 export default function AgentLayout({ children }) {
@@ -12,12 +14,14 @@ export default function AgentLayout({ children }) {
       <header className="flex items-center justify-between gap-2 bg-espresso p-3 text-white">
         <span className="font-heading text-lg font-bold">Fast ID</span>
         <div className="flex items-center gap-2">
+          <NotificationSlot />
           <LanguageSwitcher />
           <ThemeSwitcher />
         </div>
       </header>
 
       <main className="p-4 pb-28">
+        <AnnouncementBanner />
         {children}
         <MockRoleSwitcher className="mt-8 max-w-[10rem] rounded-xl bg-espresso p-2 text-white" />
       </main>
