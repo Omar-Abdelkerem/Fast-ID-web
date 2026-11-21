@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+// Loads the Material Icons font once, so the icons work without editing index.html.
+const MATERIAL_ICONS_URL = "https://fonts.googleapis.com/icon?family=Material+Icons";
+if (typeof document !== "undefined" && !document.querySelector(`link[href="${MATERIAL_ICONS_URL}"]`)) {
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = MATERIAL_ICONS_URL;
+  document.head.appendChild(link);
+}
+
 // A real on/off switch: a track with a sliding knob. The knob shows the active side.
 // The track is always left-to-right so the knob moves the same way in Arabic and English.
 function Switch({ checked, onChange, label, off, on }) {
