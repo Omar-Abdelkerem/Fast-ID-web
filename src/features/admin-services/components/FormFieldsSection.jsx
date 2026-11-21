@@ -28,21 +28,21 @@ function OptionsEditor({ index }) {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className="label mb-0">{t("editor.options")} ({fields.length})</span>
-        <button type="button" className="btn btn-secondary btn-sm" disabled={fields.length >= 50} onClick={() => append({ value: "", label: { ar: "", en: "" } })}>
+        <span className="label dark:text-[#E8F0FE] mb-0">{t("editor.options")} ({fields.length})</span>
+        <button type="button" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] btn-sm" disabled={fields.length >= 50} onClick={() => append({ value: "", label: { ar: "", en: "" } })}>
           {t("editor.addOption")}
         </button>
       </div>
       {listError && <p className="field-error">{listError}</p>}
       {fields.map((option, optionIndex) => (
-        <div key={option.id} className="rounded-lg bg-cream p-2 space-y-2">
+        <div key={option.id} className="rounded-lg bg-cream dark:bg-[#232963] p-2 space-y-2">
           <div className="flex items-end gap-2">
             <div className="flex-1">
               <FormField label={t("editor.optionValue")} htmlFor={`f-${index}-o-${optionIndex}-value`} error={errorText(`fields.${index}.options.${optionIndex}.value`)}>
-                <input id={`f-${index}-o-${optionIndex}-value`} dir="ltr" className="input font-mono" {...register(`fields.${index}.options.${optionIndex}.value`)} />
+                <input id={`f-${index}-o-${optionIndex}-value`} dir="ltr" className="input dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE] font-mono" {...register(`fields.${index}.options.${optionIndex}.value`)} />
               </FormField>
             </div>
-            <button type="button" className="btn btn-danger btn-sm" onClick={() => remove(optionIndex)}>{t("editor.remove")}</button>
+            <button type="button" className="btn btn-danger dark:bg-transparent dark:text-[#ff8a80] dark:border-[#ff8a80] dark:hover:bg-[#4a1f24] btn-sm" onClick={() => remove(optionIndex)}>{t("editor.remove")}</button>
           </div>
           <LocalizedInputs name={`fields.${index}.options.${optionIndex}.label`} label={t("editor.label")} idPrefix={`f-${index}-o-${optionIndex}-label`} />
         </div>
@@ -70,27 +70,27 @@ function FieldRow({ index, total, hasServerError, onMove, onRemove }) {
 
   const input = (key, label, extra = {}) => (
     <FormField key={key} label={label} htmlFor={`f-${index}-${key}`} error={errorText(`fields.${index}.${key}`)}>
-      <input id={`f-${index}-${key}`} dir="ltr" className="input" {...extra} {...register(`fields.${index}.${key}`)} />
+      <input id={`f-${index}-${key}`} dir="ltr" className="input dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" {...extra} {...register(`fields.${index}.${key}`)} />
     </FormField>
   );
 
   return (
-    <div className={`rounded-xl border p-3 space-y-3 ${hasError ? "border-danger border-2" : "border-line"}`}>
+    <div className={`rounded-xl border p-3 space-y-3 ${hasError ? "border-danger border-2" : "border-line dark:border-[#2f3670]"}`}>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="font-semibold text-sm">{t("editor.fieldN", { n: index + 1 })}{hasError && <span className="text-danger"> <Icon name="warning" /> {t("editor.hasProblem")}</span>}</span>
+        <span className="font-semibold text-sm">{t("editor.fieldN", { n: index + 1 })}{hasError && <span className="text-danger dark:text-[#ff8a80]"> <Icon name="warning" /> {t("editor.hasProblem")}</span>}</span>
         <div className="flex gap-2">
-          <button type="button" className="btn btn-secondary btn-sm" disabled={index === 0} onClick={() => onMove(index, index - 1)} aria-label={t("editor.moveUp")}><Icon name="arrow_upward" /></button>
-          <button type="button" className="btn btn-secondary btn-sm" disabled={index === total - 1} onClick={() => onMove(index, index + 1)} aria-label={t("editor.moveDown")}><Icon name="arrow_downward" /></button>
-          <button type="button" className="btn btn-danger btn-sm" onClick={() => onRemove(index)}>{t("editor.remove")}</button>
+          <button type="button" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] btn-sm" disabled={index === 0} onClick={() => onMove(index, index - 1)} aria-label={t("editor.moveUp")}><Icon name="arrow_upward" /></button>
+          <button type="button" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] btn-sm" disabled={index === total - 1} onClick={() => onMove(index, index + 1)} aria-label={t("editor.moveDown")}><Icon name="arrow_downward" /></button>
+          <button type="button" className="btn btn-danger dark:bg-transparent dark:text-[#ff8a80] dark:border-[#ff8a80] dark:hover:bg-[#4a1f24] btn-sm" onClick={() => onRemove(index)}>{t("editor.remove")}</button>
         </div>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2">
         <FormField label={t("editor.key")} htmlFor={`f-${index}-key`} error={errorText(`fields.${index}.key`)} hint={t("editor.fieldKeyHint")}>
-          <input id={`f-${index}-key`} dir="ltr" className="input font-mono" {...register(`fields.${index}.key`)} />
+          <input id={`f-${index}-key`} dir="ltr" className="input dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE] font-mono" {...register(`fields.${index}.key`)} />
         </FormField>
         <FormField label={t("editor.type")} htmlFor={`f-${index}-type`}>
-          <select id={`f-${index}-type`} className="select" {...typeRegister} onChange={onTypeChange}>
+          <select id={`f-${index}-type`} className="select dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" {...typeRegister} onChange={onTypeChange}>
             {FIELD_TYPES.map((fieldType) => <option key={fieldType} value={fieldType}>{t(`fieldType.${fieldType}`)}</option>)}
           </select>
         </FormField>
@@ -126,15 +126,15 @@ export default function FormFieldsSection({ badRows }) {
   const { fields, append, remove, move } = useFieldArray({ control, name: "fields" });
 
   return (
-    <section className="card space-y-4" aria-labelledby="fields-title">
+    <section className="card dark:bg-[#1b2048] dark:border-[#2f3670] space-y-4" aria-labelledby="fields-title">
       <div className="flex items-center justify-between">
         <h2 id="fields-title" className="font-bold text-lg">{t("editor.formFields")} ({fields.length}/{MAX_FIELDS})</h2>
-        <button type="button" className="btn btn-secondary btn-sm" disabled={fields.length >= MAX_FIELDS} onClick={() => append(newField())}>
+        <button type="button" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] btn-sm" disabled={fields.length >= MAX_FIELDS} onClick={() => append(newField())}>
           {t("editor.addField")}
         </button>
       </div>
 
-      {fields.length === 0 && <p className="text-sm text-muted">{t("editor.noFields")}</p>}
+      {fields.length === 0 && <p className="text-sm text-muted dark:text-[#A9B0D6]">{t("editor.noFields")}</p>}
 
       {fields.map((row, index) => (
         <FieldRow key={row.id} index={index} total={fields.length} hasServerError={badRows.has(index)} onMove={move} onRemove={remove} />

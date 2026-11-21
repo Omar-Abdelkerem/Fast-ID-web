@@ -11,11 +11,11 @@ export default function BasicsSection({ isNew }) {
   const neverExpires = watch("neverExpires");
 
   return (
-    <section className="card space-y-4" aria-labelledby="basics-title">
+    <section className="card dark:bg-[#1b2048] dark:border-[#2f3670] space-y-4" aria-labelledby="basics-title">
       <h2 id="basics-title" className="font-bold text-lg">{t("editor.basics")}</h2>
 
       <FormField label={t("editor.id")} htmlFor="service-id" error={errorText("id")} hint={isNew ? t("editor.idHint") : t("editor.idLocked")}>
-        <input id="service-id" dir="ltr" className="input font-mono" readOnly={!isNew} {...register("id")} />
+        <input id="service-id" dir="ltr" className="input dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE] font-mono" readOnly={!isNew} {...register("id")} />
       </FormField>
 
       <LocalizedInputs name="name" label={t("editor.name")} />
@@ -23,17 +23,17 @@ export default function BasicsSection({ isNew }) {
 
       <div className="grid gap-3 md:grid-cols-2">
         <FormField label={t("editor.category")} htmlFor="service-category" error={errorText("category")}>
-          <select id="service-category" className="select" {...register("category")}>
+          <select id="service-category" className="select dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" {...register("category")}>
             {CATEGORIES.map((category) => <option key={category} value={category}>{t(`category.${category}`)}</option>)}
           </select>
         </FormField>
 
         <FormField label={t("editor.fee")} htmlFor="service-fee" error={errorText("feeEgp")} hint={t("editor.feeHint")}>
-          <input id="service-fee" dir="ltr" inputMode="decimal" className="input" {...register("feeEgp")} />
+          <input id="service-fee" dir="ltr" inputMode="decimal" className="input dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" {...register("feeEgp")} />
         </FormField>
 
         <FormField label={t("editor.slaDays")} htmlFor="service-sla" error={errorText("slaDays")}>
-          <input id="service-sla" dir="ltr" inputMode="numeric" className="input" {...register("slaDays")} />
+          <input id="service-sla" dir="ltr" inputMode="numeric" className="input dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" {...register("slaDays")} />
         </FormField>
 
         <div className="space-y-2">
@@ -43,7 +43,7 @@ export default function BasicsSection({ isNew }) {
           </label>
           {!neverExpires && (
             <FormField label={t("editor.validityYears")} htmlFor="service-validity" error={errorText("validityYears")}>
-              <input id="service-validity" dir="ltr" inputMode="numeric" className="input" {...register("validityYears")} />
+              <input id="service-validity" dir="ltr" inputMode="numeric" className="input dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" {...register("validityYears")} />
             </FormField>
           )}
         </div>

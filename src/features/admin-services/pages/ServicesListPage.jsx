@@ -36,8 +36,8 @@ export default function ServicesListPage() {
       )}
 
       {servicesQuery.isSuccess && services.length > 0 && (
-        <div className="card overflow-x-auto p-0">
-          <table className="table">
+        <div className="card dark:bg-[#1b2048] dark:border-[#2f3670] overflow-x-auto p-0">
+          <table className="table dark:[&_th]:bg-[#232963] dark:[&_th]:text-[#A9B0D6] dark:[&_td]:border-[#2f3670]">
             <thead>
               <tr>
                 <th>{t("list.columns.id")}</th>
@@ -60,24 +60,24 @@ export default function ServicesListPage() {
                   <td>{service.publishedVersion ? `v${service.publishedVersion}` : "—"}</td>
                   <td>
                     {/* text + symbol, never colour alone */}
-                    {service.hasUnpublishedChanges ? <span className="text-warning font-semibold"><Icon name="edit_note" /> {t("list.hasChanges")}</span> : <span className="text-muted">—</span>}
+                    {service.hasUnpublishedChanges ? <span className="text-warning dark:text-[#f0c36a] font-semibold"><Icon name="edit_note" /> {t("list.hasChanges")}</span> : <span className="text-muted dark:text-[#A9B0D6]">—</span>}
                   </td>
                   <td>{formatDate(service.updatedAt, i18n.language)}</td>
                   <td>
                     <div className="flex flex-wrap gap-2">
-                      <Link to={`/admin/services/${service.id}`} className="btn btn-secondary btn-sm">{t("actions.edit")}</Link>
+                      <Link to={`/admin/services/${service.id}`} className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] btn-sm">{t("actions.edit")}</Link>
                       <button className="btn btn-primary btn-sm" onClick={() => request(service, "publish")}>
                         {t("actions.publish")}
                       </button>
                       <button
-                        className="btn btn-secondary btn-sm"
+                        className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] btn-sm"
                         disabled={service.availability !== "PUBLISHED"}
                         onClick={() => request(service, "unpublish")}
                       >
                         {t("actions.unpublish")}
                       </button>
                       <button
-                        className="btn btn-danger btn-sm"
+                        className="btn btn-danger dark:bg-transparent dark:text-[#ff8a80] dark:border-[#ff8a80] dark:hover:bg-[#4a1f24] btn-sm"
                         disabled={service.availability !== "DRAFT"}
                         title={service.availability !== "DRAFT" ? t("list.deleteDisabled") : undefined}
                         onClick={() => request(service, "delete")}

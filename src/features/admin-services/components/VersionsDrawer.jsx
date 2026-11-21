@@ -14,7 +14,7 @@ function VersionDetails({ serviceId, version }) {
   });
 
   if (query.isLoading) return <Spinner />;
-  if (query.isError) return <p className="text-danger text-sm">{getErrorMessage(query.error, t)}</p>;
+  if (query.isError) return <p className="text-danger dark:text-[#ff8a80] text-sm">{getErrorMessage(query.error, t)}</p>;
   return <DefinitionView definition={query.data.definition} />;
 }
 
@@ -57,19 +57,19 @@ export default function VersionsDrawer({ open, onClose, serviceId, publishedVers
 
   return (
     <div className="fixed inset-0 z-40 flex justify-end bg-black/40">
-      <aside ref={drawerRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label={t("versions.title")} className="h-full w-full max-w-md overflow-y-auto bg-white p-4 shadow-xl">
+      <aside ref={drawerRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label={t("versions.title")} className="h-full w-full max-w-md overflow-y-auto bg-white dark:bg-[#1b2048] p-4 shadow-xl">
         <div className="mb-3 flex items-center justify-between">
           <h2 className="font-bold text-lg">{t("versions.title")}</h2>
-          <button className="btn btn-secondary btn-sm" onClick={onClose}>{t("versions.close")}</button>
+          <button className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] btn-sm" onClick={onClose}>{t("versions.close")}</button>
         </div>
         <div className="mb-4 flex flex-wrap gap-2">
           {versions.map((version) => (
-            <button key={version} className={`btn btn-sm ${selected === version ? "btn-primary" : "btn-secondary"}`} aria-pressed={selected === version} onClick={() => setSelected(version)}>
+            <button key={version} className={`btn btn-sm ${selected === version ? "btn-primary" : "btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]"}`} aria-pressed={selected === version} onClick={() => setSelected(version)}>
               v{version}{version === publishedVersion ? ` · ${t("versions.live")}` : ""}
             </button>
           ))}
         </div>
-        {selected ? <VersionDetails serviceId={serviceId} version={selected} /> : <p className="text-sm text-muted">{t("versions.pick")}</p>}
+        {selected ? <VersionDetails serviceId={serviceId} version={selected} /> : <p className="text-sm text-muted dark:text-[#A9B0D6]">{t("versions.pick")}</p>}
       </aside>
     </div>
   );

@@ -93,8 +93,8 @@ function ServiceForm({ service }) {
     <FormProvider {...methods}>
       <form onSubmit={onSubmit} noValidate className="space-y-4 pb-24">
         {serverProblems.length > 0 && (
-          <div role="alert" className="card border-danger border-2">
-            <p className="font-bold text-danger">{t("editor.serverProblems")}</p>
+          <div role="alert" className="card dark:bg-[#1b2048] dark:border-[#2f3670] border-danger border-2">
+            <p className="font-bold text-danger dark:text-[#ff8a80]">{t("editor.serverProblems")}</p>
             <ul className="mt-2 list-disc ps-5 text-sm">
               {serverProblems.map((problem, i) => (
                 <li key={i}><span dir="ltr" className="font-mono">{problem.field}</span> — {t(`errors.${problem.code}`, { defaultValue: problem.code })}</li>
@@ -108,29 +108,29 @@ function ServiceForm({ service }) {
         <FormFieldsSection badRows={badRows("fields")} />
 
         {showPreview && (
-          <section className="card" aria-label={t("editor.preview")}>
+          <section className="card dark:bg-[#1b2048] dark:border-[#2f3670]" aria-label={t("editor.preview")}>
             <h2 className="font-bold text-lg mb-2">{t("editor.preview")}</h2>
             <FieldsPreview fields={previewFields} />
           </section>
         )}
 
         {/* sticky bar */}
-        <div className="fixed bottom-0 start-56 end-0 z-30 border-t border-line bg-white p-3">
+        <div className="fixed bottom-0 start-56 end-0 z-30 border-t border-line dark:border-[#2f3670] bg-white dark:bg-[#1b2048] p-3">
           <div className="flex flex-wrap items-center gap-3">
             {service && (
               <div className="flex flex-wrap items-center gap-3 text-sm">
                 <AvailabilityBadge value={service.availability} />
                 <span>{t("editor.publishedVersion")}: {service.publishedVersion ? `v${service.publishedVersion}` : "—"}</span>
-                {(service.hasUnpublishedChanges || dirtyBlocksPublish) && <span className="text-warning font-semibold"><Icon name="edit_note" /> {t("list.hasChanges")}</span>}
+                {(service.hasUnpublishedChanges || dirtyBlocksPublish) && <span className="text-warning dark:text-[#f0c36a] font-semibold"><Icon name="edit_note" /> {t("list.hasChanges")}</span>}
               </div>
             )}
             <div className="ms-auto flex flex-wrap gap-2">
-              <button type="button" className="btn btn-secondary" aria-pressed={showPreview} onClick={() => setShowPreview((v) => !v)}>{t("editor.preview")}</button>
-              {service?.publishedVersion && <button type="button" className="btn btn-secondary" onClick={() => setShowVersions(true)}>{t("versions.title")}</button>}
+              <button type="button" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]" aria-pressed={showPreview} onClick={() => setShowPreview((v) => !v)}>{t("editor.preview")}</button>
+              {service?.publishedVersion && <button type="button" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]" onClick={() => setShowVersions(true)}>{t("versions.title")}</button>}
               {service && (
                 <>
-                  <button type="button" className="btn btn-secondary" disabled={service.availability !== "PUBLISHED"} onClick={() => request(service, "unpublish")}>{t("actions.unpublish")}</button>
-                  <button type="button" className="btn btn-secondary" disabled={dirtyBlocksPublish} title={dirtyBlocksPublish ? t("editor.saveFirst") : undefined} onClick={() => request(service, "publish")}>{t("actions.publish")}</button>
+                  <button type="button" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]" disabled={service.availability !== "PUBLISHED"} onClick={() => request(service, "unpublish")}>{t("actions.unpublish")}</button>
+                  <button type="button" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]" disabled={dirtyBlocksPublish} title={dirtyBlocksPublish ? t("editor.saveFirst") : undefined} onClick={() => request(service, "publish")}>{t("actions.publish")}</button>
                 </>
               )}
               <button type="submit" className="btn btn-primary" disabled={!hasChanges || saveMutation.isPending}>
@@ -167,7 +167,7 @@ export default function ServiceEditorPage() {
     return (
       <div className="space-y-3">
         <ErrorState error={serviceQuery.error} onRetry={notFound ? undefined : serviceQuery.refetch} />
-        <div className="text-center"><Link to="/admin/services" className="link">{t("editor.backToList")}</Link></div>
+        <div className="text-center"><Link to="/admin/services" className="link dark:text-[#8da0ff]">{t("editor.backToList")}</Link></div>
       </div>
     );
   }
@@ -177,7 +177,7 @@ export default function ServiceEditorPage() {
     <div>
       <PageHeader
         title={isNew ? t("editor.newTitle") : t("editor.editTitle", { id: service.id })}
-        actions={<Link to="/admin/services" className="btn btn-secondary">{t("editor.backToList")}</Link>}
+        actions={<Link to="/admin/services" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]">{t("editor.backToList")}</Link>}
       />
       {/* key: reload the form from the server copy after every save / publish */}
       <ServiceForm key={service ? service.updatedAt : "new"} service={service} />

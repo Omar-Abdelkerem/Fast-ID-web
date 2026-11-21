@@ -34,7 +34,7 @@ export default function LocalizedInputs({ name, label, multiline = false, idPref
           <Tag
             id={`${id}-${lang}`}
             dir={lang === "ar" ? "rtl" : "ltr"}
-            className={multiline ? "textarea" : "input"}
+            className={multiline ? "textarea dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" : "input dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]"}
             rows={multiline ? 3 : undefined}
             aria-invalid={Boolean(errorText(`${name}.${lang}`))}
             {...register(`${name}.${lang}`)}
