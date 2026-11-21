@@ -1,0 +1,55 @@
+{
+  "nav": { "title": "Services" },
+  "list": {
+    "title": "Services",
+    "subtitle": "Create, edit and publish services for citizens",
+    "newService": "New service",
+    "emptyTitle": "No services yet",
+    "emptyText": "Start by creating your first service.",
+    "hasChanges": "Has unpublished changes",
+    "deleteDisabled": "Only never-published services can be deleted",
+    "columns": {
+      "id": "ID",
+      "name": "Name",
+      "category": "Category",
+      "availability": "Status",
+      "version": "Published version",
+      "changes": "Changes",
+      "updatedAt": "Last updated",
+      "actions": "Actions"
+    }
+  },
+  "category": {
+    "IDENTITY": "Identity",
+    "LICENSE": "License",
+    "CIVIL_RECORD": "Civil record",
+    "OTHER": "Other"
+  },
+  "availability": {
+    "DRAFT": "Draft",
+    "PUBLISHED": "Published",
+    "UNPUBLISHED": "Unpublished"
+  },
+  "actions": {
+    "edit": "Edit",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "delete": "Delete"
+  },
+  "confirm": {
+    "publish": { "title": "Publish service", "message": "The latest draft of \"{{name}}\" will go live and citizens can apply for it." },
+    "unpublish": { "title": "Unpublish service", "message": "Existing applications for \"{{name}}\" continue, but nobody can start a new one." },
+    "delete": { "title": "Delete service", "message": "\"{{name}}\" will be deleted permanently. This cannot be undone." }
+  },
+  "toast": {
+    "publish": "Service published",
+    "unpublish": "Service unpublished",
+    "delete": "Service deleted"
+  },
+  "errors": {
+    "NO_CHANGES_TO_PUBLISH": "There are no changes to publish.",
+    "SERVICE_NOT_PUBLISHED": "This service is not published.",
+    "SERVICE_CANNOT_BE_DELETED": "Only never-published services without applications can be deleted.",
+    "SERVICE_NOT_FOUND": "Service not found."
+  }
+}

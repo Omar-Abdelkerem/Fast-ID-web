@@ -1,0 +1,55 @@
+{
+  "nav": { "title": "الخدمات" },
+  "list": {
+    "title": "الخدمات",
+    "subtitle": "أنشئ الخدمات وعدّلها وانشرها للمواطنين",
+    "newService": "خدمة جديدة",
+    "emptyTitle": "لا توجد خدمات بعد",
+    "emptyText": "ابدأ بإنشاء أول خدمة.",
+    "hasChanges": "تعديلات غير منشورة",
+    "deleteDisabled": "يمكن حذف الخدمات التي لم تُنشر من قبل فقط",
+    "columns": {
+      "id": "المعرّف",
+      "name": "الاسم",
+      "category": "التصنيف",
+      "availability": "الحالة",
+      "version": "الإصدار المنشور",
+      "changes": "تعديلات",
+      "updatedAt": "آخر تحديث",
+      "actions": "إجراءات"
+    }
+  },
+  "category": {
+    "IDENTITY": "هوية",
+    "LICENSE": "رخصة",
+    "CIVIL_RECORD": "سجل مدني",
+    "OTHER": "أخرى"
+  },
+  "availability": {
+    "DRAFT": "مسودة",
+    "PUBLISHED": "منشورة",
+    "UNPUBLISHED": "غير منشورة"
+  },
+  "actions": {
+    "edit": "تعديل",
+    "publish": "نشر",
+    "unpublish": "إلغاء النشر",
+    "delete": "حذف"
+  },
+  "confirm": {
+    "publish": { "title": "نشر الخدمة", "message": "سيتم نشر آخر مسودة لخدمة «{{name}}» ويصبح بإمكان المواطنين التقديم عليها." },
+    "unpublish": { "title": "إلغاء نشر الخدمة", "message": "الطلبات الحالية على «{{name}}» ستستمر، لكن لن يتمكن أحد من بدء طلب جديد." },
+    "delete": { "title": "حذف الخدمة", "message": "سيتم حذف «{{name}}» نهائيًا. لا يمكن التراجع عن هذا الإجراء." }
+  },
+  "toast": {
+    "publish": "تم نشر الخدمة",
+    "unpublish": "تم إلغاء نشر الخدمة",
+    "delete": "تم حذف الخدمة"
+  },
+  "errors": {
+    "NO_CHANGES_TO_PUBLISH": "لا توجد تعديلات لنشرها.",
+    "SERVICE_NOT_PUBLISHED": "هذه الخدمة غير منشورة.",
+    "SERVICE_CANNOT_BE_DELETED": "لا يمكن حذف إلا الخدمات التي لم تُنشر من قبل ولا توجد عليها طلبات.",
+    "SERVICE_NOT_FOUND": "الخدمة غير موجودة."
+  }
+}
