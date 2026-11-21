@@ -1,0 +1,64 @@
+{
+  "nav": { "title": "Deliveries" },
+  "title": "Deliveries",
+  "subtitle": "Assign cards to agents and follow them",
+  "unassigned": "Unassigned",
+  "filters": {
+    "title": "Filters",
+    "status": "Status",
+    "governorate": "Governorate",
+    "agent": "Agent",
+    "sort": "Sort",
+    "newest": "Newest first",
+    "oldest": "Oldest first",
+    "unassigned": "Unassigned only",
+    "all": "All",
+    "clear": "Clear filters"
+  },
+  "columns": {
+    "application": "Application",
+    "service": "Service",
+    "recipient": "Recipient",
+    "location": "Governorate and city",
+    "status": "Status",
+    "agent": "Agent",
+    "attempts": "Failed attempts",
+    "lastFailure": "Last failure reason",
+    "assignedAt": "Assigned at"
+  },
+  "empty": {
+    "title": "No deliveries",
+    "text": "Deliveries appear here once cards are issued.",
+    "filtered": "No results match the filters."
+  },
+  "panel": {
+    "title": "Delivery details",
+    "close": "Close",
+    "phone": "Phone",
+    "address": "Address",
+    "notes": "Notes",
+    "lastFailure": "Last failed attempt"
+  },
+  "reasons": {
+    "CITIZEN_UNAVAILABLE": "Citizen unavailable",
+    "WRONG_ADDRESS": "Wrong address",
+    "CITIZEN_REFUSED": "Citizen refused",
+    "OTHER": "Other"
+  },
+  "assign": {
+    "title": "Assign agent",
+    "reassignTitle": "Change agent",
+    "assign": "Assign agent",
+    "reassign": "Change agent",
+    "agent": "Agent",
+    "pick": "Pick an agent",
+    "confirm": "Confirm assignment",
+    "cancel": "Cancel",
+    "success": "Agent assigned"
+  },
+  "errors": {
+    "DELIVERY_NOT_FOUND": "Delivery not found.",
+    "AGENT_NOT_FOUND": "The agent was not found or is not active.",
+    "INVALID_STATUS_TRANSITION": "The delivery status changed and it can no longer be assigned. The list was refreshed."
+  }
+}
