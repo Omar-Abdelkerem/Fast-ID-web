@@ -5,6 +5,7 @@ import { EmptyState, Spinner, ToastProvider } from "@/components";
 import { AuthProvider, getRoleHome, useAuth } from "@/lib/auth";
 import { routes } from "@/lib/registry";
 import { layoutByLayout, layoutByRole } from "@/layouts";
+import { BASE_PATH } from "@/lib/env";
 import PublicLayout from "@/layouts/PublicLayout";
 
 const queryClient = new QueryClient({
@@ -56,7 +57,7 @@ function NotFoundPage() {
 export default function App() {
   const hasLanding = routes.some((route) => route.path === "/");
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={BASE_PATH}>
       <QueryClientProvider client={queryClient}>
         <ToastProvider>
           <AuthProvider>

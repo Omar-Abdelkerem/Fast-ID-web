@@ -11,6 +11,8 @@ export default defineConfig(({ mode }) => {
   const proxyTarget = env.VITE_DEV_PROXY_TARGET;
 
   return {
+    // the app can be served from a sub path (for example the GitHub Pages demo)
+    base: env.VITE_BASE_PATH || "/",
     plugins: [react()],
     resolve: { alias: { "@": path.resolve(rootDir, "src") } },
     server: proxyTarget ? { proxy: { "/api": { target: proxyTarget, changeOrigin: true } } } : {},

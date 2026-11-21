@@ -9,4 +9,5 @@ export const startMocks = () =>
   setupWorker(...featureHandlers, ...foundationHandlers).start({
     onUnhandledRequest: "bypass",
     quiet: true,
+    serviceWorker: { url: `${import.meta.env.BASE_URL}mockServiceWorker.js` },
   });

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { USE_MOCKS } from "@/lib/env";
+import { BASE_PATH, USE_MOCKS } from "@/lib/env";
 import { getRoleHome } from "@/lib/auth";
 
 export const getMockRole = () => localStorage.getItem("mockRole") || "ADMIN";
@@ -11,7 +11,7 @@ export default function MockRoleSwitcher({ className = "" }) {
 
   const change = (event) => {
     localStorage.setItem("mockRole", event.target.value);
-    window.location.assign(getRoleHome(event.target.value));
+    window.location.assign(`${BASE_PATH}${getRoleHome(event.target.value)}`);
   };
 
   return (
