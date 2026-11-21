@@ -8,6 +8,7 @@ import { getAdminDeliveries, getActiveAgents } from "../api";
 import useGovernorates from "../components/useGovernorates";
 import DeliveryPanel from "../components/DeliveryPanel";
 import AssignModal from "../components/AssignModal";
+import { darkScope } from "../components/darkScope";
 
 const STATUSES = ["PENDING_ASSIGNMENT", "ASSIGNED", "OUT_FOR_DELIVERY", "DELIVERED", "FAILED_ATTEMPT"];
 
@@ -56,7 +57,7 @@ export default function DeliveriesPage() {
   const hasFilters = selectedStatuses.length > 0 || governorate || agentId || unassigned;
 
   return (
-    <div>
+    <div className={darkScope}>
       <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
       <section className="card dark:bg-[#1b2048] dark:border-[#2f3670] mb-4 space-y-3" aria-label={t("filters.title")}>
