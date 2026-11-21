@@ -9,6 +9,7 @@ import { getAgentDelivery, startDelivery } from "../api";
 import useGovernorateName from "../components/useGovernorateName";
 import CodeEntry from "../components/CodeEntry";
 import FailForm from "../components/FailForm";
+import Icon from "../components/Icon";
 
 export default function DeliveryDetailPage() {
   const { deliveryId } = useParams();
@@ -60,7 +61,7 @@ export default function DeliveryDetailPage() {
   if (justDelivered) {
     return (
       <div className="card space-y-4 py-8 text-center" role="status">
-        <p className="text-4xl" aria-hidden="true">✓</p>
+        <p className="text-success" style={{ fontSize: "3rem" }}><Icon name="check_circle" className="!text-[3rem]" /></p>
         <h1 className="text-xl font-bold text-success">{t("delivered.title")}</h1>
         <p className="text-sm text-muted">{delivery.applicationNumber}</p>
         {backLink}
@@ -90,12 +91,12 @@ export default function DeliveryDetailPage() {
         </dl>
         {delivery.lastFailure && (
           <div className="rounded-lg bg-red-50 p-2">
-            <p className="font-semibold text-danger">⚠ {t("detail.lastFailure")}</p>
+            <p className="font-semibold text-danger"><Icon name="warning" /> {t("detail.lastFailure")}</p>
             <p>{t(`reasons.${delivery.lastFailure.reasonCode}`)}{delivery.lastFailure.reason ? `: ${delivery.lastFailure.reason}` : ""}</p>
             <p className="text-xs text-muted">{formatDateTime(delivery.lastFailure.at, i18n.language)}</p>
           </div>
         )}
-        <a href={`tel:${recipient.phone}`} className="btn btn-secondary min-h-[48px] w-full">📞 {t("detail.call")} <span dir="ltr">{recipient.phone}</span></a>
+        <a href={`tel:${recipient.phone}`} className="btn btn-secondary min-h-[48px] w-full"><Icon name="call" /> {t("detail.call")} <span dir="ltr">{recipient.phone}</span></a>
       </section>
 
       {delivery.status === "ASSIGNED" && (
@@ -112,7 +113,7 @@ export default function DeliveryDetailPage() {
       )}
 
       {delivery.status === "FAILED_ATTEMPT" && <p className="card text-center text-sm font-semibold">{t("detail.waitingReassign")}</p>}
-      {delivery.status === "DELIVERED" && <p className="card text-center text-sm font-semibold text-success">✓ {t("delivered.summary")}</p>}
+      {delivery.status === "DELIVERED" && <p className="card text-center text-sm font-semibold text-success"><Icon name="check_circle" /> {t("delivered.summary")}</p>}
 
       {backLink}
     </div>
