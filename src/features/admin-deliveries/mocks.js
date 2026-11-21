@@ -32,24 +32,30 @@ if (db.deliveries.length === 0) {
   seedRows.forEach(([status, agent, attempts], i) => {
     const [governorate, city, addressLine] = places[i % places.length];
     const created = new Date(Date.now() - (i + 1) * 3600 * 1000 * 5).toISOString();
+    const serviceId = i % 2 ? "driving-license" : "national-id";
+    // AdminDelivery, contract section 0.20 (ids are UUIDs, application numbers are APP-<year>-<6 digits>)
     db.deliveries.push({
-      id: `dlv_${100 + i}`,
-      applicationNumber: `FID-${20430 - i}`,
-      service: { id: i % 2 ? "driving-license" : "national-id", name: serviceNames[i % 2 ? "driving-license" : "national-id"] },
-      recipient: {
-        fullName: ["منى محمد عبد الهادي", "أحمد حسن", "سارة محمود", "يوسف علي"][i % 4],
-        phone: `01012345${600 + i}`,
+      id: `00000000-0000-4000-8000-${String(100 + i).padStart(12, "0")}`,
+      applicationId: `00000000-0000-4000-9000-${String(100 + i).padStart(12, "0")}`,
+      applicationNumber: `APP-2026-${String(123 + i).padStart(6, "0")}`,
+      service: { id: serviceId, name: serviceNames[serviceId] },
+      status,
+      attempts,
+      recipientName: ["منى محمد عبد الهادي", "أحمد حسن", "سارة محمود", "يوسف علي"][i % 4],
+      address: {
         governorate,
         city,
         addressLine: `${12 + i} ${addressLine}`,
+        phone: `01012345${600 + i}`,
         notes: i % 3 === 0 ? "الدور الثالث، الشقة 5" : null,
       },
-      status,
       agent,
-      attempts,
-      lastFailure: attempts > 0 ? { reasonCode: "CITIZEN_UNAVAILABLE", reason: "المواطن غير موجود في المنزل", at: created } : null,
       assignedAt: agent ? created : null,
+      outForDeliveryAt: status === "OUT_FOR_DELIVERY" || status === "DELIVERED" ? created : null,
+      deliveredAt: status === "DELIVERED" ? created : null,
+      lastFailure: attempts > 0 ? { reasonCode: "CITIZEN_UNAVAILABLE", reason: "المواطن غير موجود في المنزل", at: created } : null,
       createdAt: created,
+      updatedAt: created,
     });
   });
 }
@@ -62,7 +68,7 @@ export const handlers = [
     const statuses = params.get("status")?.split(",").filter(Boolean);
     let items = [...db.deliveries];
     if (statuses?.length) items = items.filter((d) => statuses.includes(d.status));
-    if (params.get("governorate")) items = items.filter((d) => d.recipient.governorate === params.get("governorate"));
+    if (params.get("governorate")) items = items.filter((d) => d.address.governorate === params.get("governorate"));
     if (params.get("agentId")) items = items.filter((d) => d.agent?.id === params.get("agentId"));
     if (params.get("unassigned") === "true") items = items.filter((d) => d.status === "PENDING_ASSIGNMENT");
     // default sort is -createdAt (newest first)
@@ -88,6 +94,7 @@ export const handlers = [
     delivery.agent = { id: agent.id, fullName: agent.fullName };
     delivery.status = "ASSIGNED";
     delivery.assignedAt = new Date().toISOString();
+    delivery.updatedAt = delivery.assignedAt;
     return ok(delivery);
   }),
 ];

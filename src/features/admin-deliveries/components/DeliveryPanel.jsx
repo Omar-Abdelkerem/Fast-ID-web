@@ -39,11 +39,11 @@ export default function DeliveryPanel({ deliveryId, onClose, onAssign }) {
           </div>
           <dl className="grid grid-cols-2 gap-2">
             <dt className="text-muted">{t("columns.service")}</dt><dd>{localize(delivery.service.name)}</dd>
-            <dt className="text-muted">{t("columns.recipient")}</dt><dd>{delivery.recipient.fullName}</dd>
-            <dt className="text-muted">{t("panel.phone")}</dt><dd dir="ltr" className="text-start">{delivery.recipient.phone}</dd>
-            <dt className="text-muted">{t("columns.location")}</dt><dd>{nameOf(delivery.recipient.governorate)} · {delivery.recipient.city}</dd>
-            <dt className="text-muted">{t("panel.address")}</dt><dd>{delivery.recipient.addressLine}</dd>
-            <dt className="text-muted">{t("panel.notes")}</dt><dd>{delivery.recipient.notes || "—"}</dd>
+            <dt className="text-muted">{t("columns.recipient")}</dt><dd>{delivery.recipientName}</dd>
+            <dt className="text-muted">{t("panel.phone")}</dt><dd dir="ltr" className="text-start">{delivery.address.phone}</dd>
+            <dt className="text-muted">{t("columns.location")}</dt><dd>{nameOf(delivery.address.governorate)} · {delivery.address.city}</dd>
+            <dt className="text-muted">{t("panel.address")}</dt><dd>{delivery.address.addressLine}</dd>
+            <dt className="text-muted">{t("panel.notes")}</dt><dd>{delivery.address.notes || "—"}</dd>
             <dt className="text-muted">{t("columns.agent")}</dt><dd>{delivery.agent ? delivery.agent.fullName : t("unassigned")}</dd>
             <dt className="text-muted">{t("columns.assignedAt")}</dt><dd>{delivery.assignedAt ? formatDateTime(delivery.assignedAt, i18n.language) : "—"}</dd>
             <dt className="text-muted">{t("columns.attempts")}</dt><dd>{delivery.attempts}</dd>

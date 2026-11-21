@@ -130,8 +130,8 @@ export default function DeliveriesPage() {
                       <button className="link font-semibold" onClick={(e) => { e.stopPropagation(); setOpenId(d.id); }}>{d.applicationNumber}</button>
                     </td>
                     <td>{localize(d.service.name)}</td>
-                    <td>{d.recipient.fullName}</td>
-                    <td>{nameOf(d.recipient.governorate)} · {d.recipient.city}</td>
+                    <td>{d.recipientName}</td>
+                    <td>{nameOf(d.address.governorate)} · {d.address.city}</td>
                     <td><StatusBadge value={d.status} /></td>
                     <td>{d.agent ? d.agent.fullName : <span className="text-muted">{t("unassigned")}</span>}</td>
                     <td>{d.attempts}</td>
