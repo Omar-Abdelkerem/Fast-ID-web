@@ -16,6 +16,7 @@ import FormFieldsSection from "../components/FormFieldsSection";
 import { FieldsPreview } from "../components/DefinitionView";
 import VersionsDrawer from "../components/VersionsDrawer";
 import useServiceAction from "../components/useServiceAction";
+import { darkScope } from "../components/darkScope";
 
 // body of the form once the service (if any) has loaded
 function ServiceForm({ service }) {
@@ -174,7 +175,7 @@ export default function ServiceEditorPage() {
 
   const service = serviceQuery.data;
   return (
-    <div>
+    <div className={darkScope}>
       <PageHeader
         title={isNew ? t("editor.newTitle") : t("editor.editTitle", { id: service.id })}
         actions={<Link to="/admin/services" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]">{t("editor.backToList")}</Link>}

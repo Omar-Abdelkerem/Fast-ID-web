@@ -7,6 +7,7 @@ import { getAdminServices } from "../api";
 import AvailabilityBadge from "../components/AvailabilityBadge";
 import Icon from "../components/Icon";
 import useServiceAction from "../components/useServiceAction";
+import { darkScope } from "../components/darkScope";
 
 export default function ServicesListPage() {
   const { t, i18n } = useTranslation("admin-services");
@@ -17,7 +18,7 @@ export default function ServicesListPage() {
   const services = servicesQuery.data || [];
 
   return (
-    <div>
+    <div className={darkScope}>
       <PageHeader
         title={t("list.title")}
         subtitle={t("list.subtitle")}
