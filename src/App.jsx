@@ -2,8 +2,8 @@ import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from "react
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { EmptyState, Spinner, ToastProvider } from "@/components";
-import { AuthProvider, getRoleHome, useAuth } from "@/lib/auth";
-import { routes } from "@/lib/registry";
+import { AuthProvider, useAuth } from "@/lib/auth";
+import { getAvailableHome, routes } from "@/lib/registry";
 import { layoutByLayout, layoutByRole } from "@/layouts";
 import { BASE_PATH } from "@/lib/env";
 import PublicLayout from "@/layouts/PublicLayout";
@@ -26,7 +26,7 @@ function Guarded({ layout, roles, children }) {
 
   const required = roleOfLayout[layout];
   const allowed = roles || (required ? [required] : null);
-  if (allowed && !allowed.includes(user.role)) return <Navigate to={getRoleHome(user.role)} replace />;
+  if (allowed && !allowed.includes(user.role)) return <Navigate to={getAvailableHome(user.role)} replace />;
 
   const Shell = layout === "shared" ? layoutByRole[user.role] : layoutByLayout[layout];
   return <Shell>{children}</Shell>;
@@ -36,7 +36,7 @@ function Guarded({ layout, roles, children }) {
 function RootRedirect() {
   const { user, isLoading } = useAuth();
   if (isLoading) return <Spinner size="lg" />;
-  return <Navigate to={user ? getRoleHome(user.role) : "/login"} replace />;
+  return <Navigate to={user ? getAvailableHome(user.role) : "/login"} replace />;
 }
 
 function NotFoundPage() {
