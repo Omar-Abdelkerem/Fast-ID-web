@@ -41,19 +41,19 @@ export default function AssignModal({ delivery, onClose }) {
       title={isReassign ? t("assign.reassignTitle") : t("assign.title")}
       footer={
         <>
-          <button className="btn btn-secondary" onClick={onClose} disabled={assignMutation.isPending}>{t("assign.cancel")}</button>
+          <button className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]" onClick={onClose} disabled={assignMutation.isPending}>{t("assign.cancel")}</button>
           <button className="btn btn-primary" disabled={!agentId || assignMutation.isPending} onClick={() => assignMutation.mutate()}>
             {t("assign.confirm")}
           </button>
         </>
       }
     >
-      <p className="mb-3 text-sm text-muted">{delivery.applicationNumber}</p>
+      <p className="mb-3 text-sm text-muted dark:text-[#A9B0D6]">{delivery.applicationNumber}</p>
       {agentsQuery.isLoading && <Spinner />}
-      {agentsQuery.isError && <p className="text-danger text-sm">{getErrorMessage(agentsQuery.error, t)}</p>}
+      {agentsQuery.isError && <p className="text-danger dark:text-[#ff8a80] text-sm">{getErrorMessage(agentsQuery.error, t)}</p>}
       {agentsQuery.isSuccess && (
         <FormField label={t("assign.agent")} htmlFor="assign-agent">
-          <select id="assign-agent" className="select" value={agentId} onChange={(e) => { setAgentId(e.target.value); setErrorText(""); }}>
+          <select id="assign-agent" className="select dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" value={agentId} onChange={(e) => { setAgentId(e.target.value); setErrorText(""); }}>
             <option value="">{t("assign.pick")}</option>
             {agentsQuery.data.map((agent) => <option key={agent.id} value={agent.id}>{agent.fullName}</option>)}
           </select>

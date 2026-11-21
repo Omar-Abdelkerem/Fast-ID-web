@@ -18,15 +18,15 @@ export default function DeliveryPanel({ deliveryId, onClose, onAssign }) {
   const delivery = query.data;
 
   return (
-    <aside role="dialog" aria-label={t("panel.title")} className="fixed inset-y-0 end-0 z-30 w-full max-w-sm overflow-y-auto border-s border-line bg-white p-4 shadow-xl">
+    <aside role="dialog" aria-label={t("panel.title")} className="fixed inset-y-0 end-0 z-30 w-full max-w-sm overflow-y-auto border-s border-line dark:border-[#2f3670] bg-white dark:bg-[#1b2048] p-4 shadow-xl">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="font-bold text-lg">{t("panel.title")}</h2>
-        <button className="btn btn-secondary btn-sm" onClick={onClose}>{t("panel.close")}</button>
+        <button className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] btn-sm" onClick={onClose}>{t("panel.close")}</button>
       </div>
 
       {query.isLoading && <Spinner />}
       {query.isError && (
-        <p role="alert" className="text-danger text-sm">
+        <p role="alert" className="text-danger dark:text-[#ff8a80] text-sm">
           {getErrorMessage(query.error, t)}
         </p>
       )}
@@ -38,19 +38,19 @@ export default function DeliveryPanel({ deliveryId, onClose, onAssign }) {
             <StatusBadge value={delivery.status} />
           </div>
           <dl className="grid grid-cols-2 gap-2">
-            <dt className="text-muted">{t("columns.service")}</dt><dd>{localize(delivery.service.name)}</dd>
-            <dt className="text-muted">{t("columns.recipient")}</dt><dd>{delivery.recipientName}</dd>
-            <dt className="text-muted">{t("panel.phone")}</dt><dd dir="ltr" className="text-start">{delivery.address.phone}</dd>
-            <dt className="text-muted">{t("columns.location")}</dt><dd>{nameOf(delivery.address.governorate)} · {delivery.address.city}</dd>
-            <dt className="text-muted">{t("panel.address")}</dt><dd>{delivery.address.addressLine}</dd>
-            <dt className="text-muted">{t("panel.notes")}</dt><dd>{delivery.address.notes || "—"}</dd>
-            <dt className="text-muted">{t("columns.agent")}</dt><dd>{delivery.agent ? delivery.agent.fullName : t("unassigned")}</dd>
-            <dt className="text-muted">{t("columns.assignedAt")}</dt><dd>{delivery.assignedAt ? formatDateTime(delivery.assignedAt, i18n.language) : "—"}</dd>
-            <dt className="text-muted">{t("columns.attempts")}</dt><dd>{delivery.attempts}</dd>
+            <dt className="text-muted dark:text-[#A9B0D6]">{t("columns.service")}</dt><dd>{localize(delivery.service.name)}</dd>
+            <dt className="text-muted dark:text-[#A9B0D6]">{t("columns.recipient")}</dt><dd>{delivery.recipientName}</dd>
+            <dt className="text-muted dark:text-[#A9B0D6]">{t("panel.phone")}</dt><dd dir="ltr" className="text-start">{delivery.address.phone}</dd>
+            <dt className="text-muted dark:text-[#A9B0D6]">{t("columns.location")}</dt><dd>{nameOf(delivery.address.governorate)} · {delivery.address.city}</dd>
+            <dt className="text-muted dark:text-[#A9B0D6]">{t("panel.address")}</dt><dd>{delivery.address.addressLine}</dd>
+            <dt className="text-muted dark:text-[#A9B0D6]">{t("panel.notes")}</dt><dd>{delivery.address.notes || "—"}</dd>
+            <dt className="text-muted dark:text-[#A9B0D6]">{t("columns.agent")}</dt><dd>{delivery.agent ? delivery.agent.fullName : t("unassigned")}</dd>
+            <dt className="text-muted dark:text-[#A9B0D6]">{t("columns.assignedAt")}</dt><dd>{delivery.assignedAt ? formatDateTime(delivery.assignedAt, i18n.language) : "—"}</dd>
+            <dt className="text-muted dark:text-[#A9B0D6]">{t("columns.attempts")}</dt><dd>{delivery.attempts}</dd>
           </dl>
           {delivery.lastFailure && (
-            <div className="rounded-lg bg-red-50 p-2">
-              <p className="font-semibold text-danger"><Icon name="warning" /> {t("panel.lastFailure")}</p>
+            <div className="rounded-lg bg-red-50 dark:bg-[#4a1f24] p-2">
+              <p className="font-semibold text-danger dark:text-[#ff8a80]"><Icon name="warning" /> {t("panel.lastFailure")}</p>
               <p>{t(`reasons.${delivery.lastFailure.reasonCode}`)}{delivery.lastFailure.reason ? `: ${delivery.lastFailure.reason}` : ""}</p>
             </div>
           )}

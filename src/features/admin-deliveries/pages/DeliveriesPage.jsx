@@ -59,9 +59,9 @@ export default function DeliveriesPage() {
     <div>
       <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
-      <section className="card mb-4 space-y-3" aria-label={t("filters.title")}>
+      <section className="card dark:bg-[#1b2048] dark:border-[#2f3670] mb-4 space-y-3" aria-label={t("filters.title")}>
         <fieldset>
-          <legend className="label">{t("filters.status")}</legend>
+          <legend className="label dark:text-[#E8F0FE]">{t("filters.status")}</legend>
           <div className="flex flex-wrap gap-3">
             {STATUSES.map((status) => (
               <label key={status} className="flex items-center gap-2 text-sm">
@@ -73,22 +73,22 @@ export default function DeliveriesPage() {
         </fieldset>
         <div className="grid gap-3 md:grid-cols-4">
           <div>
-            <label className="label" htmlFor="filter-governorate">{t("filters.governorate")}</label>
-            <select id="filter-governorate" className="select" value={governorate} onChange={(e) => updateParam({ governorate: e.target.value })}>
+            <label className="label dark:text-[#E8F0FE]" htmlFor="filter-governorate">{t("filters.governorate")}</label>
+            <select id="filter-governorate" className="select dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" value={governorate} onChange={(e) => updateParam({ governorate: e.target.value })}>
               <option value="">{t("filters.all")}</option>
               {governorates.map((g) => <option key={g.code} value={g.code}>{localize(g.name)}</option>)}
             </select>
           </div>
           <div>
-            <label className="label" htmlFor="filter-agent">{t("filters.agent")}</label>
-            <select id="filter-agent" className="select" value={agentId} onChange={(e) => updateParam({ agentId: e.target.value })}>
+            <label className="label dark:text-[#E8F0FE]" htmlFor="filter-agent">{t("filters.agent")}</label>
+            <select id="filter-agent" className="select dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" value={agentId} onChange={(e) => updateParam({ agentId: e.target.value })}>
               <option value="">{t("filters.all")}</option>
               {(agentsQuery.data || []).map((a) => <option key={a.id} value={a.id}>{a.fullName}</option>)}
             </select>
           </div>
           <div>
-            <label className="label" htmlFor="filter-sort">{t("filters.sort")}</label>
-            <select id="filter-sort" className="select" value={sort} onChange={(e) => updateParam({ sort: e.target.value === "-createdAt" ? "" : e.target.value })}>
+            <label className="label dark:text-[#E8F0FE]" htmlFor="filter-sort">{t("filters.sort")}</label>
+            <select id="filter-sort" className="select dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" value={sort} onChange={(e) => updateParam({ sort: e.target.value === "-createdAt" ? "" : e.target.value })}>
               <option value="-createdAt">{t("filters.newest")}</option>
               <option value="createdAt">{t("filters.oldest")}</option>
             </select>
@@ -98,7 +98,7 @@ export default function DeliveriesPage() {
             {t("filters.unassigned")}
           </label>
         </div>
-        {hasFilters && <button className="btn btn-secondary btn-sm" onClick={() => setSearchParams({})}>{t("filters.clear")}</button>}
+        {hasFilters && <button className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] btn-sm" onClick={() => setSearchParams({})}>{t("filters.clear")}</button>}
       </section>
 
       {deliveriesQuery.isLoading && <Spinner />}
@@ -107,8 +107,8 @@ export default function DeliveriesPage() {
 
       {deliveries.length > 0 && (
         <>
-          <div className="card overflow-x-auto p-0">
-            <table className="table">
+          <div className="card dark:bg-[#1b2048] dark:border-[#2f3670] overflow-x-auto p-0">
+            <table className="table dark:[&_th]:bg-[#232963] dark:[&_th]:text-[#A9B0D6] dark:[&_td]:border-[#2f3670]">
               <thead>
                 <tr>
                   <th>{t("columns.application")}</th>
@@ -124,16 +124,16 @@ export default function DeliveriesPage() {
               </thead>
               <tbody>
                 {deliveries.map((d) => (
-                  <tr key={d.id} className="cursor-pointer hover:bg-cream" onClick={() => setOpenId(d.id)}>
+                  <tr key={d.id} className="cursor-pointer hover:bg-cream dark:hover:bg-[#232963]" onClick={() => setOpenId(d.id)}>
                     <td dir="ltr" className="text-start">
                       {/* a real button so the row can be opened from the keyboard */}
-                      <button className="link font-semibold" onClick={(e) => { e.stopPropagation(); setOpenId(d.id); }}>{d.applicationNumber}</button>
+                      <button className="link dark:text-[#8da0ff] font-semibold" onClick={(e) => { e.stopPropagation(); setOpenId(d.id); }}>{d.applicationNumber}</button>
                     </td>
                     <td>{localize(d.service.name)}</td>
                     <td>{d.recipientName}</td>
                     <td>{nameOf(d.address.governorate)} · {d.address.city}</td>
                     <td><StatusBadge value={d.status} /></td>
-                    <td>{d.agent ? d.agent.fullName : <span className="text-muted">{t("unassigned")}</span>}</td>
+                    <td>{d.agent ? d.agent.fullName : <span className="text-muted dark:text-[#A9B0D6]">{t("unassigned")}</span>}</td>
                     <td>{d.attempts}</td>
                     <td>{d.lastFailure ? t(`reasons.${d.lastFailure.reasonCode}`) : "—"}</td>
                     <td>{d.assignedAt ? formatDateTime(d.assignedAt, i18n.language) : "—"}</td>
