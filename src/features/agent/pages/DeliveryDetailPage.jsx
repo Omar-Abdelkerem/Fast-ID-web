@@ -1,0 +1,120 @@
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Spinner, StatusBadge, ErrorState, useLocalized, useToast } from "@/components";
+import { getErrorMessage } from "@/lib/errors";
+import { formatDateTime } from "@/lib/format";
+import { getAgentDelivery, startDelivery } from "../api";
+import useGovernorateName from "../components/useGovernorateName";
+import CodeEntry from "../components/CodeEntry";
+import FailForm from "../components/FailForm";
+
+export default function DeliveryDetailPage() {
+  const { deliveryId } = useParams();
+  const { t, i18n } = useTranslation("agent");
+  const { localize } = useLocalized();
+  const governorateName = useGovernorateName();
+  const toast = useToast();
+  const queryClient = useQueryClient();
+
+  const [locked, setLocked] = useState(false); // the code got locked after too many wrong tries
+  const [justDelivered, setJustDelivered] = useState(false);
+
+  const query = useQuery({
+    queryKey: ["agent", "deliveries", deliveryId],
+    queryFn: () => getAgentDelivery(deliveryId),
+    refetchOnWindowFocus: true,
+  });
+  const delivery = query.data;
+
+  const startMutation = useMutation({
+    mutationFn: () => startDelivery(deliveryId),
+    onSuccess: () => {
+      toast.success(t("start.success"));
+      queryClient.invalidateQueries({ queryKey: ["agent", "deliveries"] });
+    },
+    onError: (error) => {
+      toast.error(error.code === "INVALID_STATUS_TRANSITION" ? t("errors.INVALID_STATUS_TRANSITION") : getErrorMessage(error, t));
+      // the status already changed somewhere else: reload it
+      queryClient.invalidateQueries({ queryKey: ["agent", "deliveries"] });
+    },
+  });
+
+  const backLink = <Link to="/agent/deliveries" className="btn btn-secondary min-h-[48px] w-full">{t("detail.back")}</Link>;
+
+  if (query.isLoading) return <Spinner />;
+  if (query.isError) {
+    // friendly page when the delivery is not found (or belongs to someone else)
+    if (query.error.code === "DELIVERY_NOT_FOUND") {
+      return (
+        <div className="card space-y-3 py-8 text-center">
+          <p className="font-bold">{t("errors.DELIVERY_NOT_FOUND")}</p>
+          {backLink}
+        </div>
+      );
+    }
+    return <ErrorState error={query.error} onRetry={query.refetch} />;
+  }
+
+  if (justDelivered) {
+    return (
+      <div className="card space-y-4 py-8 text-center" role="status">
+        <p className="text-4xl" aria-hidden="true">✓</p>
+        <h1 className="text-xl font-bold text-success">{t("delivered.title")}</h1>
+        <p className="text-sm text-muted">{delivery.applicationNumber}</p>
+        {backLink}
+      </div>
+    );
+  }
+
+  const { recipient } = delivery;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h1 className="page-title">{recipient.fullName}</h1>
+          <p dir="ltr" className="text-start text-xs text-muted">{delivery.applicationNumber}</p>
+        </div>
+        <StatusBadge value={delivery.status} />
+      </div>
+
+      <section className="card space-y-3 text-sm">
+        <dl className="grid grid-cols-2 gap-2">
+          <dt className="text-muted">{t("detail.service")}</dt><dd>{localize(delivery.service.name)}</dd>
+          <dt className="text-muted">{t("detail.address")}</dt>
+          <dd>{governorateName(recipient.governorate)} · {recipient.city}<br />{recipient.addressLine}</dd>
+          <dt className="text-muted">{t("detail.notes")}</dt><dd>{recipient.notes || "—"}</dd>
+          <dt className="text-muted">{t("detail.attempts")}</dt><dd>{delivery.attempts}</dd>
+        </dl>
+        {delivery.lastFailure && (
+          <div className="rounded-lg bg-red-50 p-2">
+            <p className="font-semibold text-danger">⚠ {t("detail.lastFailure")}</p>
+            <p>{t(`reasons.${delivery.lastFailure.reasonCode}`)}{delivery.lastFailure.reason ? `: ${delivery.lastFailure.reason}` : ""}</p>
+            <p className="text-xs text-muted">{formatDateTime(delivery.lastFailure.at, i18n.language)}</p>
+          </div>
+        )}
+        <a href={`tel:${recipient.phone}`} className="btn btn-secondary min-h-[48px] w-full">📞 {t("detail.call")} <span dir="ltr">{recipient.phone}</span></a>
+      </section>
+
+      {delivery.status === "ASSIGNED" && (
+        <button className="btn btn-primary min-h-[56px] w-full text-base" disabled={startMutation.isPending} onClick={() => startMutation.mutate()}>
+          {startMutation.isPending ? t("start.starting") : t("start.button")}
+        </button>
+      )}
+
+      {delivery.status === "OUT_FOR_DELIVERY" && (
+        <>
+          <CodeEntry deliveryId={deliveryId} locked={locked} onLocked={() => setLocked(true)} onDelivered={() => setJustDelivered(true)} />
+          <FailForm deliveryId={deliveryId} emphasised={locked} onDone={() => setLocked(false)} />
+        </>
+      )}
+
+      {delivery.status === "FAILED_ATTEMPT" && <p className="card text-center text-sm font-semibold">{t("detail.waitingReassign")}</p>}
+      {delivery.status === "DELIVERED" && <p className="card text-center text-sm font-semibold text-success">✓ {t("delivered.summary")}</p>}
+
+      {backLink}
+    </div>
+  );
+}

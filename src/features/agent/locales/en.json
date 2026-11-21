@@ -1,0 +1,53 @@
+{
+  "nav": { "title": "My deliveries" },
+  "list": { "title": "My deliveries" },
+  "tabs": { "active": "Active", "failed": "Failed attempts", "delivered": "Delivered" },
+  "empty": {
+    "active": { "title": "No active deliveries", "text": "New deliveries show up here when they are assigned to you." },
+    "failed": { "title": "No failed attempts", "text": "Deliveries that could not be handed over show up here." },
+    "delivered": { "title": "Nothing delivered yet", "text": "Completed deliveries show up here." }
+  },
+  "detail": {
+    "service": "Service",
+    "address": "Address",
+    "notes": "Notes",
+    "attempts": "Failed attempts",
+    "lastFailure": "Last failed attempt",
+    "call": "Call",
+    "back": "Back to my deliveries",
+    "waitingReassign": "Waiting for the admin to reassign this delivery"
+  },
+  "reasons": {
+    "CITIZEN_UNAVAILABLE": "Citizen unavailable",
+    "WRONG_ADDRESS": "Wrong address",
+    "CITIZEN_REFUSED": "Citizen refused",
+    "OTHER": "Other"
+  },
+  "start": { "button": "Start delivery", "starting": "Starting...", "success": "Delivery started" },
+  "code": {
+    "label": "Delivery code (6 digits)",
+    "confirm": "Confirm delivery",
+    "confirming": "Confirming...",
+    "locked": "The code is locked after too many wrong tries. Report a failed attempt."
+  },
+  "fail": {
+    "title": "Report a failed attempt",
+    "reasonCode": "Reason",
+    "reasonRequired": "Reason details (required, 5 to 300 characters)",
+    "reasonOptional": "More details (optional, up to 300 characters)",
+    "submit": "Report failed attempt",
+    "sending": "Sending...",
+    "success": "Failed attempt recorded",
+    "errors": {
+      "reasonRequired": "Write the reason, 5 to 300 characters",
+      "reasonTooLong": "The reason is longer than 300 characters"
+    }
+  },
+  "delivered": { "title": "Delivered", "summary": "This card was delivered" },
+  "errors": {
+    "DELIVERY_NOT_FOUND": "We could not find this delivery. It may no longer be assigned to you.",
+    "INVALID_STATUS_TRANSITION": "The delivery status already changed. The page was refreshed.",
+    "INVALID_DELIVERY_CODE": "The code is wrong. Try again.",
+    "DELIVERY_CODE_LOCKED": "The code is locked after too many wrong tries. Report a failed attempt."
+  }
+}
