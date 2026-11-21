@@ -39,13 +39,13 @@ export default function CodeEntry({ deliveryId, locked, onLocked, onDelivered })
 
   return (
     <form
-      className="card space-y-3"
+      className="card dark:bg-[#1b2048] dark:border-[#2f3670] space-y-3"
       onSubmit={(event) => {
         event.preventDefault();
         if (code.length === 6 && !locked) mutation.mutate();
       }}
     >
-      <label htmlFor="delivery-code" className="label">{t("code.label")}</label>
+      <label htmlFor="delivery-code" className="label dark:text-[#E8F0FE]">{t("code.label")}</label>
       <input
         id="delivery-code"
         dir="ltr"
@@ -56,11 +56,11 @@ export default function CodeEntry({ deliveryId, locked, onLocked, onDelivered })
         onChange={onChange}
         disabled={locked || mutation.isPending}
         aria-invalid={Boolean(errorText)}
-        className="input min-h-[56px] text-center text-2xl tracking-[0.5em]"
+        className="input dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE] min-h-[56px] text-center text-2xl tracking-[0.5em]"
         placeholder="••••••"
       />
       {errorText && <p role="alert" className="field-error text-sm">{errorText}</p>}
-      {locked && <p role="alert" className="rounded-lg bg-red-50 p-2 text-sm font-semibold text-danger"><Icon name="warning" /> {t("code.locked")}</p>}
+      {locked && <p role="alert" className="rounded-lg bg-red-50 dark:bg-[#4a1f24] p-2 text-sm font-semibold text-danger dark:text-[#ff8a80]"><Icon name="warning" /> {t("code.locked")}</p>}
       <button type="submit" className="btn btn-primary min-h-[48px] w-full" disabled={code.length !== 6 || locked || mutation.isPending}>
         {mutation.isPending ? t("code.confirming") : t("code.confirm")}
       </button>

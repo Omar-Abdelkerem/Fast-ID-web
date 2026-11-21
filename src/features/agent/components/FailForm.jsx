@@ -48,14 +48,14 @@ export default function FailForm({ deliveryId, emphasised, onDone }) {
   const reasonError = errors.reason?.message;
 
   return (
-    <form className="card space-y-3" onSubmit={handleSubmit((values) => mutation.mutate(values))} noValidate>
+    <form className="card dark:bg-[#1b2048] dark:border-[#2f3670] space-y-3" onSubmit={handleSubmit((values) => mutation.mutate(values))} noValidate>
       <h2 className="font-bold">{t("fail.title")}</h2>
 
       <fieldset>
-        <legend className="label">{t("fail.reasonCode")}</legend>
+        <legend className="label dark:text-[#E8F0FE]">{t("fail.reasonCode")}</legend>
         <div className="space-y-2">
           {REASON_CODES.map((code) => (
-            <label key={code} className="flex min-h-[44px] items-center gap-3 rounded-xl border border-line px-3 text-sm">
+            <label key={code} className="flex min-h-[44px] items-center gap-3 rounded-xl border border-line dark:border-[#2f3670] px-3 text-sm">
               <input type="radio" value={code} {...register("reasonCode")} />
               {t(`reasons.${code}`)}
             </label>
@@ -68,10 +68,10 @@ export default function FailForm({ deliveryId, emphasised, onDone }) {
         htmlFor="fail-reason"
         error={reasonError ? (errors.reason.type === "server" ? reasonError : t(`fail.errors.${reasonError}`)) : undefined}
       >
-        <textarea id="fail-reason" rows={3} maxLength={300} className="textarea" {...register("reason")} />
+        <textarea id="fail-reason" rows={3} maxLength={300} className="textarea dark:bg-[#0f1226] dark:border-[#3b4380] dark:text-[#E8F0FE]" {...register("reason")} />
       </FormField>
 
-      <button type="submit" className={`btn min-h-[48px] w-full ${emphasised ? "btn-danger border-4" : "btn-secondary"}`} disabled={mutation.isPending}>
+      <button type="submit" className={`btn min-h-[48px] w-full ${emphasised ? "btn-danger dark:bg-transparent dark:text-[#ff8a80] dark:border-[#ff8a80] dark:hover:bg-[#4a1f24] border-4" : "btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]"}`} disabled={mutation.isPending}>
         {mutation.isPending ? t("fail.sending") : t("fail.submit")}
       </button>
     </form>

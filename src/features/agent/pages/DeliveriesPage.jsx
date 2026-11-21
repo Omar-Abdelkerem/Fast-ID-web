@@ -51,7 +51,7 @@ export default function DeliveriesPage() {
             role="tab"
             aria-selected={tab === key}
             onClick={() => changeTab(key)}
-            className={`btn min-h-[48px] text-sm ${tab === key ? "btn-primary" : "btn-secondary"}`}
+            className={`btn min-h-[48px] text-sm ${tab === key ? "btn-primary" : "btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963]"}`}
           >
             {t(`tabs.${key}`)}
           </button>
@@ -65,11 +65,11 @@ export default function DeliveriesPage() {
       <ul className="space-y-3">
         {deliveries.map((delivery) => (
           <li key={delivery.id}>
-            <Link to={`/agent/deliveries/${delivery.id}`} className="card block min-h-[64px] hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-espresso">
+            <Link to={`/agent/deliveries/${delivery.id}`} className="card dark:bg-[#1b2048] dark:border-[#2f3670] block min-h-[64px] hover:bg-beige dark:hover:bg-[#232963] focus-visible:outline focus-visible:outline-2 focus-visible:outline-espresso">
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <p className="font-bold">{delivery.recipientName}</p>
-                  <p dir="ltr" className="text-start text-xs text-muted">{delivery.applicationNumber}</p>
+                  <p dir="ltr" className="text-start text-xs text-muted dark:text-[#A9B0D6]">{delivery.applicationNumber}</p>
                   <p className="mt-1 text-sm">{governorateName(delivery.address.governorate)} · {delivery.address.city}</p>
                 </div>
                 <StatusBadge value={delivery.status} />

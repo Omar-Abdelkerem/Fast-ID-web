@@ -42,14 +42,14 @@ export default function DeliveryDetailPage() {
     },
   });
 
-  const backLink = <Link to="/agent/deliveries" className="btn btn-secondary min-h-[48px] w-full">{t("detail.back")}</Link>;
+  const backLink = <Link to="/agent/deliveries" className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] min-h-[48px] w-full">{t("detail.back")}</Link>;
 
   if (query.isLoading) return <Spinner />;
   if (query.isError) {
     // friendly page when the delivery is not found (or belongs to someone else)
     if (query.error.code === "DELIVERY_NOT_FOUND") {
       return (
-        <div className="card space-y-3 py-8 text-center">
+        <div className="card dark:bg-[#1b2048] dark:border-[#2f3670] space-y-3 py-8 text-center">
           <p className="font-bold">{t("errors.DELIVERY_NOT_FOUND")}</p>
           {backLink}
         </div>
@@ -60,10 +60,10 @@ export default function DeliveryDetailPage() {
 
   if (justDelivered) {
     return (
-      <div className="card space-y-4 py-8 text-center" role="status">
-        <p className="text-success" style={{ fontSize: "3rem" }}><Icon name="check_circle" className="!text-[3rem]" /></p>
-        <h1 className="text-xl font-bold text-success">{t("delivered.title")}</h1>
-        <p className="text-sm text-muted">{delivery.applicationNumber}</p>
+      <div className="card dark:bg-[#1b2048] dark:border-[#2f3670] space-y-4 py-8 text-center" role="status">
+        <p className="text-success dark:text-[#7fd1a8]" style={{ fontSize: "3rem" }}><Icon name="check_circle" className="!text-[3rem]" /></p>
+        <h1 className="text-xl font-bold text-success dark:text-[#7fd1a8]">{t("delivered.title")}</h1>
+        <p className="text-sm text-muted dark:text-[#A9B0D6]">{delivery.applicationNumber}</p>
         {backLink}
       </div>
     );
@@ -75,28 +75,28 @@ export default function DeliveryDetailPage() {
     <div className="space-y-4">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <h1 className="page-title">{delivery.recipientName}</h1>
-          <p dir="ltr" className="text-start text-xs text-muted">{delivery.applicationNumber}</p>
+          <h1 className="page-title dark:text-white">{delivery.recipientName}</h1>
+          <p dir="ltr" className="text-start text-xs text-muted dark:text-[#A9B0D6]">{delivery.applicationNumber}</p>
         </div>
         <StatusBadge value={delivery.status} />
       </div>
 
-      <section className="card space-y-3 text-sm">
+      <section className="card dark:bg-[#1b2048] dark:border-[#2f3670] space-y-3 text-sm">
         <dl className="grid grid-cols-2 gap-2">
-          <dt className="text-muted">{t("detail.service")}</dt><dd>{localize(delivery.service.name)}</dd>
-          <dt className="text-muted">{t("detail.address")}</dt>
+          <dt className="text-muted dark:text-[#A9B0D6]">{t("detail.service")}</dt><dd>{localize(delivery.service.name)}</dd>
+          <dt className="text-muted dark:text-[#A9B0D6]">{t("detail.address")}</dt>
           <dd>{governorateName(address.governorate)} · {address.city}<br />{address.addressLine}</dd>
-          <dt className="text-muted">{t("detail.notes")}</dt><dd>{address.notes || "—"}</dd>
-          <dt className="text-muted">{t("detail.attempts")}</dt><dd>{delivery.attempts}</dd>
+          <dt className="text-muted dark:text-[#A9B0D6]">{t("detail.notes")}</dt><dd>{address.notes || "—"}</dd>
+          <dt className="text-muted dark:text-[#A9B0D6]">{t("detail.attempts")}</dt><dd>{delivery.attempts}</dd>
         </dl>
         {delivery.lastFailure && (
-          <div className="rounded-lg bg-red-50 p-2">
-            <p className="font-semibold text-danger"><Icon name="warning" /> {t("detail.lastFailure")}</p>
+          <div className="rounded-lg bg-red-50 dark:bg-[#4a1f24] p-2">
+            <p className="font-semibold text-danger dark:text-[#ff8a80]"><Icon name="warning" /> {t("detail.lastFailure")}</p>
             <p>{t(`reasons.${delivery.lastFailure.reasonCode}`)}{delivery.lastFailure.reason ? `: ${delivery.lastFailure.reason}` : ""}</p>
-            <p className="text-xs text-muted">{formatDateTime(delivery.lastFailure.at, i18n.language)}</p>
+            <p className="text-xs text-muted dark:text-[#A9B0D6]">{formatDateTime(delivery.lastFailure.at, i18n.language)}</p>
           </div>
         )}
-        <a href={`tel:${address.phone}`} className="btn btn-secondary min-h-[48px] w-full"><Icon name="call" /> {t("detail.call")} <span dir="ltr">{address.phone}</span></a>
+        <a href={`tel:${address.phone}`} className="btn btn-secondary dark:bg-transparent dark:text-[#E8F0FE] dark:border-[#8da0ff] dark:hover:bg-[#232963] min-h-[48px] w-full"><Icon name="call" /> {t("detail.call")} <span dir="ltr">{address.phone}</span></a>
       </section>
 
       {delivery.status === "ASSIGNED" && (
@@ -112,8 +112,8 @@ export default function DeliveryDetailPage() {
         </>
       )}
 
-      {delivery.status === "FAILED_ATTEMPT" && <p className="card text-center text-sm font-semibold">{t("detail.waitingReassign")}</p>}
-      {delivery.status === "DELIVERED" && <p className="card text-center text-sm font-semibold text-success"><Icon name="check_circle" /> {t("delivered.summary")}</p>}
+      {delivery.status === "FAILED_ATTEMPT" && <p className="card dark:bg-[#1b2048] dark:border-[#2f3670] text-center text-sm font-semibold">{t("detail.waitingReassign")}</p>}
+      {delivery.status === "DELIVERED" && <p className="card dark:bg-[#1b2048] dark:border-[#2f3670] text-center text-sm font-semibold text-success dark:text-[#7fd1a8]"><Icon name="check_circle" /> {t("delivered.summary")}</p>}
 
       {backLink}
     </div>
