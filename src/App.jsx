@@ -7,6 +7,8 @@ import { getAvailableHome, routes } from "@/lib/registry";
 import { layoutByLayout, layoutByRole } from "@/layouts";
 import { BASE_PATH } from "@/lib/env";
 import PublicLayout from "@/layouts/PublicLayout";
+import AvailableScreens from "@/components/AvailableScreens";
+import { USE_MOCKS } from "@/lib/env";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: true, staleTime: 15 * 1000 } },
@@ -46,9 +48,12 @@ function NotFoundPage() {
       title={t("notFound.title")}
       text={t("notFound.text")}
       action={
-        <Link to="/" className="btn btn-primary">
-          {t("notFound.home")}
-        </Link>
+        <>
+          <Link to="/" className="btn btn-primary">
+            {t("notFound.home")}
+          </Link>
+          {USE_MOCKS && <AvailableScreens />}
+        </>
       }
     />
   );

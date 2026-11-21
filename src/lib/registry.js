@@ -23,3 +23,8 @@ export function getAvailableHome(role) {
   if (routes.some((route) => route.path === home)) return home;
   return navFor(layoutOfRole[role])[0]?.to || home;
 }
+
+// menu entries of every role, used by the demo page that lists what already exists
+export const allNavEntries = () => navEntries.filter((entry) => layoutToRole[entry.layout]);
+const layoutToRole = { admin: "ADMIN", agent: "AGENT", citizen: "CITIZEN" };
+export const roleOfLayoutName = (layout) => layoutToRole[layout];

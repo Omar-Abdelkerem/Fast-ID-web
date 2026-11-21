@@ -1,5 +1,8 @@
 {
-  "app": { "name": "Fast ID", "tagline": "A digital ID in a second" },
+  "app": {
+    "name": "Fast ID",
+    "tagline": "A digital ID in a second"
+  },
   "cancel": "Cancel",
   "save": "Save",
   "back": "Back",
@@ -12,10 +15,23 @@
   "retry": "Retry",
   "loading": "Loading...",
   "logout": "Log out",
-  "notFound": { "title": "Page not found", "text": "The link you opened is not valid.", "home": "Back to home" },
-  "settings": { "language": "Language", "theme": "Theme" },
-  "mock": { "role": "Role (mock)" },
-  "roles": { "CITIZEN": "Citizen", "ADMIN": "Admin", "AGENT": "Agent" },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The link you opened is not valid.",
+    "home": "Back to home"
+  },
+  "settings": {
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "mock": {
+    "role": "Role (mock)"
+  },
+  "roles": {
+    "CITIZEN": "Citizen",
+    "ADMIN": "Admin",
+    "AGENT": "Agent"
+  },
   "status": {
     "DRAFT": "Draft",
     "SUBMITTED": "New",
@@ -54,5 +70,9 @@
     "RATE_LIMITED": "Too many attempts. Wait a moment and try again.",
     "INTERNAL_ERROR": "A server error happened. Try again later.",
     "INVALID_STATUS_TRANSITION": "The status changed. The data was refreshed."
+  },
+  "demo": {
+    "available": "Screens available in this build",
+    "pending": "The other screens (login, dashboard, citizen applications...) belong to other packages and are not added yet."
   }
 }
