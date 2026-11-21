@@ -1,0 +1,43 @@
+{
+  "nav": { "title": "Applications" },
+  "queue": { "title": "Review queue", "subtitle": "Submitted applications, sorted as you choose", "emptyTitle": "No applications", "emptyText": "Applications show up here after they are submitted.", "emptyFiltered": "No applications match the filters." },
+  "filters": {
+    "title": "Filters", "status": "Status", "search": "Search", "searchButton": "Search",
+    "searchHint": "3 to 100 characters: application number, the full national ID or the citizen name",
+    "service": "Service", "governorate": "Governorate", "from": "Submitted from", "to": "Submitted until", "sort": "Sort", "overdue": "Overdue only", "all": "All", "reset": "Reset filters",
+    "rangeInvalid": "The start date is after the end date."
+  },
+  "sorts": { "-submittedAt": "Newest submitted", "submittedAt": "Oldest submitted", "dueAt": "Due soonest", "-dueAt": "Due latest" },
+  "columns": { "number": "Application", "service": "Service", "citizen": "Citizen", "governorate": "Governorate", "status": "Status", "submitted": "Submitted", "due": "Due", "payment": "Payment", "delivery": "Delivery" },
+  "overdue": "Overdue",
+  "export": { "button": "Export CSV", "downloading": "Downloading...", "tooLarge": "Too many rows (over 10,000). Narrow the filters." },
+  "detail": { "back": "Back to the queue", "notFoundTitle": "We could not find this application", "notFoundText": "The link is wrong or the application is a draft.", "version": "Version {{version}}" },
+  "start": { "button": "Start review", "success": "Review started" },
+  "approve": { "button": "Approve", "title": "Approve application", "message": "A card will be issued to the citizen and a delivery will be created.", "note": "Internal note (optional)", "noteHint": "Not shown to the citizen. Up to 500 characters.", "confirm": "Approve", "success": "Application approved and card issued" },
+  "reject": { "button": "Reject", "title": "Reject application", "reasonCode": "Reason type", "reason": "Reason", "reasonHint": "10 to 500 characters", "visibleToCitizen": "The citizen will see this reason on their application page.", "confirm": "Reject", "success": "Application rejected" },
+  "revoke": { "button": "Revoke credential", "title": "Revoke credential", "message": "The card will be revoked and will fail verification. The citizen is notified.", "reason": "Reason for revoking", "reasonHint": "10 to 500 characters. Internal, kept in the audit log.", "confirm": "Revoke credential", "success": "Credential revoked" },
+  "modal": { "cancel": "Cancel", "close": "Close" },
+  "validation": { "reasonLength": "The reason must be 10 to 500 characters", "noteTooLong": "The note is longer than 500 characters" },
+  "reasonCodes": { "INCOMPLETE_DOCUMENTS": "Incomplete documents", "UNCLEAR_DOCUMENTS": "Unclear documents", "INVALID_DATA": "Invalid data", "DUPLICATE_REQUEST": "Duplicate request", "OTHER": "Other" },
+  "citizen": { "title": "Citizen", "confidential": "Confidential", "fullName": "Name", "nationalId": "National ID", "birthDate": "Birth date", "gender": "Gender", "email": "Email", "phone": "Mobile" },
+  "gender": { "MALE": "Male", "FEMALE": "Female" },
+  "answers": { "title": "Submitted answers", "none": "No answers." },
+  "yes": "Yes",
+  "no": "No",
+  "address": { "title": "Delivery address" },
+  "payment": { "title": "Payment", "reference": "Reference" },
+  "attachments": { "title": "Documents", "none": "No documents.", "preview": "Preview" },
+  "history": { "title": "Status history", "system": "System" },
+  "roles": { "ADMIN": "Admin", "AGENT": "Agent", "CITIZEN": "Citizen" },
+  "decision": { "title": "Decision", "outcome": "Outcome", "APPROVED": "Approved", "REJECTED": "Rejected", "decidedAt": "Decided at", "decidedBy": "By", "reason": "Reason" },
+  "credential": { "title": "Credential", "number": "Card number", "issuedAt": "Issued on", "expiresAt": "Expires on", "noExpiry": "No expiry" },
+  "delivery": { "title": "Delivery", "agent": "Agent", "unassigned": "Unassigned", "attempts": "Failed attempts: {{count}}", "open": "Open the deliveries list" },
+  "changedMeanwhile": "This application changed. Here is the latest state.",
+  "errors": {
+    "APPLICATION_NOT_FOUND": "This application was not found.",
+    "INVALID_STATUS_TRANSITION": "This application changed. Here is the latest state.",
+    "CREDENTIAL_NOT_ACTIVE": "This credential is not active.",
+    "CREDENTIAL_NOT_FOUND": "This credential was not found.",
+    "EXPORT_TOO_LARGE": "Too many rows. Narrow the filters."
+  }
+}

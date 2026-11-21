@@ -1,0 +1,38 @@
+{
+  "nav": { "dashboard": "Dashboard", "settings": "Settings" },
+  "title": "Dashboard",
+  "subtitle": "A quick look at applications and deliveries",
+  "applications": "Applications",
+  "deliveries": "Deliveries by status",
+  "overdue": "Overdue applications",
+  "unassigned": "Unassigned deliveries",
+  "speedTitle": "Average decision time (last 30 days)",
+  "speedText": "From submission to the decision.",
+  "notEnoughData": "Not enough data",
+  "hours": "{{value}} hours",
+  "settings": {
+    "title": "Platform settings",
+    "subtitle": "Support details and an announcement shown to every user",
+    "updatedAt": "Last updated",
+    "supportEmail": "Support email",
+    "supportPhone": "Support mobile",
+    "emptyHint": "Leave empty to remove it",
+    "announcement": "Announcement",
+    "noAnnouncement": "No announcement",
+    "bothLanguages": "Write the announcement in Arabic and English together (1 to 300 characters each).",
+    "arabic": "Arabic",
+    "english": "English",
+    "preview": "Banner preview",
+    "noPreview": "There is no announcement to show.",
+    "save": "Save settings",
+    "saving": "Saving...",
+    "saved": "Settings saved",
+    "noChanges": "There are no changes to save"
+  },
+  "validation": {
+    "email": "Enter a valid email",
+    "phone": "Enter a valid Egyptian mobile number",
+    "announcementRequired": "Write the announcement in both languages or turn on \"No announcement\"",
+    "announcementLength": "The announcement is longer than 300 characters"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "nav": {
+    "title": "طلباتي"
+  },
+  "list": {
+    "title": "طلباتي",
+    "subtitle": "تابع حالة كل طلب قدّمته",
+    "newApplication": "طلب جديد",
+    "emptyTitle": "لا توجد طلبات بعد",
+    "emptyText": "ابدأ بتقديم أول طلب من قائمة الخدمات.",
+    "emptyFiltered": "لا توجد طلبات مطابقة للفلاتر.",
+    "browseServices": "تصفح الخدمات",
+    "continue": "أكمل الطلب"
+  },
+  "filters": {
+    "title": "الفلاتر",
+    "status": "الحالة",
+    "service": "الخدمة",
+    "sort": "الترتيب",
+    "all": "الكل",
+    "reset": "مسح الفلاتر"
+  },
+  "sorts": {
+    "-createdAt": "الأحدث إنشاءً",
+    "createdAt": "الأقدم إنشاءً",
+    "-updatedAt": "الأحدث تحديثًا",
+    "updatedAt": "الأقدم تحديثًا"
+  },
+  "fields": {
+    "submittedAt": "تاريخ التقديم",
+    "dueAt": "موعد القرار",
+    "payment": "الدفع"
+  },
+  "overdue": "متأخر",
+  "detail": {
+    "back": "الرجوع لطلباتي",
+    "notFoundTitle": "لم نجد هذا الطلب",
+    "notFoundText": "الرابط غير صحيح أو الطلب ليس لك.",
+    "overdueNote": "هذا الطلب يستغرق وقتًا أطول من المتوقع. نعتذر عن التأخير وسنتابعه.",
+    "continue": "أكمل الطلب"
+  },
+  "timeline": {
+    "title": "حالة الطلب",
+    "done": "تم",
+    "current": "الحالة الآن",
+    "todo": "قادم",
+    "ended": "انتهى"
+  },
+  "steps": {
+    "SUBMITTED": "تم تقديم الطلب",
+    "UNDER_REVIEW": "قيد المراجعة",
+    "APPROVED": "تمت الموافقة",
+    "OUT_FOR_DELIVERY": "في الطريق إليك",
+    "DELIVERED": "تم التسليم",
+    "REJECTED": "تم الرفض",
+    "CANCELLED": "تم الإلغاء"
+  },
+  "decision": {
+    "rejectedTitle": "تعذّر قبول طلبك",
+    "applyAgain": "قدّم طلبًا جديدًا لنفس الخدمة",
+    "approvedTitle": "تمت الموافقة على طلبك",
+    "credential": "رقم البطاقة",
+    "viewCredentials": "عرض بطاقاتي"
+  },
+  "reasons": {
+    "INCOMPLETE_DOCUMENTS": "مستندات ناقصة",
+    "UNCLEAR_DOCUMENTS": "مستندات غير واضحة",
+    "INVALID_DATA": "بيانات غير صحيحة",
+    "DUPLICATE_REQUEST": "طلب مكرر",
+    "OTHER": "سبب آخر",
+    "CITIZEN_UNAVAILABLE": "لم نجدك في المنزل",
+    "WRONG_ADDRESS": "العنوان غير صحيح",
+    "CITIZEN_REFUSED": "تم رفض الاستلام"
+  },
+  "delivery": {
+    "title": "التوصيل",
+    "attempts": "عدد المحاولات الفاشلة: {{count}}",
+    "lastFailure": "آخر محاولة فاشلة",
+    "codeLabel": "كود التسليم الخاص بك",
+    "codeWarning": "أعطِ هذا الكود للمندوب فقط عند استلام بطاقتك",
+    "agent": "المندوب"
+  },
+  "answers": {
+    "title": "البيانات المقدّمة",
+    "none": "لا توجد بيانات.",
+    "yes": "نعم",
+    "no": "لا"
+  },
+  "address": {
+    "title": "عنوان التوصيل"
+  },
+  "payment": {
+    "title": "الدفع",
+    "reference": "المرجع",
+    "paidAt": "تاريخ الدفع"
+  },
+  "attachments": {
+    "title": "المستندات المرفوعة",
+    "none": "لا توجد مستندات.",
+    "open": "فتح"
+  },
+  "cancel": {
+    "button": "إلغاء الطلب",
+    "title": "إلغاء الطلب",
+    "message": "سيتم إلغاء طلبك ولن تتم مراجعته. لا يمكن التراجع عن ذلك.",
+    "reason": "سبب الإلغاء (اختياري)",
+    "confirm": "إلغاء الطلب",
+    "keep": "تراجع",
+    "success": "تم إلغاء الطلب",
+    "tooLate": "لا يمكن إلغاء هذا الطلب بعد الآن، فقد بدأت مراجعته.",
+    "tooLong": "السبب أطول من 300 حرف"
+  },
+  "errors": {
+    "APPLICATION_NOT_FOUND": "هذا الطلب غير موجود.",
+    "INVALID_STATUS_TRANSITION": "لا يمكن إلغاء هذا الطلب بعد الآن."
+  }
+}

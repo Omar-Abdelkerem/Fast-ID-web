@@ -1,0 +1,117 @@
+{
+  "nav": {
+    "title": "My applications"
+  },
+  "list": {
+    "title": "My applications",
+    "subtitle": "Follow the status of every request you made",
+    "newApplication": "New application",
+    "emptyTitle": "No applications yet",
+    "emptyText": "Start by applying for your first service.",
+    "emptyFiltered": "No applications match the filters.",
+    "browseServices": "Browse services",
+    "continue": "Continue application"
+  },
+  "filters": {
+    "title": "Filters",
+    "status": "Status",
+    "service": "Service",
+    "sort": "Sort",
+    "all": "All",
+    "reset": "Reset filters"
+  },
+  "sorts": {
+    "-createdAt": "Newest created",
+    "createdAt": "Oldest created",
+    "-updatedAt": "Recently updated",
+    "updatedAt": "Least recently updated"
+  },
+  "fields": {
+    "submittedAt": "Submitted",
+    "dueAt": "Decision due",
+    "payment": "Payment"
+  },
+  "overdue": "Overdue",
+  "detail": {
+    "back": "Back to my applications",
+    "notFoundTitle": "We could not find this application",
+    "notFoundText": "The link is wrong or the application is not yours.",
+    "overdueNote": "This application is taking longer than expected. We are sorry for the delay and we are following it up.",
+    "continue": "Continue application"
+  },
+  "timeline": {
+    "title": "Application status",
+    "done": "Done",
+    "current": "Current",
+    "todo": "Upcoming",
+    "ended": "Ended"
+  },
+  "steps": {
+    "SUBMITTED": "Submitted",
+    "UNDER_REVIEW": "Under review",
+    "APPROVED": "Approved",
+    "OUT_FOR_DELIVERY": "Out for delivery",
+    "DELIVERED": "Delivered",
+    "REJECTED": "Rejected",
+    "CANCELLED": "Cancelled"
+  },
+  "decision": {
+    "rejectedTitle": "Your application was not accepted",
+    "applyAgain": "Apply again for this service",
+    "approvedTitle": "Your application was approved",
+    "credential": "Card number",
+    "viewCredentials": "View my cards"
+  },
+  "reasons": {
+    "INCOMPLETE_DOCUMENTS": "Incomplete documents",
+    "UNCLEAR_DOCUMENTS": "Unclear documents",
+    "INVALID_DATA": "Invalid data",
+    "DUPLICATE_REQUEST": "Duplicate request",
+    "OTHER": "Other",
+    "CITIZEN_UNAVAILABLE": "You were not at home",
+    "WRONG_ADDRESS": "Wrong address",
+    "CITIZEN_REFUSED": "Delivery was refused"
+  },
+  "delivery": {
+    "title": "Delivery",
+    "attempts": "Failed attempts: {{count}}",
+    "lastFailure": "Last failed attempt",
+    "codeLabel": "Your delivery code",
+    "codeWarning": "Give this code to the agent only when you receive your item",
+    "agent": "Agent"
+  },
+  "answers": {
+    "title": "Submitted answers",
+    "none": "No answers.",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "address": {
+    "title": "Delivery address"
+  },
+  "payment": {
+    "title": "Payment",
+    "reference": "Reference",
+    "paidAt": "Paid at"
+  },
+  "attachments": {
+    "title": "Uploaded documents",
+    "none": "No documents.",
+    "open": "Open"
+  },
+  "cancel": {
+    "button": "Cancel application",
+    "title": "Cancel application",
+    "message": "Your application will be cancelled and will not be reviewed. This cannot be undone.",
+    "reason": "Reason for cancelling (optional)",
+    "confirm": "Cancel application",
+    "keep": "Keep it",
+    "success": "The application was cancelled",
+    "tooLate": "This application can no longer be cancelled, its review has started.",
+    "tooLong": "The reason is longer than 300 characters"
+  },
+  "errors": {
+    "APPLICATION_NOT_FOUND": "This application was not found.",
+    "INVALID_STATUS_TRANSITION": "This application can no longer be cancelled."
+  }
+}
