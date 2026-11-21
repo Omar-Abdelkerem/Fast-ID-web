@@ -1,46 +1,18 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { PageHeader, Spinner, EmptyState, ErrorState, ConfirmDialog, useLocalized, useToast } from "@/components";
-import { getErrorMessage } from "@/lib/errors";
+import { useQuery } from "@tanstack/react-query";
+import { PageHeader, Spinner, EmptyState, ErrorState, useLocalized } from "@/components";
 import { formatDate } from "@/lib/format";
-import { getAdminServices, publishService, unpublishService, deleteService } from "../api";
+import { getAdminServices } from "../api";
 import AvailabilityBadge from "../components/AvailabilityBadge";
-
-const actionFunctions = {
-  publish: publishService,
-  unpublish: unpublishService,
-  delete: deleteService,
-};
+import useServiceAction from "../components/useServiceAction";
 
 export default function ServicesListPage() {
   const { t, i18n } = useTranslation("admin-services");
   const { localize } = useLocalized();
-  const toast = useToast();
-  const queryClient = useQueryClient();
-
-  // the service + action waiting for the admin's confirmation, e.g. { service, action: "publish" }
-  const [pending, setPending] = useState(null);
+  const { request, dialog } = useServiceAction();
 
   const servicesQuery = useQuery({ queryKey: ["admin", "services"], queryFn: getAdminServices });
-
-  const actionMutation = useMutation({
-    mutationFn: ({ service, action }) => actionFunctions[action](service.id),
-    onSuccess: (_data, { action }) => {
-      toast.success(t(`toast.${action}`));
-      queryClient.invalidateQueries({ queryKey: ["admin", "services"] });
-      queryClient.invalidateQueries({ queryKey: ["services"] });
-      setPending(null);
-    },
-    onError: (error) => {
-      toast.error(getErrorMessage(error, t));
-      // the list may be stale (service deleted or state changed), so reload it
-      queryClient.invalidateQueries({ queryKey: ["admin", "services"] });
-      setPending(null);
-    },
-  });
-
   const services = servicesQuery.data || [];
 
   return (
@@ -86,20 +58,20 @@ export default function ServicesListPage() {
                   <td><AvailabilityBadge value={service.availability} /></td>
                   <td>{service.publishedVersion ? `v${service.publishedVersion}` : "—"}</td>
                   <td>
-                    {/* text + icon, never colour alone */}
+                    {/* text + symbol, never colour alone */}
                     {service.hasUnpublishedChanges ? <span className="text-warning font-semibold">● {t("list.hasChanges")}</span> : <span className="text-muted">—</span>}
                   </td>
                   <td>{formatDate(service.updatedAt, i18n.language)}</td>
                   <td>
                     <div className="flex flex-wrap gap-2">
                       <Link to={`/admin/services/${service.id}`} className="btn btn-secondary btn-sm">{t("actions.edit")}</Link>
-                      <button className="btn btn-primary btn-sm" onClick={() => setPending({ service, action: "publish" })}>
+                      <button className="btn btn-primary btn-sm" onClick={() => request(service, "publish")}>
                         {t("actions.publish")}
                       </button>
                       <button
                         className="btn btn-secondary btn-sm"
                         disabled={service.availability !== "PUBLISHED"}
-                        onClick={() => setPending({ service, action: "unpublish" })}
+                        onClick={() => request(service, "unpublish")}
                       >
                         {t("actions.unpublish")}
                       </button>
@@ -107,7 +79,7 @@ export default function ServicesListPage() {
                         className="btn btn-danger btn-sm"
                         disabled={service.availability !== "DRAFT"}
                         title={service.availability !== "DRAFT" ? t("list.deleteDisabled") : undefined}
-                        onClick={() => setPending({ service, action: "delete" })}
+                        onClick={() => request(service, "delete")}
                       >
                         {t("actions.delete")}
                       </button>
@@ -120,16 +92,7 @@ export default function ServicesListPage() {
         </div>
       )}
 
-      <ConfirmDialog
-        open={Boolean(pending)}
-        title={pending ? t(`confirm.${pending.action}.title`) : ""}
-        message={pending ? t(`confirm.${pending.action}.message`, { name: localize(pending.service.draft.name) }) : ""}
-        confirmText={pending ? t(`actions.${pending.action}`) : ""}
-        danger={pending?.action === "delete" || pending?.action === "unpublish"}
-        isLoading={actionMutation.isPending}
-        onConfirm={() => actionMutation.mutate(pending)}
-        onCancel={() => setPending(null)}
-      />
+      {dialog}
     </div>
   );
 }
