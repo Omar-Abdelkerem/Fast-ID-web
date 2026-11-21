@@ -55,7 +55,7 @@ export default function ServicesListPage() {
                 <tr key={service.id}>
                   <td dir="ltr" className="font-mono text-xs">{service.id}</td>
                   <td className="font-semibold">{localize(service.draft.name)}</td>
-                  <td>{t(`category.${service.category}`)}</td>
+                  <td>{t(`category.${service.draft.category}`)}</td>
                   <td><AvailabilityBadge value={service.availability} /></td>
                   <td>{service.publishedVersion ? `v${service.publishedVersion}` : "—"}</td>
                   <td>

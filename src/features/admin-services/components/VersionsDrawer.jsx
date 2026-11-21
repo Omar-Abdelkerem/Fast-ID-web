@@ -15,7 +15,7 @@ function VersionDetails({ serviceId, version }) {
 
   if (query.isLoading) return <Spinner />;
   if (query.isError) return <p className="text-danger text-sm">{getErrorMessage(query.error, t)}</p>;
-  return <DefinitionView definition={query.data} />;
+  return <DefinitionView definition={query.data.definition} />;
 }
 
 // Side drawer listing versions 1..publishedVersion (newest first)

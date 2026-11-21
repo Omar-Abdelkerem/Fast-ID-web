@@ -66,12 +66,15 @@ function checkField(ctx, field, index, seenKeys) {
   else if (seenKeys.has(field.key)) issue("key", "duplicate");
   seenKeys.add(field.key);
 
-  checkLocalized(ctx, field.label, [...base, "label"], 100);
+  checkLocalized(ctx, field.label, [...base, "label"], 200);
 
   // help text: both languages or none
   const hasAr = !isEmpty(field.helpText.ar);
   const hasEn = !isEmpty(field.helpText.en);
   if (hasAr !== hasEn) issue(hasAr ? "helpText.en" : "helpText.ar", "bothLanguages");
+  ["ar", "en"].forEach((lang) => {
+    if (field.helpText[lang].trim().length > 200) issue(`helpText.${lang}`, "tooLong");
+  });
 
   if (field.type === "SELECT") {
     if (field.options.length < 2 || field.options.length > 50) issue("options", "optionsCount");
@@ -81,7 +84,7 @@ function checkField(ctx, field, index, seenKeys) {
       if (isEmpty(option.value)) ctx.addIssue({ code: "custom", path: [...optionPath, "value"], message: "required" });
       else if (seenValues.has(option.value)) ctx.addIssue({ code: "custom", path: [...optionPath, "value"], message: "duplicate" });
       seenValues.add(option.value);
-      checkLocalized(ctx, option.label, [...optionPath, "label"], 100);
+      checkLocalized(ctx, option.label, [...optionPath, "label"], 200);
     });
   }
 
@@ -127,7 +130,7 @@ function checkDoc(ctx, doc, index, seenKeys) {
   else if (seenKeys.has(doc.key)) ctx.addIssue({ code: "custom", path: [...base, "key"], message: "duplicate" });
   seenKeys.add(doc.key);
 
-  checkLocalized(ctx, doc.label, [...base, "label"], 100);
+  checkLocalized(ctx, doc.label, [...base, "label"], 200);
 
   if (doc.allowedMimeTypes.length < 1) ctx.addIssue({ code: "custom", path: [...base, "allowedMimeTypes"], message: "atLeastOne" });
 

@@ -29,10 +29,10 @@ if (db.adminServices.length === 0) {
   const published = makeDraft("بطاقة الرقم القومي", "National ID", "IDENTITY", 5000);
   const publishedV1 = { ...structuredClone(published), fee: { amount: 4000, currency: "EGP" } };
   db.adminServices.push(
-    { id: "national-id", category: "IDENTITY", availability: "PUBLISHED", publishedVersion: 2, hasUnpublishedChanges: false, updatedAt: now, draft: published, versions: { 1: publishedV1, 2: structuredClone(published) } },
-    { id: "driving-license", category: "LICENSE", availability: "PUBLISHED", publishedVersion: 1, hasUnpublishedChanges: true, updatedAt: now, draft: makeDraft("رخصة القيادة", "Driving license", "LICENSE", 20000), versions: { 1: makeDraft("رخصة القيادة", "Driving license", "LICENSE", 15000) } },
-    { id: "birth-certificate", category: "CIVIL_RECORD", availability: "UNPUBLISHED", publishedVersion: 1, hasUnpublishedChanges: false, updatedAt: now, draft: makeDraft("شهادة الميلاد", "Birth certificate", "CIVIL_RECORD", 1000), versions: { 1: makeDraft("شهادة الميلاد", "Birth certificate", "CIVIL_RECORD", 1000) } },
-    { id: "new-service", category: "OTHER", availability: "DRAFT", publishedVersion: null, hasUnpublishedChanges: true, updatedAt: now, draft: makeDraft("خدمة جديدة", "New service", "OTHER", 0), versions: {} }
+    { id: "national-id", availability: "PUBLISHED", publishedVersion: 2, hasUnpublishedChanges: false, publishedAt: now, createdAt: now, updatedAt: now, draft: published, versions: { 1: publishedV1, 2: structuredClone(published) } },
+    { id: "driving-license", availability: "PUBLISHED", publishedVersion: 1, hasUnpublishedChanges: true, publishedAt: now, createdAt: now, updatedAt: now, draft: makeDraft("رخصة القيادة", "Driving license", "LICENSE", 20000), versions: { 1: makeDraft("رخصة القيادة", "Driving license", "LICENSE", 15000) } },
+    { id: "birth-certificate", availability: "UNPUBLISHED", publishedVersion: 1, hasUnpublishedChanges: false, publishedAt: now, createdAt: now, updatedAt: now, draft: makeDraft("شهادة الميلاد", "Birth certificate", "CIVIL_RECORD", 1000), versions: { 1: makeDraft("شهادة الميلاد", "Birth certificate", "CIVIL_RECORD", 1000) } },
+    { id: "new-service", availability: "DRAFT", publishedVersion: null, hasUnpublishedChanges: true, publishedAt: null, createdAt: now, updatedAt: now, draft: makeDraft("خدمة جديدة", "New service", "OTHER", 0), versions: {} }
   );
   // the public catalog shows the published ones
   db.services = db.adminServices
@@ -62,7 +62,7 @@ function checkSchema(body) {
       docs.forEach((doc, i) => {
         if (!keyRegex.test(doc.key) || keys.has(doc.key)) add(`requiredDocuments[${i}].key`);
         keys.add(doc.key);
-        if (!isLocalized(doc.label, 100)) add(`requiredDocuments[${i}].label`);
+        if (!isLocalized(doc.label, 200)) add(`requiredDocuments[${i}].label`);
         if (!Array.isArray(doc.allowedMimeTypes) || doc.allowedMimeTypes.length < 1) add(`requiredDocuments[${i}].allowedMimeTypes`);
         if (!inRange(doc.maxSizeBytes, 1, 10485760)) add(`requiredDocuments[${i}].maxSizeBytes`);
       });
@@ -77,7 +77,7 @@ function checkSchema(body) {
         const path = `formSchema.fields[${i}]`;
         if (!keyRegex.test(field.key) || keys.has(field.key)) add(`${path}.key`);
         keys.add(field.key);
-        if (!isLocalized(field.label, 100)) add(`${path}.label`);
+        if (!isLocalized(field.label, 200)) add(`${path}.label`);
         if (field.type === "SELECT") {
           if (!Array.isArray(field.options) || field.options.length < 2 || field.options.length > 50) add(`${path}.options`);
         } else if (field.options !== null) add(`${path}.options`);
@@ -124,7 +124,8 @@ export const handlers = [
     if (problem) return problem;
     if (findService(body.id)) return fail("SERVICE_ALREADY_EXISTS", "Service already exists", 409, { field: "id" });
     const { id, ...draft } = body;
-    const service = { id, category: draft.category, availability: "DRAFT", publishedVersion: null, hasUnpublishedChanges: true, updatedAt: new Date().toISOString(), draft, versions: {} };
+    const now = new Date().toISOString();
+    const service = { id, availability: "DRAFT", publishedVersion: null, publishedAt: null, hasUnpublishedChanges: true, createdAt: now, updatedAt: now, draft, versions: {} };
     db.adminServices.push(service);
     return ok(withoutVersions(service), { status: 201 });
   }),
@@ -136,7 +137,6 @@ export const handlers = [
     const problem = validateBody(body, { isCreate: false });
     if (problem) return problem;
     Object.assign(service.draft, body);
-    service.category = service.draft.category;
     service.hasUnpublishedChanges = true;
     service.updatedAt = new Date().toISOString();
     return ok(withoutVersions(service));
@@ -147,7 +147,7 @@ export const handlers = [
     if (!service) return notFound();
     const version = service.versions[params.version];
     if (!version) return fail("SERVICE_VERSION_NOT_FOUND", "Version not found", 404);
-    return ok({ id: service.id, version: Number(params.version), ...version });
+    return ok({ version: Number(params.version), publishedAt: service.publishedAt, definition: version });
   }),
 
   http.post("/api/v1/admin/services/:id/publish", ({ params }) => {
@@ -159,6 +159,7 @@ export const handlers = [
     service.publishedVersion = (service.publishedVersion || 0) + 1;
     service.versions[service.publishedVersion] = structuredClone(service.draft);
     service.availability = "PUBLISHED";
+    service.publishedAt = new Date().toISOString();
     service.hasUnpublishedChanges = false;
     service.updatedAt = new Date().toISOString();
     // keep the public catalog in sync
@@ -184,6 +185,6 @@ export const handlers = [
       return fail("SERVICE_CANNOT_BE_DELETED", "Only never-published services can be deleted", 409);
     }
     db.adminServices = db.adminServices.filter((s) => s.id !== service.id);
-    return ok({ id: service.id });
+    return ok({ id: service.id, deleted: true });
   }),
 ];
