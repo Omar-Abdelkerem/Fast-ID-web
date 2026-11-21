@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FormField } from "@/components";
 import { MIME_TYPES, newDoc } from "../schema";
 import LocalizedInputs, { useErrorText, getError } from "./LocalizedInputs";
+import Icon from "./Icon";
 
 const MAX_DOCS = 10;
 
@@ -29,7 +30,7 @@ export default function RequiredDocumentsSection({ badRows }) {
         return (
           <div key={row.id} className={`rounded-xl border p-3 space-y-3 ${hasError ? "border-danger border-2" : "border-line"}`}>
             <div className="flex items-center justify-between">
-              <span className="font-semibold text-sm">{t("editor.documentN", { n: index + 1 })}{hasError && ` ⚠ ${t("editor.hasProblem")}`}</span>
+              <span className="font-semibold text-sm">{t("editor.documentN", { n: index + 1 })}{hasError && <span className="text-danger"> <Icon name="warning" /> {t("editor.hasProblem")}</span>}</span>
               <button type="button" className="btn btn-danger btn-sm" onClick={() => remove(index)}>{t("editor.remove")}</button>
             </div>
 

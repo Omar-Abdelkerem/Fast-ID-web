@@ -5,6 +5,7 @@ import { PageHeader, Spinner, EmptyState, ErrorState, useLocalized } from "@/com
 import { formatDate } from "@/lib/format";
 import { getAdminServices } from "../api";
 import AvailabilityBadge from "../components/AvailabilityBadge";
+import Icon from "../components/Icon";
 import useServiceAction from "../components/useServiceAction";
 
 export default function ServicesListPage() {
@@ -59,7 +60,7 @@ export default function ServicesListPage() {
                   <td>{service.publishedVersion ? `v${service.publishedVersion}` : "—"}</td>
                   <td>
                     {/* text + symbol, never colour alone */}
-                    {service.hasUnpublishedChanges ? <span className="text-warning font-semibold">● {t("list.hasChanges")}</span> : <span className="text-muted">—</span>}
+                    {service.hasUnpublishedChanges ? <span className="text-warning font-semibold"><Icon name="edit_note" /> {t("list.hasChanges")}</span> : <span className="text-muted">—</span>}
                   </td>
                   <td>{formatDate(service.updatedAt, i18n.language)}</td>
                   <td>

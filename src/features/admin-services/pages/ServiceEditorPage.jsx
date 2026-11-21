@@ -9,6 +9,7 @@ import { applyServerErrors, getErrorMessage } from "@/lib/errors";
 import { getAdminService, createService, updateService } from "../api";
 import { makeServiceSchema, emptyFormValues, fromDraft, toBody, getChangedKeys, serverPathToFormPath, parseRow } from "../schema";
 import AvailabilityBadge from "../components/AvailabilityBadge";
+import Icon from "../components/Icon";
 import BasicsSection from "../components/BasicsSection";
 import RequiredDocumentsSection from "../components/RequiredDocumentsSection";
 import FormFieldsSection from "../components/FormFieldsSection";
@@ -120,7 +121,7 @@ function ServiceForm({ service }) {
               <div className="flex flex-wrap items-center gap-3 text-sm">
                 <AvailabilityBadge value={service.availability} />
                 <span>{t("editor.publishedVersion")}: {service.publishedVersion ? `v${service.publishedVersion}` : "—"}</span>
-                {(service.hasUnpublishedChanges || dirtyBlocksPublish) && <span className="text-warning font-semibold">● {t("list.hasChanges")}</span>}
+                {(service.hasUnpublishedChanges || dirtyBlocksPublish) && <span className="text-warning font-semibold"><Icon name="edit_note" /> {t("list.hasChanges")}</span>}
               </div>
             )}
             <div className="ms-auto flex flex-wrap gap-2">

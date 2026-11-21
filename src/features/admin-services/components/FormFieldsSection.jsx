@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FormField } from "@/components";
 import { FIELD_TYPES, newField } from "../schema";
 import LocalizedInputs, { useErrorText, getError } from "./LocalizedInputs";
+import Icon from "./Icon";
 
 const MAX_FIELDS = 30;
 
@@ -76,10 +77,10 @@ function FieldRow({ index, total, hasServerError, onMove, onRemove }) {
   return (
     <div className={`rounded-xl border p-3 space-y-3 ${hasError ? "border-danger border-2" : "border-line"}`}>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="font-semibold text-sm">{t("editor.fieldN", { n: index + 1 })}{hasError && ` ⚠ ${t("editor.hasProblem")}`}</span>
+        <span className="font-semibold text-sm">{t("editor.fieldN", { n: index + 1 })}{hasError && <span className="text-danger"> <Icon name="warning" /> {t("editor.hasProblem")}</span>}</span>
         <div className="flex gap-2">
-          <button type="button" className="btn btn-secondary btn-sm" disabled={index === 0} onClick={() => onMove(index, index - 1)} aria-label={t("editor.moveUp")}>↑</button>
-          <button type="button" className="btn btn-secondary btn-sm" disabled={index === total - 1} onClick={() => onMove(index, index + 1)} aria-label={t("editor.moveDown")}>↓</button>
+          <button type="button" className="btn btn-secondary btn-sm" disabled={index === 0} onClick={() => onMove(index, index - 1)} aria-label={t("editor.moveUp")}><Icon name="arrow_upward" /></button>
+          <button type="button" className="btn btn-secondary btn-sm" disabled={index === total - 1} onClick={() => onMove(index, index + 1)} aria-label={t("editor.moveDown")}><Icon name="arrow_downward" /></button>
           <button type="button" className="btn btn-danger btn-sm" onClick={() => onRemove(index)}>{t("editor.remove")}</button>
         </div>
       </div>
