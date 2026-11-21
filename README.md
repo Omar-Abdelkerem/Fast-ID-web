@@ -53,3 +53,25 @@ Hesham Mohamed
 | 3 | Admin Review & Card Issuance | Admin dashboard, approve/reject flow, audit trail, card generation with QR code |
 | 4 | Tracking, Delivery & Notifications | Real-time tracking page, delivery agent module, notifications, QR scanning and verification |
 | 5 | Testing & Final Delivery | Bug fixes, UI polish, testing, documentation, final presentation |
+
+## Getting started (frontend)
+
+Requirements: Node.js 18 or newer.
+
+```bash
+npm install
+npm run dev
+```
+
+Open the address Vite prints (http://localhost:5173). In development the app runs on **mock data** (MSW), so it works without a backend. The mock session role (Admin, Agent or Citizen) is chosen in the footer of the layout, and the language and theme switches are at the bottom of the sidebar.
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Dev server with mocks (`.env.development` sets `VITE_USE_MOCKS=true`) |
+| `npm run build` | Production build into `dist/` (mocks are never included) |
+| `npm run preview` | Serves the production build locally |
+| `npm run lint` | ESLint |
+
+Using the real API: copy `.env.example` to `.env.local`, set `VITE_USE_MOCKS=false` and `VITE_DEV_PROXY_TARGET=<api origin>` (or `VITE_API_BASE_URL` if the API allows your origin). Never commit `.env` files with secrets.
+
+Structure: `src/lib` (API client, auth, errors, formatting), `src/components` (shared UI and the language/theme switches), `src/layouts` (admin, agent, citizen and public shells), `src/i18n` (Arabic and English), `src/mocks` (shared mocks), and `src/features/<feature>` (each feature owns its `routes.jsx`, pages, `api.js`, `mocks.js` and `locales`). Features are picked up automatically.
