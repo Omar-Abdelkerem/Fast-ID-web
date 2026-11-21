@@ -68,9 +68,9 @@ export default function DeliveriesPage() {
             <Link to={`/agent/deliveries/${delivery.id}`} className="card block min-h-[64px] hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-espresso">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <p className="font-bold">{delivery.recipient.fullName}</p>
+                  <p className="font-bold">{delivery.recipientName}</p>
                   <p dir="ltr" className="text-start text-xs text-muted">{delivery.applicationNumber}</p>
-                  <p className="mt-1 text-sm">{governorateName(delivery.recipient.governorate)} · {delivery.recipient.city}</p>
+                  <p className="mt-1 text-sm">{governorateName(delivery.address.governorate)} · {delivery.address.city}</p>
                 </div>
                 <StatusBadge value={delivery.status} />
               </div>

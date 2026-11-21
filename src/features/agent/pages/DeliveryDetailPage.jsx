@@ -69,13 +69,13 @@ export default function DeliveryDetailPage() {
     );
   }
 
-  const { recipient } = delivery;
+  const { address } = delivery;
 
   return (
     <div className="space-y-4">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <h1 className="page-title">{recipient.fullName}</h1>
+          <h1 className="page-title">{delivery.recipientName}</h1>
           <p dir="ltr" className="text-start text-xs text-muted">{delivery.applicationNumber}</p>
         </div>
         <StatusBadge value={delivery.status} />
@@ -85,8 +85,8 @@ export default function DeliveryDetailPage() {
         <dl className="grid grid-cols-2 gap-2">
           <dt className="text-muted">{t("detail.service")}</dt><dd>{localize(delivery.service.name)}</dd>
           <dt className="text-muted">{t("detail.address")}</dt>
-          <dd>{governorateName(recipient.governorate)} · {recipient.city}<br />{recipient.addressLine}</dd>
-          <dt className="text-muted">{t("detail.notes")}</dt><dd>{recipient.notes || "—"}</dd>
+          <dd>{governorateName(address.governorate)} · {address.city}<br />{address.addressLine}</dd>
+          <dt className="text-muted">{t("detail.notes")}</dt><dd>{address.notes || "—"}</dd>
           <dt className="text-muted">{t("detail.attempts")}</dt><dd>{delivery.attempts}</dd>
         </dl>
         {delivery.lastFailure && (
@@ -96,7 +96,7 @@ export default function DeliveryDetailPage() {
             <p className="text-xs text-muted">{formatDateTime(delivery.lastFailure.at, i18n.language)}</p>
           </div>
         )}
-        <a href={`tel:${recipient.phone}`} className="btn btn-secondary min-h-[48px] w-full"><Icon name="call" /> {t("detail.call")} <span dir="ltr">{recipient.phone}</span></a>
+        <a href={`tel:${address.phone}`} className="btn btn-secondary min-h-[48px] w-full"><Icon name="call" /> {t("detail.call")} <span dir="ltr">{address.phone}</span></a>
       </section>
 
       {delivery.status === "ASSIGNED" && (

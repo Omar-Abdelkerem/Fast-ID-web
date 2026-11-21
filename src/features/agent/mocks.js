@@ -11,17 +11,23 @@ if (db.deliveries.length === 0) {
   const statuses = ["ASSIGNED", "ASSIGNED", "OUT_FOR_DELIVERY", "FAILED_ATTEMPT", "DELIVERED"];
   statuses.forEach((status, i) => {
     const at = new Date(Date.now() - (i + 1) * 3600 * 1000 * 5).toISOString();
+    // AdminDelivery (agent view), contract section 0.20: no national ID, email or code
     db.deliveries.push({
-      id: `dlv_${100 + i}`,
-      applicationNumber: `FID-${20430 - i}`,
+      id: `00000000-0000-4000-8000-${String(100 + i).padStart(12, "0")}`,
+      applicationId: `00000000-0000-4000-9000-${String(100 + i).padStart(12, "0")}`,
+      applicationNumber: `APP-2026-${String(123 + i).padStart(6, "0")}`,
       service: { id: "national-id", name: { ar: "بطاقة الرقم القومي", en: "National ID" } },
-      recipient: { fullName: ["منى محمد", "أحمد حسن", "سارة محمود"][i % 3], phone: `01012345${600 + i}`, governorate: "GIZA", city: "الدقي", addressLine: `${12 + i} شارع التحرير`, notes: i === 0 ? "الدور الثالث" : null },
       status,
-      agent: { id: agentId, fullName: mockUsers.AGENT.fullName },
       attempts: status === "FAILED_ATTEMPT" ? 1 : 0,
-      lastFailure: status === "FAILED_ATTEMPT" ? { reasonCode: "CITIZEN_UNAVAILABLE", reason: null, at } : null,
+      recipientName: ["منى محمد عبد الهادي", "أحمد حسن", "سارة محمود"][i % 3],
+      address: { governorate: "GIZA", city: "الدقي", addressLine: `${12 + i} شارع التحرير`, phone: `01012345${600 + i}`, notes: i === 0 ? "الدور الثالث" : null },
+      agent: { id: agentId, fullName: mockUsers.AGENT.fullName },
       assignedAt: at,
+      outForDeliveryAt: status === "OUT_FOR_DELIVERY" || status === "DELIVERED" ? at : null,
+      deliveredAt: status === "DELIVERED" ? at : null,
+      lastFailure: status === "FAILED_ATTEMPT" ? { reasonCode: "CITIZEN_UNAVAILABLE", reason: null, at } : null,
       createdAt: at,
+      updatedAt: at,
     });
   });
 }
@@ -65,6 +71,7 @@ export const handlers = [
     wrongTries.set(delivery.id, 0);
     window.__mockDeliveryCodes[delivery.id] = code;
     delivery.status = "OUT_FOR_DELIVERY";
+    delivery.outForDeliveryAt = new Date().toISOString();
     return ok(delivery);
   }),
 
@@ -75,13 +82,14 @@ export const handlers = [
     const { code } = await request.json();
     if (typeof code !== "string" || !/^\d{6}$/.test(code)) return fail("VALIDATION_ERROR", "Code must be 6 digits", 400, { field: "code" });
     const tries = wrongTries.get(delivery.id) || 0;
-    if (tries >= MAX_WRONG_TRIES) return fail("DELIVERY_CODE_LOCKED", "Code is locked", 423);
+    if (tries >= MAX_WRONG_TRIES) return fail("DELIVERY_CODE_LOCKED", "Code is locked", 409);
     if (code !== codes.get(delivery.id)) {
       wrongTries.set(delivery.id, tries + 1);
       // the 5th wrong try locks the code
-      return tries + 1 >= MAX_WRONG_TRIES ? fail("DELIVERY_CODE_LOCKED", "Code is locked", 423) : fail("INVALID_DELIVERY_CODE", "Wrong code", 400);
+      return tries + 1 >= MAX_WRONG_TRIES ? fail("DELIVERY_CODE_LOCKED", "Code is locked", 409) : fail("INVALID_DELIVERY_CODE", "Wrong code", 400);
     }
     delivery.status = "DELIVERED";
+    delivery.deliveredAt = new Date().toISOString();
     return ok(delivery);
   }),
 
