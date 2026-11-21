@@ -1,0 +1,43 @@
+{
+  "nav": { "title": "الطلبات" },
+  "queue": { "title": "قائمة المراجعة", "subtitle": "الطلبات المقدّمة، مرتبة كما تختار", "emptyTitle": "لا توجد طلبات", "emptyText": "ستظهر هنا الطلبات بعد تقديمها.", "emptyFiltered": "لا توجد طلبات مطابقة للفلاتر." },
+  "filters": {
+    "title": "الفلاتر", "status": "الحالة", "search": "بحث", "searchButton": "بحث",
+    "searchHint": "من 3 إلى 100 حرف: رقم الطلب أو الرقم القومي كاملًا أو اسم المواطن",
+    "service": "الخدمة", "governorate": "المحافظة", "from": "مقدّم من", "to": "مقدّم حتى", "sort": "الترتيب", "overdue": "المتأخرة فقط", "all": "الكل", "reset": "مسح الفلاتر",
+    "rangeInvalid": "تاريخ البداية بعد تاريخ النهاية."
+  },
+  "sorts": { "-submittedAt": "الأحدث تقديمًا", "submittedAt": "الأقدم تقديمًا", "dueAt": "أقرب موعد قرار", "-dueAt": "أبعد موعد قرار" },
+  "columns": { "number": "رقم الطلب", "service": "الخدمة", "citizen": "المواطن", "governorate": "المحافظة", "status": "الحالة", "submitted": "تاريخ التقديم", "due": "موعد القرار", "payment": "الدفع", "delivery": "التوصيل" },
+  "overdue": "متأخر",
+  "export": { "button": "تصدير CSV", "downloading": "جارٍ التنزيل...", "tooLarge": "الصفوف كثيرة (أكثر من 10,000). ضيّق الفلاتر." },
+  "detail": { "back": "الرجوع للقائمة", "notFoundTitle": "لم نجد هذا الطلب", "notFoundText": "الرابط غير صحيح أو الطلب مسودة.", "version": "الإصدار {{version}}" },
+  "start": { "button": "بدء المراجعة", "success": "بدأت مراجعة الطلب" },
+  "approve": { "button": "قبول", "title": "قبول الطلب", "message": "سيتم إصدار بطاقة للمواطن وإنشاء توصيل لها.", "note": "ملاحظة داخلية (اختيارية)", "noteHint": "لا تظهر للمواطن. حتى 500 حرف.", "confirm": "قبول الطلب", "success": "تم قبول الطلب وإصدار البطاقة" },
+  "reject": { "button": "رفض", "title": "رفض الطلب", "reasonCode": "نوع السبب", "reason": "السبب", "reasonHint": "من 10 إلى 500 حرف", "visibleToCitizen": "هذا السبب سيظهر للمواطن في صفحة طلبه.", "confirm": "رفض الطلب", "success": "تم رفض الطلب" },
+  "revoke": { "button": "إلغاء البطاقة", "title": "إلغاء البطاقة", "message": "سيتم إلغاء البطاقة ولن تُقبل في التحقق. سيصل إشعار للمواطن.", "reason": "سبب الإلغاء", "reasonHint": "من 10 إلى 500 حرف. داخلي ويُحفظ في سجل المراجعة.", "confirm": "إلغاء البطاقة", "success": "تم إلغاء البطاقة" },
+  "modal": { "cancel": "إلغاء", "close": "إغلاق" },
+  "validation": { "reasonLength": "السبب من 10 إلى 500 حرف", "noteTooLong": "الملاحظة أطول من 500 حرف" },
+  "reasonCodes": { "INCOMPLETE_DOCUMENTS": "مستندات ناقصة", "UNCLEAR_DOCUMENTS": "مستندات غير واضحة", "INVALID_DATA": "بيانات غير صحيحة", "DUPLICATE_REQUEST": "طلب مكرر", "OTHER": "سبب آخر" },
+  "citizen": { "title": "بيانات المواطن", "confidential": "سري", "fullName": "الاسم", "nationalId": "الرقم القومي", "birthDate": "تاريخ الميلاد", "gender": "النوع", "email": "البريد الإلكتروني", "phone": "الموبايل" },
+  "gender": { "MALE": "ذكر", "FEMALE": "أنثى" },
+  "answers": { "title": "البيانات المقدّمة", "none": "لا توجد بيانات." },
+  "yes": "نعم",
+  "no": "لا",
+  "address": { "title": "عنوان التوصيل" },
+  "payment": { "title": "الدفع", "reference": "المرجع" },
+  "attachments": { "title": "المستندات", "none": "لا توجد مستندات.", "preview": "معاينة" },
+  "history": { "title": "سجل الحالة", "system": "النظام" },
+  "roles": { "ADMIN": "أدمن", "AGENT": "مندوب", "CITIZEN": "مواطن" },
+  "decision": { "title": "القرار", "outcome": "النتيجة", "APPROVED": "مقبول", "REJECTED": "مرفوض", "decidedAt": "وقت القرار", "decidedBy": "بواسطة", "reason": "السبب" },
+  "credential": { "title": "البطاقة", "number": "رقم البطاقة", "issuedAt": "تاريخ الإصدار", "expiresAt": "تاريخ الانتهاء", "noExpiry": "بدون انتهاء" },
+  "delivery": { "title": "التوصيل", "agent": "المندوب", "unassigned": "غير معيّن", "attempts": "المحاولات الفاشلة: {{count}}", "open": "فتح قائمة التوصيل" },
+  "changedMeanwhile": "هذا الطلب تغيّر. تم تحميل آخر حالة.",
+  "errors": {
+    "APPLICATION_NOT_FOUND": "هذا الطلب غير موجود.",
+    "INVALID_STATUS_TRANSITION": "هذا الطلب تغيّر. تم تحميل آخر حالة.",
+    "CREDENTIAL_NOT_ACTIVE": "هذه البطاقة ليست سارية.",
+    "CREDENTIAL_NOT_FOUND": "هذه البطاقة غير موجودة.",
+    "EXPORT_TOO_LARGE": "الصفوف كثيرة. ضيّق الفلاتر."
+  }
+}
