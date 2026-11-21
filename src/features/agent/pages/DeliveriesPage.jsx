@@ -4,6 +4,7 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { PageHeader, Spinner, EmptyState, ErrorState, Pagination, StatusBadge } from "@/components";
 import { getAgentDeliveries } from "../api";
 import useGovernorateName from "../components/useGovernorateName";
+import { darkScope } from "../components/darkScope";
 
 // each tab is a list of statuses (sent to the API comma separated)
 const tabs = {
@@ -41,7 +42,7 @@ export default function DeliveriesPage() {
   };
 
   return (
-    <div>
+    <div className={darkScope}>
       <PageHeader title={t("list.title")} />
 
       <div role="tablist" aria-label={t("list.title")} className="mb-4 grid grid-cols-3 gap-2">

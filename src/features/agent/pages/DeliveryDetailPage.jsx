@@ -10,6 +10,7 @@ import useGovernorateName from "../components/useGovernorateName";
 import CodeEntry from "../components/CodeEntry";
 import FailForm from "../components/FailForm";
 import Icon from "../components/Icon";
+import { darkScope } from "../components/darkScope";
 
 export default function DeliveryDetailPage() {
   const { deliveryId } = useParams();
@@ -72,7 +73,7 @@ export default function DeliveryDetailPage() {
   const { address } = delivery;
 
   return (
-    <div className="space-y-4">
+    <div className={`space-y-4 ${darkScope}`}>
       <div className="flex items-start justify-between gap-2">
         <div>
           <h1 className="page-title dark:text-white">{delivery.recipientName}</h1>
