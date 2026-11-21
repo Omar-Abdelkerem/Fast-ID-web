@@ -5,6 +5,7 @@ import { getErrorMessage } from "@/lib/errors";
 import { formatDateTime } from "@/lib/format";
 import { getAdminDelivery } from "../api";
 import useGovernorates from "./useGovernorates";
+import Icon from "./Icon";
 
 const assignableStatuses = ["PENDING_ASSIGNMENT", "ASSIGNED", "FAILED_ATTEMPT"];
 
@@ -49,7 +50,7 @@ export default function DeliveryPanel({ deliveryId, onClose, onAssign }) {
           </dl>
           {delivery.lastFailure && (
             <div className="rounded-lg bg-red-50 p-2">
-              <p className="font-semibold text-danger">⚠ {t("panel.lastFailure")}</p>
+              <p className="font-semibold text-danger"><Icon name="warning" /> {t("panel.lastFailure")}</p>
               <p>{t(`reasons.${delivery.lastFailure.reasonCode}`)}{delivery.lastFailure.reason ? `: ${delivery.lastFailure.reason}` : ""}</p>
             </div>
           )}
