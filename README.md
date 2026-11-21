@@ -1,77 +1,59 @@
-# # Fast ID System
+# Fast ID System — Web Frontend (`Fast-ID-web`)
 
-## 📎 Project Name
-Fast ID System (My_ID System)
+React 18 + Vite 5 (JavaScript) single-page application for the **Fast ID System** DEPI graduation project.
 
-## 📌 Project Overview
-Fast ID is a web platform that digitally manages the issuance, tracking, and delivery of National ID and Bank Cards for citizens. Citizens apply once online with their documents, admins review and approve with a full audit trail, and every step from approval to delivery is logged and visible in real time. The goal is to replace paper forms, long queues, and untracked applications with a transparent digital workflow.
+- **API Contract:** [docs/Fast_ID_API_Contract.md](docs/Fast_ID_API_Contract.md) (`v1.0.3-mvp`)
+- **Stack:** React 18 · Vite 5 · React Router 6 · TanStack Query 5 · Axios · React Hook Form + Zod · Tailwind CSS 3 · i18next (Arabic RTL default + English LTR) · MSW 2
 
-**Team Leader:** Omar Ahmed Abdelkerem
-**Tech Stack:** React.js (frontend, QR generation, camera scanning) + Supabase (PostgreSQL, Auth, Storage, Realtime)
+## Setup
 
-## 👥 Team Members
-| # | Name | Role |
-|---|------|------|
-| 1 | Omar Ahmed Abdelkerem | Team Leader |
-| 2 | Ziad Abdelhalim | Member |
-| 3 | Hassan Marwan | Member |
-| 4 | Omar Ahmed Ismail | Member |
-| 5 | Amr Ali Samir | Member |
+1. Install Node.js 20+ and install dependencies:
+   ```bash
+   npm ci
+   ```
+2. Create your local environment file from `.env.example` (never commit `.env`):
+   ```bash
+   cp .env.example .env
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-## 📎🎓 Instructor
-Hesham Mohamed
+## Available Scripts
 
-## 🎯 Project Objectives
-- Let citizens submit ID / bank card applications online with supporting documents.
-- Give admins a review, approve, and reject workflow with a full audit trail.
-- Provide real-time application tracking for citizens.
-- Generate ID cards automatically after approval and queue them for delivery.
-- Let delivery agents update delivery status until the card reaches its owner.
-- Notify users about approvals, rejections, and delivery updates.
-- Reduce processing time and eliminate lost or untracked applications.
-
-## 📦 Project Scope
-**In scope:**
-- Citizen registration, login, and profile management
-- Application submission with document and photo upload
-- Admin dashboard: review, approve, reject, audit log
-- Real-time status tracking page
-- Digital card generation with QR code, and QR scanning via camera for verification
-- Delivery management and status updates by delivery agents
-- In-app notifications
-
-**Out of scope:**
-- Integration with real government databases
-- Native mobile apps
-- Online payment processing
-
-## 📅 Project Plan (5 Weeks)
-| Week | Focus | Deliverables |
-|------|-------|--------------|
-| 1 | Planning & Design | Requirements, user roles, database schema, UI wireframes, GitHub repo and Supabase setup |
-| 2 | Authentication & Applications | Auth (citizen / admin / delivery agent), citizen dashboard, application form, document and photo upload |
-| 3 | Admin Review & Card Issuance | Admin dashboard, approve/reject flow, audit trail, card generation with QR code |
-| 4 | Tracking, Delivery & Notifications | Real-time tracking page, delivery agent module, notifications, QR scanning and verification |
-| 5 | Testing & Final Delivery | Bug fixes, UI polish, testing, documentation, final presentation |
-
-## Getting started (frontend)
-
-Requirements: Node.js 18 or newer.
-
-```bash
-npm install
-npm run dev
-```
-
-Open the address Vite prints (http://localhost:5173). In development the app runs on **mock data** (MSW), so it works without a backend. The mock session role (Admin, Agent or Citizen) is chosen in the footer of the layout, and the language and theme switches are at the bottom of the sidebar.
-
-| Command | What it does |
+| Script | Purpose |
 |---|---|
-| `npm run dev` | Dev server with mocks (`.env.development` sets `VITE_USE_MOCKS=true`) |
-| `npm run build` | Production build into `dist/` (mocks are never included) |
-| `npm run preview` | Serves the production build locally |
-| `npm run lint` | ESLint |
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | Production build into `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint across the repository |
+| `npm run check:i18n` | Verify Arabic/English locale key parity and non-empty values |
 
-Using the real API: copy `.env.example` to `.env.local`, set `VITE_USE_MOCKS=false` and `VITE_DEV_PROXY_TARGET=<api origin>` (or `VITE_API_BASE_URL` if the API allows your origin). Never commit `.env` files with secrets.
+## Environment Variables
 
-Structure: `src/lib` (API client, auth, errors, formatting), `src/components` (shared UI and the language/theme switches), `src/layouts` (admin, agent, citizen and public shells), `src/i18n` (Arabic and English), `src/mocks` (shared mocks), and `src/features/<feature>` (each feature owns its `routes.jsx`, pages, `api.js`, `mocks.js` and `locales`). Features are picked up automatically.
+All origins, URLs, and runtime modes come from environment variables (never hardcode URLs or ports):
+
+| Variable | Description |
+|---|---|
+| `VITE_API_BASE_URL` | API origin. Leave empty for same-origin or when using the Vite dev proxy / MSW mocks. |
+| `VITE_USE_MOCKS` | Set to `"true"` in local development to serve all endpoints from MSW 2 mocks. Mocks never run in production builds. |
+| `VITE_DEV_PROXY_TARGET` | Optional backend origin used by the Vite dev server proxy for `/api` requests when `VITE_USE_MOCKS=false`. Leave empty in mock mode. |
+
+## Mock Mode
+
+When `VITE_USE_MOCKS=true` during development, MSW intercepts `/api/v1/*` requests using foundation handlers plus auto-discovered feature handlers (`src/features/*/mocks.js`). Switch active mock roles (`CITIZEN`, `ADMIN`, `AGENT`) using the development role switcher in the layout footer.
+
+## Folder Ownership
+
+- **Foundation (Team Leader):** everything outside `src/features/` (`src/lib/`, `src/components/`, `src/layouts/`, `src/i18n/`, `src/mocks/`, `src/main.jsx`, `src/App.jsx`, config files, `.github/`, `docs/`, `scripts/`).
+- **Features (Teammates):** each feature lives in its own folder under `src/features/<feature>/`. Never edit files outside your assigned folders.
+
+## How to Add a Feature
+
+Inside `src/features/<feature>/`:
+
+1. **Routes & Navigation (`routes.jsx`):** export `routes` (with `path`, `layout`, `element`, and optional `roles`) and optionally `nav` (with `layout`, `to`, `labelKey`, `order`). The router and layouts auto-discover every `src/features/*/routes.jsx`.
+2. **Translations (`locales/ar.json`, `locales/en.json`):** keep identical key sets in both files. Loaded automatically under the `<feature>` namespace via `useTranslation("<feature>")`.
+3. **Mocks (`mocks.js`):** export `handlers` (MSW 2). Auto-loaded ahead of foundation handlers. Use `@/mocks/helpers`, `@/mocks/store`, and `@/mocks/fixtures`, and keep seed data self-contained.
+4. **Shared Interface:** import API helpers from `@/lib/api`, auth from `@/lib/auth`, error helpers from `@/lib/errors`, formatters from `@/lib/format`, and UI primitives from `@/components`.

@@ -1,25 +1,65 @@
-const TIME_ZONE = "Africa/Cairo";
-const locale = (lang) => (lang === "en" ? "en-GB" : "ar-EG");
+const CAIRO_TIME_ZONE = "Africa/Cairo";
 
-// ISO 8601 timestamp -> date in the Cairo time zone
-export function formatDate(iso, lang) {
-  if (!iso) return "—";
-  return new Intl.DateTimeFormat(locale(lang), { timeZone: TIME_ZONE, dateStyle: "medium" }).format(new Date(iso));
+function resolveLocale(lang) {
+  return typeof lang === "string" && lang.toLowerCase().startsWith("en")
+    ? "en-EG"
+    : "ar-EG";
 }
 
-export function formatDateTime(iso, lang) {
-  if (!iso) return "—";
-  return new Intl.DateTimeFormat(locale(lang), { timeZone: TIME_ZONE, dateStyle: "medium", timeStyle: "short" }).format(new Date(iso));
+function parseDate(iso) {
+  if (!iso) return null;
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+  return date;
 }
 
-// The contract's Money object: { amount: integer piastres, currency: "EGP" }
-export function formatMoney(money, lang) {
-  if (!money) return "—";
-  return new Intl.NumberFormat(locale(lang), { style: "currency", currency: money.currency || "EGP" }).format(money.amount / 100);
+export function formatDate(iso, lang = "ar") {
+  const date = parseDate(iso);
+  if (!date) return "";
+
+  return new Intl.DateTimeFormat(resolveLocale(lang), {
+    timeZone: CAIRO_TIME_ZONE,
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
 }
 
-// 29*********45 : first and last 2 digits only
+export function formatDateTime(iso, lang = "ar") {
+  const date = parseDate(iso);
+  if (!date) return "";
+
+  return new Intl.DateTimeFormat(resolveLocale(lang), {
+    timeZone: CAIRO_TIME_ZONE,
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
+}
+
+export function formatMoney(money, lang = "ar") {
+  if (!money || typeof money.amount !== "number") {
+    return "";
+  }
+
+  const amountInEgp = money.amount / 100;
+  return new Intl.NumberFormat(resolveLocale(lang), {
+    style: "currency",
+    currency: money.currency || "EGP",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amountInEgp);
+}
+
 export function maskNationalId(id) {
-  if (!id || id.length < 5) return id || "";
-  return `${id.slice(0, 2)}${"*".repeat(id.length - 4)}${id.slice(-2)}`;
+  if (!id) return "";
+  const value = String(id).trim();
+  if (value.length < 4) {
+    return "*".repeat(value.length);
+  }
+  return `${value.slice(0, 2)}${"*".repeat(10)}${value.slice(-2)}`;
 }

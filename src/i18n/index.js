@@ -1,36 +1,89 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import commonAr from "./locales/ar.json";
-import commonEn from "./locales/en.json";
+import arCommon from "./locales/ar/common.json";
+import enCommon from "./locales/en/common.json";
 
-// Every feature has src/features/<feature>/locales/ar.json and en.json.
-// They are loaded automatically as a namespace named after the feature folder.
-const featureFiles = import.meta.glob("../features/*/locales/*.json", { eager: true });
-const resources = { ar: { common: commonAr }, en: { common: commonEn } };
+const LANGUAGE_STORAGE_KEY = "fastid_lang";
+const SUPPORTED_LANGUAGES = ["ar", "en"];
 
-for (const [path, module] of Object.entries(featureFiles)) {
-  const [, feature, lang] = path.match(/features\/([^/]+)\/locales\/(\w+)\.json$/);
-  resources[lang][feature] = module.default;
+function normalizeLanguage(lang) {
+  if (typeof lang !== "string") return "ar";
+  const base = lang.toLowerCase().split("-")[0];
+  return SUPPORTED_LANGUAGES.includes(base) ? base : "ar";
 }
 
-const savedLanguage = localStorage.getItem("lang");
+function getSavedLanguage() {
+  try {
+    const saved = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    if (saved) {
+      return normalizeLanguage(saved);
+    }
+  } catch {
+    // Ignore storage access errors
+  }
+  return "ar";
+}
+
+function applyDocumentDirection(lang) {
+  if (typeof document === "undefined") return;
+  const normalized = normalizeLanguage(lang);
+  document.documentElement.lang = normalized;
+  document.documentElement.dir = normalized === "ar" ? "rtl" : "ltr";
+}
+
+function saveLanguage(lang) {
+  try {
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, normalizeLanguage(lang));
+  } catch {
+    // Ignore storage access errors
+  }
+}
+
+const resources = {
+  ar: { common: arCommon },
+  en: { common: enCommon },
+};
+
+const namespaceSet = new Set(["common"]);
+
+// Auto-discover feature locale files: src/features/<feature>/locales/{ar,en}.json
+const featureLocaleModules = import.meta.glob(
+  "/src/features/*/locales/{ar,en}.json",
+  { eager: true }
+);
+
+for (const [filePath, moduleExports] of Object.entries(featureLocaleModules)) {
+  const match = filePath.match(/\/src\/features\/([^/]+)\/locales\/(ar|en)\.json$/);
+  if (!match) continue;
+  const [, featureName, lang] = match;
+  resources[lang][featureName] = moduleExports.default || moduleExports;
+  namespaceSet.add(featureName);
+}
+
+const allNamespaces = Array.from(namespaceSet);
+const initialLanguage = getSavedLanguage();
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: savedLanguage === "en" ? "en" : "ar", // Arabic is the default
+  lng: initialLanguage,
   fallbackLng: "en",
+  ns: allNamespaces,
   defaultNS: "common",
-  interpolation: { escapeValue: false },
-  // so t("errors.SOME_CODE") finds the message in any feature's namespace
-  fallbackNS: Object.keys(resources.ar),
+  fallbackNS: allNamespaces,
+  interpolation: {
+    escapeValue: false,
+  },
+  react: {
+    useSuspense: false,
+  },
 });
 
-// the document direction and language follow the active language
-function applyDirection(lang) {
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-}
-applyDirection(i18n.language);
-i18n.on("languageChanged", applyDirection);
+applyDocumentDirection(initialLanguage);
+
+i18n.on("languageChanged", (nextLang) => {
+  const normalized = normalizeLanguage(nextLang);
+  applyDocumentDirection(normalized);
+  saveLanguage(normalized);
+});
 
 export default i18n;

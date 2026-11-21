@@ -1,90 +1,305 @@
-import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useCallback } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { EmptyState, Spinner, ToastProvider } from "@/components";
-import { AuthProvider, getRoleHome, useAuth } from "@/lib/auth";
-import { routes } from "@/lib/registry";
-import { layoutByLayout, layoutByRole } from "@/layouts";
-import PublicLayout from "@/layouts/PublicLayout";
+import { AuthProvider, RequireAuth, RequireRole, useAuth } from "@/lib/auth";
+import { PageHeader, Spinner, useToast } from "@/components";
+import { DevUiPage } from "@/components/DevUiPage";
+import {
+  AdminLayout,
+  AgentLayout,
+  CitizenLayout,
+  PublicLayout,
+  SharedLayout,
+} from "@/layouts";
+import { DevLoginPage } from "@/pages/DevLoginPage";
+import { ForbiddenPage } from "@/pages/ForbiddenPage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: true, staleTime: 15 * 1000 } },
+// Auto-discover feature routes from src/features/*/routes.jsx
+const featureRouteModules = import.meta.glob("/src/features/*/routes.jsx", {
+  eager: true,
 });
 
-// the role a layout needs (shared = any signed-in user)
-const roleOfLayout = { admin: "ADMIN", agent: "AGENT", citizen: "CITIZEN" };
+const featureRoutes = [];
 
-// Wraps a page: checks the session and the role, then renders the right shell around it
-function Guarded({ layout, roles, children }) {
-  const { user, isLoading } = useAuth();
-  const location = useLocation();
-
-  if (layout === "public") return <PublicLayout>{children}</PublicLayout>;
-  if (isLoading) return <Spinner size="lg" />;
-  if (!user) return <Navigate to={`/login?from=${encodeURIComponent(location.pathname + location.search)}`} replace />;
-
-  const required = roleOfLayout[layout];
-  const allowed = roles || (required ? [required] : null);
-  if (allowed && !allowed.includes(user.role)) return <Navigate to={getRoleHome(user.role)} replace />;
-
-  const Shell = layout === "shared" ? layoutByRole[user.role] : layoutByLayout[layout];
-  return <Shell>{children}</Shell>;
-}
-
-// "/" goes to the role's home (or login) unless a feature registers its own landing page
-function RootRedirect() {
-  const { user, isLoading } = useAuth();
-  if (isLoading) return <Spinner size="lg" />;
-  return <Navigate to={user ? getRoleHome(user.role) : "/login"} replace />;
-}
-
-function NotFoundPage() {
-  const { t } = useTranslation();
-  return (
-    <EmptyState
-      title={t("notFound.title")}
-      text={t("notFound.text")}
-      action={
-        <Link to="/" className="btn btn-primary">
-          {t("notFound.home")}
-        </Link>
+for (const moduleExports of Object.values(featureRouteModules)) {
+  if (Array.isArray(moduleExports.routes)) {
+    for (const route of moduleExports.routes) {
+      if (route && route.path && route.element) {
+        featureRoutes.push(route);
       }
-    />
+    }
+  }
+}
+
+const registeredPaths = new Set(featureRoutes.map((route) => route.path));
+
+function FullPageSpinner() {
+  return (
+    <div className="flex min-h-[50vh] items-center justify-center p-6">
+      <Spinner size="lg" />
+    </div>
   );
 }
 
-export default function App() {
-  const hasLanding = routes.some((route) => route.path === "/");
+function DevRolePlaceholder({ titleKey }) {
+  const { t } = useTranslation("common");
+  const { user } = useAuth();
   return (
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <ToastProvider>
-          <AuthProvider>
-            <Routes>
-              {!hasLanding && <Route path="/" element={<RootRedirect />} />}
-              {routes.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={
-                    <Guarded layout={route.layout} roles={route.roles}>
-                      {route.element}
-                    </Guarded>
-                  }
-                />
-              ))}
-              <Route
-                path="*"
-                element={
-                  <PublicLayout>
-                    <NotFoundPage />
-                  </PublicLayout>
-                }
-              />
-            </Routes>
-          </AuthProvider>
-        </ToastProvider>
-      </QueryClientProvider>
-    </BrowserRouter>
+    <div className="space-y-4">
+      <PageHeader
+        title={t(titleKey)}
+        subtitle={
+          user
+            ? `${user.fullName} · ${t(`roles.${user.role}`, {
+                defaultValue: user.role,
+              })}`
+            : undefined
+        }
+      />
+      <div className="card text-sm text-muted">{t("states.empty")}</div>
+    </div>
+  );
+}
+
+function NotFoundWrapper() {
+  const { isAuthenticated } = useAuth();
+  if (isAuthenticated) {
+    return (
+      <SharedLayout>
+        <NotFoundPage />
+      </SharedLayout>
+    );
+  }
+  return (
+    <PublicLayout>
+      <NotFoundPage />
+    </PublicLayout>
+  );
+}
+
+function wrapFeatureRoute(route) {
+  const forbiddenFallback = (
+    <SharedLayout>
+      <ForbiddenPage />
+    </SharedLayout>
+  );
+  const loadingFallback = <FullPageSpinner />;
+
+  switch (route.layout) {
+    case "citizen":
+      return (
+        <RequireRole
+          roles={route.roles || ["CITIZEN"]}
+          fallback={forbiddenFallback}
+          loadingFallback={loadingFallback}
+        >
+          <CitizenLayout>{route.element}</CitizenLayout>
+        </RequireRole>
+      );
+    case "admin":
+      return (
+        <RequireRole
+          roles={route.roles || ["ADMIN"]}
+          fallback={forbiddenFallback}
+          loadingFallback={loadingFallback}
+        >
+          <AdminLayout>{route.element}</AdminLayout>
+        </RequireRole>
+      );
+    case "agent":
+      return (
+        <RequireRole
+          roles={route.roles || ["AGENT"]}
+          fallback={forbiddenFallback}
+          loadingFallback={loadingFallback}
+        >
+          <AgentLayout>{route.element}</AgentLayout>
+        </RequireRole>
+      );
+    case "shared":
+      if (Array.isArray(route.roles) && route.roles.length > 0) {
+        return (
+          <RequireRole
+            roles={route.roles}
+            fallback={forbiddenFallback}
+            loadingFallback={loadingFallback}
+          >
+            <SharedLayout>{route.element}</SharedLayout>
+          </RequireRole>
+        );
+      }
+      return (
+        <RequireAuth loadingFallback={loadingFallback}>
+          <SharedLayout>{route.element}</SharedLayout>
+        </RequireAuth>
+      );
+    case "public":
+    default:
+      if (Array.isArray(route.roles) && route.roles.length > 0) {
+        return (
+          <RequireRole
+            roles={route.roles}
+            fallback={forbiddenFallback}
+            loadingFallback={loadingFallback}
+          >
+            <PublicLayout>{route.element}</PublicLayout>
+          </RequireRole>
+        );
+      }
+      return <PublicLayout>{route.element}</PublicLayout>;
+  }
+}
+
+export default function App() {
+  const toast = useToast();
+  const { t } = useTranslation("common");
+
+  const handleNotify = useCallback(
+    ({ type = "error", code, retryAfter }) => {
+      let message;
+      if (
+        code === "RATE_LIMITED" &&
+        typeof retryAfter === "number" &&
+        retryAfter > 0
+      ) {
+        message = t("errors.RATE_LIMITED_WITH_WAIT", { seconds: retryAfter });
+      } else {
+        message = t(`errors.${code}`, { defaultValue: t("errors.UNKNOWN") });
+      }
+
+      if (type === "success") {
+        toast.success(message);
+      } else if (type === "info") {
+        toast.info(message);
+      } else {
+        toast.error(message);
+      }
+    },
+    [t, toast]
+  );
+
+  const forbiddenFallback = (
+    <SharedLayout>
+      <ForbiddenPage />
+    </SharedLayout>
+  );
+  const loadingFallback = <FullPageSpinner />;
+
+  return (
+    <AuthProvider onNotify={handleNotify}>
+      <Routes>
+      {featureRoutes.map((route) => (
+        <Route
+          key={route.path}
+          path={route.path}
+          element={wrapFeatureRoute(route)}
+        />
+      ))}
+
+      {/* Fallbacks before teammate features are merged */}
+      {!registeredPaths.has("/") ? (
+        <Route path="/" element={<Navigate to="/login" replace />} />
+      ) : null}
+
+      {!registeredPaths.has("/login") ? (
+        <Route
+          path="/login"
+          element={
+            <PublicLayout>
+              <DevLoginPage />
+            </PublicLayout>
+          }
+        />
+      ) : null}
+
+      {import.meta.env.DEV ? (
+        <>
+          <Route
+            path="/dev/login"
+            element={
+              <PublicLayout>
+                <DevLoginPage />
+              </PublicLayout>
+            }
+          />
+          <Route
+            path="/dev/ui"
+            element={
+              <PublicLayout>
+                <DevUiPage />
+              </PublicLayout>
+            }
+          />
+
+          {!registeredPaths.has("/applications") ? (
+            <Route
+              path="/applications"
+              element={
+                <RequireRole
+                  roles={["CITIZEN"]}
+                  fallback={forbiddenFallback}
+                  loadingFallback={loadingFallback}
+                >
+                  <CitizenLayout>
+                    <DevRolePlaceholder titleKey="nav.applications" />
+                  </CitizenLayout>
+                </RequireRole>
+              }
+            />
+          ) : null}
+
+          {!registeredPaths.has("/admin") ? (
+            <Route
+              path="/admin"
+              element={
+                <RequireRole
+                  roles={["ADMIN"]}
+                  fallback={forbiddenFallback}
+                  loadingFallback={loadingFallback}
+                >
+                  <AdminLayout>
+                    <DevRolePlaceholder titleKey="nav.admin" />
+                  </AdminLayout>
+                </RequireRole>
+              }
+            />
+          ) : null}
+
+          {!registeredPaths.has("/agent/deliveries") ? (
+            <Route
+              path="/agent/deliveries"
+              element={
+                <RequireRole
+                  roles={["AGENT"]}
+                  fallback={forbiddenFallback}
+                  loadingFallback={loadingFallback}
+                >
+                  <AgentLayout>
+                    <DevRolePlaceholder titleKey="nav.deliveries" />
+                  </AgentLayout>
+                </RequireRole>
+              }
+            />
+          ) : null}
+
+          {!registeredPaths.has("/change-password") ? (
+            <Route
+              path="/change-password"
+              element={
+                <RequireAuth loadingFallback={loadingFallback}>
+                  <SharedLayout>
+                    <DevRolePlaceholder titleKey="nav.changePassword" />
+                  </SharedLayout>
+                </RequireAuth>
+              }
+            />
+          ) : null}
+        </>
+      ) : null}
+
+      <Route path="*" element={<NotFoundWrapper />} />
+      </Routes>
+    </AuthProvider>
   );
 }

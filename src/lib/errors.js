@@ -1,30 +1,75 @@
-// Branch on error.code, never on error.message, and never show error.message to users.
-
-// Translated text for error.code. Messages live in each feature's locale file under "errors".
-export function getErrorMessage(error, t) {
-  const key = `errors.${error?.code}`;
-  const text = t(key);
-  if (text !== key) return text;
-  return t("errors.UNKNOWN", { defaultValue: "Something went wrong. Please try again." });
+function translateCode(t, code) {
+  if (!code || typeof t !== "function") {
+    return "";
+  }
+  const key = `errors.${code}`;
+  const value = t(key, { defaultValue: "" });
+  if (value && value !== key) {
+    return value;
+  }
+  return "";
 }
 
-// react-hook-form: maps error.field and error.details to field errors.
-// opts.fieldMap renames server paths, for example { "data.reason": "reason" }.
-// Returns true if at least one field error was set.
-export function applyServerErrors(error, setError, t, opts = {}) {
-  const fieldMap = opts.fieldMap || {};
-  let applied = false;
-
-  const setFieldError = (path, code) => {
-    if (!path) return;
-    setError(fieldMap[path] || path, { type: "server", message: t(`errors.${code}`, { defaultValue: t("errors.INVALID", { defaultValue: code }) }) });
-    applied = true;
-  };
-
-  if (Array.isArray(error?.details) && error.details.length > 0) {
-    error.details.forEach((detail) => setFieldError(detail.field, detail.code || error.code));
-  } else if (error?.field) {
-    setFieldError(error.field, error.code);
+function getFallbackMessage(t, key) {
+  if (typeof t !== "function") {
+    return "";
   }
-  return applied;
+  const namespaced = t(`common:${key}`, { defaultValue: "" });
+  if (namespaced && namespaced !== `common:${key}`) {
+    return namespaced;
+  }
+  const plain = t(key, { defaultValue: "" });
+  if (plain && plain !== key) {
+    return plain;
+  }
+  return "";
+}
+
+export function getErrorMessage(error, t) {
+  const code = error?.code;
+  const translated = translateCode(t, code);
+  if (translated) {
+    return translated;
+  }
+  return getFallbackMessage(t, "errors.UNKNOWN");
+}
+
+export function applyServerErrors(error, setError, t, options = {}) {
+  if (!error || typeof setError !== "function") {
+    return false;
+  }
+
+  const fieldMap = options?.fieldMap || {};
+  const mapField = (serverField) => fieldMap[serverField] || serverField;
+
+  if (Array.isArray(error.details) && error.details.length > 0) {
+    let applied = false;
+
+    for (const detail of error.details) {
+      if (!detail?.field) continue;
+      const targetField = mapField(detail.field);
+      const detailMessage =
+        translateCode(t, detail.code) ||
+        getFallbackMessage(t, "errors.VALIDATION_ERROR");
+
+      setError(targetField, {
+        type: "server",
+        message: detailMessage,
+      });
+      applied = true;
+    }
+
+    return applied;
+  }
+
+  if (error.field) {
+    const targetField = mapField(error.field);
+    setError(targetField, {
+      type: "server",
+      message: getErrorMessage(error, t),
+    });
+    return true;
+  }
+
+  return false;
 }

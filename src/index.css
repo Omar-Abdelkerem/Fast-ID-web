@@ -2,125 +2,152 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light styles first, then the dark ones under .dark (the class is set on <html>). */
 @layer base {
-  body {
-    @apply bg-cream font-sans text-espresso antialiased;
+  html {
+    background-color: #f4f5fa;
+    color: #232963;
+    font-family: "Cairo", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  .dark body {
-    background-color: #0f1226;
+
+  html.dark {
+    background-color: #111533;
     color: #e8f0fe;
   }
-  /* visible focus outline everywhere */
-  :focus-visible {
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #f4f5fa;
+    color: #232963;
+  }
+
+  .dark body {
+    background-color: #111533;
+    color: #e8f0fe;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: "Readex Pro", "Cairo", system-ui, sans-serif;
+  }
+
+  *:focus-visible {
     outline: 2px solid #4966f0;
     outline-offset: 2px;
   }
-  .material-icons {
-    font-size: 1.25rem;
-    line-height: 1;
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex min-h-[40px] items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2 focus-visible:ring-offset-page disabled:cursor-not-allowed disabled:border-transparent disabled:bg-line disabled:text-muted;
   }
+
   .btn-primary {
-    @apply bg-terracotta-dark text-white hover:opacity-90;
+    @apply btn bg-blue text-white shadow-sm hover:bg-blue-dark;
   }
+
+  .btn-navy {
+    @apply btn bg-navy text-white shadow-sm hover:bg-navy-dark;
+  }
+
   .btn-secondary {
-    @apply border-2 border-espresso bg-white text-espresso hover:bg-beige;
+    @apply btn border-[1.5px] border-navy bg-white text-navy hover:bg-sky dark:border-[#8da0ff] dark:bg-transparent dark:text-sky dark:hover:bg-white/10;
   }
+
   .btn-danger {
-    @apply border-2 border-danger bg-white text-danger hover:bg-red-50;
+    @apply btn border-[1.5px] border-danger bg-white text-danger hover:bg-danger hover:text-white dark:bg-transparent;
   }
+
   .btn-sm {
-    @apply min-h-[32px] px-3 py-1 text-xs;
+    @apply rounded-lg px-3.5 py-1.5 text-xs;
   }
 
   .input,
   .select,
   .textarea {
-    @apply w-full rounded-xl border border-tan bg-white px-3 py-2 text-sm text-espresso placeholder:text-muted;
+    @apply block w-full rounded-xl border border-[#D4D9EC] bg-white px-4 py-2.5 text-sm text-navy placeholder:text-muted/80 transition-colors focus:border-navy focus:outline-none focus:ring-2 focus:ring-blue/20 disabled:cursor-not-allowed disabled:bg-page dark:border-[#2f3670] dark:bg-[#151a3d] dark:text-sky dark:placeholder:text-sky/50;
   }
+
+  .input[aria-invalid="true"],
+  .select[aria-invalid="true"],
+  .textarea[aria-invalid="true"] {
+    @apply border-danger focus:border-danger focus:ring-danger/20;
+  }
+
+  .textarea {
+    @apply min-h-[5.5rem] resize-y;
+  }
+
   .label {
-    @apply mb-1 block text-sm font-semibold text-espresso;
+    @apply mb-1.5 block text-xs font-semibold text-navy dark:text-sky;
   }
+
   .field-error {
-    @apply mt-1 text-xs text-danger;
+    @apply mt-1 text-xs font-semibold text-danger;
   }
 
   .card {
-    @apply rounded-2xl border border-line bg-white p-4;
+    @apply rounded-2xl border border-line bg-white p-5 shadow-card dark:border-[#2f3670] dark:bg-[#1b2048];
   }
+
   .badge {
-    @apply inline-flex items-center rounded-full px-3 py-0.5 text-xs font-semibold;
+    @apply inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold;
   }
 
   .table {
-    @apply w-full text-start text-sm;
+    @apply w-full border-collapse overflow-hidden rounded-2xl border border-line bg-white text-start text-sm dark:border-[#2f3670] dark:bg-[#1b2048];
   }
+
+  .table thead {
+    @apply bg-sky text-navy dark:bg-[#232963] dark:text-sky;
+  }
+
   .table th {
-    @apply bg-beige p-3 text-start font-semibold text-muted;
+    @apply px-4 py-3 text-start text-xs font-bold text-navy dark:text-sky;
   }
+
   .table td {
-    @apply border-b border-line p-3 text-start;
+    @apply border-t border-line/80 px-4 py-3.5 text-start text-navy dark:border-[#2f3670] dark:text-sky;
+  }
+
+  .table tbody tr:hover {
+    @apply bg-page/70 dark:bg-white/5;
   }
 
   .page-title {
-    @apply font-heading text-2xl font-bold text-espresso;
+    @apply font-heading text-2xl font-bold tracking-tight text-navy dark:text-white sm:text-[26px];
   }
-  .link {
-    @apply text-terracotta-dark underline;
-  }
-}
 
-/* Dark mode for the shared classes above (palette derived from the design deck). */
-.dark .btn-secondary {
-  background-color: transparent;
-  border-color: #8da0ff;
-  color: #e8f0fe;
-}
-.dark .btn-secondary:hover {
-  background-color: #232963;
-}
-.dark .btn-danger {
-  background-color: transparent;
-  border-color: #ff8a80;
-  color: #ff8a80;
-}
-.dark .btn-danger:hover {
-  background-color: #4a1f24;
-}
-.dark .input,
-.dark .select,
-.dark .textarea {
-  background-color: #0f1226;
-  border-color: #3b4380;
-  color: #e8f0fe;
-}
-.dark .label,
-.dark .page-title {
-  color: #e8f0fe;
-}
-.dark .field-error {
-  color: #ff8a80;
-}
-.dark .card {
-  background-color: #1b2048;
-  border-color: #2f3670;
-}
-.dark .table th {
-  background-color: #232963;
-  color: #a9b0d6;
-}
-.dark .table td {
-  border-color: #2f3670;
-}
-.dark .link {
-  color: #8da0ff;
-}
-.dark .text-muted {
-  color: #a9b0d6;
+  [dir="rtl"] .page-title,
+  [lang="ar"] .page-title {
+    font-family: "Readex Pro", "Cairo", system-ui, sans-serif;
+    letter-spacing: 0;
+  }
+
+  .link {
+    @apply font-semibold text-blue-dark hover:underline;
+  }
+
+  .ltr-value {
+    direction: ltr;
+    unicode-bidi: isolate;
+    display: inline-block;
+  }
+
+  .brand-gradient {
+    background: linear-gradient(135deg, #232963 0%, #34449e 55%, #4966f0 100%);
+  }
 }

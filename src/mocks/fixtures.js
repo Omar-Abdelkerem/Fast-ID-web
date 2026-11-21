@@ -1,61 +1,349 @@
-// Fixed mock users (the full User object from the API contract, section 0.20).
-// Feature mocks use these ids, for example the agent's id for deliveries assigned to the agent.
-const base = { preferredLanguage: "ar", isActive: true, mustChangePassword: false, createdAt: "2026-10-01T09:00:00.000Z", updatedAt: "2026-10-01T09:00:00.000Z" };
+const CREATED_AT = "2026-10-01T09:00:00.000Z";
 
 export const mockUsers = {
   CITIZEN: {
-    ...base,
     id: "11111111-1111-4111-8111-111111111111",
     role: "CITIZEN",
     fullName: "منى محمد عبد الهادي",
     email: "mona@example.com",
     phone: "01012345678",
-    nationalId: "29001010123457",
+    preferredLanguage: "ar",
+    nationalId: "29001010123447",
     birthDate: "1990-01-01",
     gender: "FEMALE",
     governorate: null,
+    isActive: true,
+    mustChangePassword: false,
+    createdAt: CREATED_AT,
+    updatedAt: CREATED_AT,
   },
   ADMIN: {
-    ...base,
     id: "22222222-2222-4222-8222-222222222222",
     role: "ADMIN",
     fullName: "هاني المراجع",
     email: "hany@example.com",
     phone: "01099999999",
+    preferredLanguage: "ar",
     nationalId: null,
     birthDate: null,
     gender: null,
     governorate: null,
+    isActive: true,
+    mustChangePassword: false,
+    createdAt: CREATED_AT,
+    updatedAt: CREATED_AT,
   },
   AGENT: {
-    ...base,
     id: "33333333-3333-4333-8333-333333333333",
     role: "AGENT",
     fullName: "كريم أحمد",
     email: "karim@example.com",
     phone: "01055555555",
+    preferredLanguage: "ar",
     nationalId: null,
     birthDate: null,
     gender: null,
     governorate: "GIZA",
+    isActive: true,
+    mustChangePassword: false,
+    createdAt: CREATED_AT,
+    updatedAt: CREATED_AT,
   },
 };
 
-// more agents, so the admin can assign deliveries to different people
 export const otherAgents = [
-  { ...base, id: "44444444-4444-4444-8444-444444444444", role: "AGENT", fullName: "محمود سعيد", email: "mahmoud@example.com", phone: "01066666666", nationalId: null, birthDate: null, gender: null, governorate: "CAIRO" },
-  { ...base, id: "55555555-5555-4555-8555-555555555555", role: "AGENT", fullName: "أيمن علي", email: "ayman@example.com", phone: "01077777777", nationalId: null, birthDate: null, gender: null, governorate: "ALEXANDRIA" },
+  {
+    id: "44444444-4444-4444-8444-444444444444",
+    role: "AGENT",
+    fullName: "محمود سعيد",
+    email: "mahmoud@example.com",
+    phone: "01066666666",
+    preferredLanguage: "ar",
+    nationalId: null,
+    birthDate: null,
+    gender: null,
+    governorate: "CAIRO",
+    isActive: true,
+    mustChangePassword: false,
+    createdAt: CREATED_AT,
+    updatedAt: CREATED_AT,
+  },
+  {
+    id: "55555555-5555-4555-8555-555555555555",
+    role: "AGENT",
+    fullName: "أيمن علي",
+    email: "ayman@example.com",
+    phone: "01077777777",
+    preferredLanguage: "ar",
+    nationalId: null,
+    birthDate: null,
+    gender: null,
+    governorate: "ALEXANDRIA",
+    isActive: true,
+    mustChangePassword: false,
+    createdAt: CREATED_AT,
+    updatedAt: CREATED_AT,
+  },
 ];
 
-// the 27 governorates, ordered by English name (contract section 2.1)
-export const governorates = [
-  ["ALEXANDRIA", "الإسكندرية", "Alexandria"], ["ASWAN", "أسوان", "Aswan"], ["ASSIUT", "أسيوط", "Assiut"],
-  ["BEHEIRA", "البحيرة", "Beheira"], ["BENI_SUEF", "بني سويف", "Beni Suef"], ["CAIRO", "القاهرة", "Cairo"],
-  ["DAKAHLIA", "الدقهلية", "Dakahlia"], ["DAMIETTA", "دمياط", "Damietta"], ["FAIYUM", "الفيوم", "Faiyum"],
-  ["GHARBIA", "الغربية", "Gharbia"], ["GIZA", "الجيزة", "Giza"], ["ISMAILIA", "الإسماعيلية", "Ismailia"],
-  ["KAFR_EL_SHEIKH", "كفر الشيخ", "Kafr El Sheikh"], ["LUXOR", "الأقصر", "Luxor"], ["MATROUH", "مطروح", "Matrouh"],
-  ["MINYA", "المنيا", "Minya"], ["MONUFIA", "المنوفية", "Monufia"], ["NEW_VALLEY", "الوادي الجديد", "New Valley"],
-  ["NORTH_SINAI", "شمال سيناء", "North Sinai"], ["PORT_SAID", "بورسعيد", "Port Said"], ["QALYUBIA", "القليوبية", "Qalyubia"],
-  ["QENA", "قنا", "Qena"], ["RED_SEA", "البحر الأحمر", "Red Sea"], ["SHARQIA", "الشرقية", "Sharqia"],
-  ["SOHAG", "سوهاج", "Sohag"], ["SOUTH_SINAI", "جنوب سيناء", "South Sinai"], ["SUEZ", "السويس", "Suez"],
-].map(([code, ar, en]) => ({ code, name: { ar, en } }));
+// All 27 Egyptian governorates from Contract §2.1, ordered alphabetically by English name
+export const mockGovernorates = [
+  { code: "ALEXANDRIA", name: { ar: "الإسكندرية", en: "Alexandria" } },
+  { code: "ASSIUT", name: { ar: "أسيوط", en: "Assiut" } },
+  { code: "ASWAN", name: { ar: "أسوان", en: "Aswan" } },
+  { code: "BEHEIRA", name: { ar: "البحيرة", en: "Beheira" } },
+  { code: "BENI_SUEF", name: { ar: "بني سويف", en: "Beni Suef" } },
+  { code: "CAIRO", name: { ar: "القاهرة", en: "Cairo" } },
+  { code: "DAKAHLIA", name: { ar: "الدقهلية", en: "Dakahlia" } },
+  { code: "DAMIETTA", name: { ar: "دمياط", en: "Damietta" } },
+  { code: "FAIYUM", name: { ar: "الفيوم", en: "Faiyum" } },
+  { code: "GHARBIA", name: { ar: "الغربية", en: "Gharbia" } },
+  { code: "GIZA", name: { ar: "الجيزة", en: "Giza" } },
+  { code: "ISMAILIA", name: { ar: "الإسماعيلية", en: "Ismailia" } },
+  { code: "KAFR_EL_SHEIKH", name: { ar: "كفر الشيخ", en: "Kafr El Sheikh" } },
+  { code: "LUXOR", name: { ar: "الأقصر", en: "Luxor" } },
+  { code: "MATROUH", name: { ar: "مطروح", en: "Matrouh" } },
+  { code: "MINYA", name: { ar: "المنيا", en: "Minya" } },
+  { code: "MONUFIA", name: { ar: "المنوفية", en: "Monufia" } },
+  { code: "NEW_VALLEY", name: { ar: "الوادي الجديد", en: "New Valley" } },
+  { code: "NORTH_SINAI", name: { ar: "شمال سيناء", en: "North Sinai" } },
+  { code: "PORT_SAID", name: { ar: "بورسعيد", en: "Port Said" } },
+  { code: "QALYUBIA", name: { ar: "القليوبية", en: "Qalyubia" } },
+  { code: "QENA", name: { ar: "قنا", en: "Qena" } },
+  { code: "RED_SEA", name: { ar: "البحر الأحمر", en: "Red Sea" } },
+  { code: "SHARQIA", name: { ar: "الشرقية", en: "Sharqia" } },
+  { code: "SOHAG", name: { ar: "سوهاج", en: "Sohag" } },
+  { code: "SOUTH_SINAI", name: { ar: "جنوب سيناء", en: "South Sinai" } },
+  { code: "SUEZ", name: { ar: "السويس", en: "Suez" } },
+];
+
+export const governorates = mockGovernorates;
+
+export const mockSettings = {
+  id: "singleton",
+  supportEmail: "support@example.com",
+  supportPhone: "01512345678",
+  announcement: null,
+  updatedAt: CREATED_AT,
+};
+
+export const mockServices = [
+  {
+    id: "national-id",
+    name: {
+      ar: "بطاقة الرقم القومي",
+      en: "National ID Card",
+    },
+    description: {
+      ar: "إصدار أو تجديد أو استخراج بدل فاقد لبطاقة الرقم القومي وتوصيلها حتى باب المنزل.",
+      en: "Issue, renew, or replace your Egyptian National ID card with home delivery.",
+    },
+    category: "IDENTITY",
+    fee: { amount: 5000, currency: "EGP" },
+    slaDays: 3,
+    validityYears: 7,
+    requiredDocuments: [
+      {
+        key: "personalPhoto",
+        label: { ar: "صورة شخصية حديثة", en: "Recent personal photo" },
+        required: true,
+        allowedMimeTypes: ["image/jpeg", "image/png"],
+        maxSizeBytes: 2097152,
+      },
+      {
+        key: "idProof",
+        label: { ar: "إثبات هوية أو شهادة ميلاد", en: "Identity proof or birth certificate" },
+        required: true,
+        allowedMimeTypes: ["application/pdf", "image/jpeg"],
+        maxSizeBytes: 5242880,
+      },
+    ],
+    formSchema: {
+      fields: [
+        {
+          key: "reason",
+          label: { ar: "سبب الطلب", en: "Reason for request" },
+          helpText: null,
+          type: "SELECT",
+          required: true,
+          options: [
+            {
+              value: "FIRST_ISSUE",
+              label: { ar: "إصدار لأول مرة", en: "First issue" },
+            },
+            {
+              value: "REPLACEMENT",
+              label: { ar: "بدل فاقد / تالف", en: "Replacement" },
+            },
+          ],
+          validation: {},
+        },
+        {
+          key: "notes",
+          label: { ar: "ملاحظات إضافية", en: "Additional notes" },
+          helpText: {
+            ar: "اختياري — بحد أقصى 300 حرف.",
+            en: "Optional — up to 300 characters.",
+          },
+          type: "TEXTAREA",
+          required: false,
+          options: null,
+          validation: { maxLength: 300 },
+        },
+      ],
+    },
+    version: 1,
+    publishedAt: CREATED_AT,
+  },
+  {
+    id: "driving-license",
+    name: {
+      ar: "رخصة قيادة",
+      en: "Driving License",
+    },
+    description: {
+      ar: "التقديم على رخصة قيادة خاصة أو دراجة نارية مع التحقق من الشهادة الطبية.",
+      en: "Apply for a private car or motorcycle driving license with medical verification.",
+    },
+    category: "LICENSE",
+    fee: { amount: 12000, currency: "EGP" },
+    slaDays: 5,
+    validityYears: 10,
+    requiredDocuments: [
+      {
+        key: "personalPhoto",
+        label: { ar: "صورة شخصية", en: "Personal photo" },
+        required: true,
+        allowedMimeTypes: ["image/jpeg", "image/png"],
+        maxSizeBytes: 2097152,
+      },
+      {
+        key: "medicalCertificate",
+        label: { ar: "شهادة الكشف الطبي", en: "Medical certificate" },
+        required: true,
+        allowedMimeTypes: ["application/pdf", "image/jpeg", "image/png"],
+        maxSizeBytes: 5242880,
+      },
+    ],
+    formSchema: {
+      fields: [
+        {
+          key: "licenseClass",
+          label: { ar: "فئة الرخصة", en: "License class" },
+          helpText: null,
+          type: "SELECT",
+          required: true,
+          options: [
+            { value: "PRIVATE", label: { ar: "خاصة", en: "Private" } },
+            { value: "MOTORCYCLE", label: { ar: "دراجة نارية", en: "Motorcycle" } },
+          ],
+          validation: {},
+        },
+        {
+          key: "hasPreviousLicense",
+          label: { ar: "لدي رخصة قيادة سابقة", en: "I hold a previous driving license" },
+          helpText: null,
+          type: "CHECKBOX",
+          required: false,
+          options: null,
+          validation: {},
+        },
+        {
+          key: "previousLicenseNumber",
+          label: { ar: "رقم الرخصة السابقة", en: "Previous license number" },
+          helpText: {
+            ar: "أرقام فقط إن وجدت.",
+            en: "Digits only, if applicable.",
+          },
+          type: "TEXT",
+          required: false,
+          options: null,
+          validation: { pattern: "^[0-9]+$" },
+        },
+      ],
+    },
+    version: 1,
+    publishedAt: CREATED_AT,
+  },
+  {
+    id: "birth-certificate",
+    name: {
+      ar: "شهادة ميلاد مميكنة",
+      en: "Digital Birth Certificate",
+    },
+    description: {
+      ar: "استخراج شهادة ميلاد مميكنة رسمية مجاناً عبر الإنترنت.",
+      en: "Request an official digital birth certificate online free of charge.",
+    },
+    category: "CIVIL_RECORD",
+    fee: { amount: 0, currency: "EGP" },
+    slaDays: 2,
+    validityYears: null,
+    requiredDocuments: [
+      {
+        key: "parentIdProof",
+        label: { ar: "صورة بطاقة أحد الوالدين", en: "Parent ID proof" },
+        required: true,
+        allowedMimeTypes: ["application/pdf", "image/jpeg", "image/png"],
+        maxSizeBytes: 5242880,
+      },
+    ],
+    formSchema: {
+      fields: [
+        {
+          key: "childName",
+          label: { ar: "اسم الطفل رباعي", en: "Child full name" },
+          helpText: null,
+          type: "TEXT",
+          required: true,
+          options: null,
+          validation: { minLength: 3, maxLength: 100 },
+        },
+        {
+          key: "childBirthDate",
+          label: { ar: "تاريخ ميلاد الطفل", en: "Child birth date" },
+          helpText: null,
+          type: "DATE",
+          required: true,
+          options: null,
+          validation: {},
+        },
+        {
+          key: "hospitalName",
+          label: { ar: "اسم المستشفى", en: "Hospital name" },
+          helpText: null,
+          type: "TEXT",
+          required: false,
+          options: null,
+          validation: { maxLength: 100 },
+        },
+      ],
+    },
+    version: 1,
+    publishedAt: CREATED_AT,
+  },
+];
+
+export const mockAdminServices = mockServices.map((service) => {
+  const draft = {
+    name: service.name,
+    description: service.description,
+    category: service.category,
+    fee: service.fee,
+    slaDays: service.slaDays,
+    validityYears: service.validityYears,
+    requiredDocuments: service.requiredDocuments,
+    formSchema: service.formSchema,
+  };
+  return {
+    id: service.id,
+    availability: "PUBLISHED",
+    draft,
+    versions: { 1: structuredClone(draft) },
+    publishedVersion: service.version,
+    publishedAt: service.publishedAt,
+    hasUnpublishedChanges: false,
+    createdAt: CREATED_AT,
+    updatedAt: CREATED_AT,
+  };
+});

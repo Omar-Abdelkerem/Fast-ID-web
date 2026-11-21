@@ -1,20 +1,40 @@
 import { HttpResponse } from "msw";
 
-// success envelope (use status 201 for creates)
-export const ok = (data, { meta, status = 200 } = {}) => HttpResponse.json({ success: true, data, ...(meta ? { meta } : {}) }, { status });
+export function ok(data, { meta, status = 200 } = {}) {
+  const body =
+    meta !== undefined ? { success: true, data, meta } : { success: true, data };
+  return HttpResponse.json(body, { status });
+}
 
-// error envelope
-export const fail = (code, message, status = 400, { field, details } = {}) =>
-  HttpResponse.json({ success: false, error: { code, message, ...(field ? { field } : {}), ...(details ? { details } : {}) } }, { status });
+export function fail(code, message, status = 400, { field, details } = {}) {
+  const error = { code, message };
+  if (field !== undefined && field !== null) {
+    error.field = field;
+  }
+  if (Array.isArray(details) && details.length > 0) {
+    error.details = details;
+  }
+  return HttpResponse.json({ success: false, error }, { status });
+}
 
-// reads page and pageSize from the request URL and returns { data, meta } for ok(data, { meta })
 export function paginate(request, items) {
-  const params = new URL(request.url).searchParams;
-  const page = Math.max(1, Number(params.get("page")) || 1);
-  const pageSize = Math.min(100, Math.max(1, Number(params.get("pageSize")) || 20));
+  const url = new URL(request.url);
+  const rawPage = Number(url.searchParams.get("page") || "1");
+  const rawPageSize = Number(url.searchParams.get("pageSize") || "20");
+
+  const page = Number.isInteger(rawPage) && rawPage >= 1 ? rawPage : 1;
+  const pageSize =
+    Number.isInteger(rawPageSize) && rawPageSize >= 1 && rawPageSize <= 100
+      ? rawPageSize
+      : 20;
+
   const total = items.length;
+  const totalPages = Math.ceil(total / pageSize);
+  const start = (page - 1) * pageSize;
+  const data = items.slice(start, start + pageSize);
+
   return {
-    data: items.slice((page - 1) * pageSize, page * pageSize),
-    meta: { page, pageSize, total, totalPages: Math.max(1, Math.ceil(total / pageSize)) },
+    data,
+    meta: { page, pageSize, total, totalPages },
   };
 }
