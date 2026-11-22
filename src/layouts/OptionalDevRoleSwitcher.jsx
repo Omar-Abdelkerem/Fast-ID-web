@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 const isMockMode =
-  import.meta.env.DEV && import.meta.env.VITE_USE_MOCKS === "true";
+  (import.meta.env.DEV && import.meta.env.VITE_USE_MOCKS === "true") ||
+  import.meta.env.MODE === "demo";
 
 // Lazy glob ensures mock switcher code is excluded from production bundles
 const switcherLoaders = isMockMode

@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const devProxyTarget = process.env.VITE_DEV_PROXY_TARGET;
 
 export default defineConfig({
+  base: process.env.VITE_BASE_PATH || "/",
   plugins: [react()],
   resolve: {
     alias: {

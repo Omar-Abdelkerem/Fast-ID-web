@@ -12,7 +12,11 @@ export function DevRoleSwitcher() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  if (!import.meta.env.DEV || import.meta.env.VITE_USE_MOCKS !== "true") {
+  const isMockMode =
+    (import.meta.env.DEV && import.meta.env.VITE_USE_MOCKS === "true") ||
+    import.meta.env.MODE === "demo";
+
+  if (!isMockMode) {
     return null;
   }
 

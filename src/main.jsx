@@ -26,11 +26,21 @@ const queryClient = new QueryClient({
   },
 });
 
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const isMockMode =
+  (import.meta.env.DEV && import.meta.env.VITE_USE_MOCKS === "true") ||
+  import.meta.env.MODE === "demo";
+
 async function enableMocksIfNeeded() {
-  // Never run or bundle MSW mocks in production builds
-  if (import.meta.env.DEV && import.meta.env.VITE_USE_MOCKS === "true") {
+  // Never run or bundle MSW mocks in normal production builds
+  if (isMockMode) {
     const { worker } = await import("./mocks/browser");
-    await worker.start({ onUnhandledRequest: "warn" });
+    await worker.start({
+      onUnhandledRequest: "warn",
+      serviceWorker: {
+        url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
+      },
+    });
   }
 }
 
@@ -40,7 +50,7 @@ enableMocksIfNeeded().then(() => {
       <RootErrorBoundary>
         <QueryClientProvider client={queryClient}>
           <ToastProvider>
-            <BrowserRouter>
+            <BrowserRouter basename={basePath}>
               <App />
             </BrowserRouter>
           </ToastProvider>
