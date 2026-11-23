@@ -1,0 +1,51 @@
+{
+  "nav": { "services": "Services" },
+  "category": { "IDENTITY": "Identity", "LICENSE": "License", "CIVIL_RECORD": "Civil record", "OTHER": "Other" },
+  "service": { "free": "Free", "decisionWithin": "Decision within {{count}} days" },
+  "landing": {
+    "tagline": "A digital ID in a second",
+    "title": "Card services in one place",
+    "promise": "Apply from home, follow your request step by step, and get your card at your door.",
+    "getStarted": "Get started",
+    "browse": "Browse services",
+    "howTitle": "How it works",
+    "step": "Step {{number}}",
+    "steps": {
+      "apply": { "title": "Apply", "text": "Fill in your details and upload documents with your camera." },
+      "review": { "title": "Review", "text": "Staff review your request and you get a notification for every change." },
+      "issue": { "title": "Get issued", "text": "After approval your digital card is issued with a QR code." },
+      "delivered": { "title": "Delivered", "text": "An agent brings the card and you receive it with a delivery code." }
+    },
+    "featured": "Featured services",
+    "allServices": "All services",
+    "loadError": "Could not load the services."
+  },
+  "catalog": {
+    "title": "Services",
+    "subtitle": "Pick a service and apply online",
+    "category": "Category",
+    "all": "All",
+    "search": "Search by name",
+    "emptyTitle": "No services found",
+    "emptyText": "Try another category or change the search."
+  },
+  "detail": {
+    "backToCatalog": "Back to services",
+    "notFoundTitle": "This service is not available",
+    "notFoundText": "It may have been stopped, or the link is wrong.",
+    "apply": "Apply now",
+    "fee": "Fee",
+    "sla": "Decision time",
+    "validity": "Validity",
+    "noExpiry": "No expiry",
+    "years": "{{count}} years",
+    "documents": "Required documents",
+    "noDocuments": "No documents are required.",
+    "required": "Required",
+    "optional": "Optional",
+    "maxSize": "Up to {{size}} MB",
+    "questions": "Questions you will be asked",
+    "noQuestions": "There are no extra questions."
+  },
+  "errors": { "SERVICE_NOT_FOUND": "This service is not available." }
+}

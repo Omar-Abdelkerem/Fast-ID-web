@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "title": "سجل المراجعة"
+  },
+  "title": "سجل المراجعة",
+  "subtitle": "كل ما حدث في النظام، للقراءة فقط",
+  "system": "النظام",
+  "roles": {
+    "ADMIN": "أدمن",
+    "AGENT": "مندوب",
+    "CITIZEN": "مواطن"
+  },
+  "entityTypes": {
+    "APPLICATION": "طلب",
+    "SERVICE": "خدمة",
+    "CREDENTIAL": "بطاقة",
+    "DELIVERY": "توصيل",
+    "USER": "مستخدم",
+    "SETTINGS": "إعدادات"
+  },
+  "filters": {
+    "title": "الفلاتر",
+    "action": "الإجراءات",
+    "entityType": "نوع الكيان",
+    "entityId": "معرّف الكيان",
+    "actorId": "معرّف المنفّذ",
+    "from": "من تاريخ",
+    "to": "إلى تاريخ",
+    "all": "الكل",
+    "reset": "مسح الفلاتر",
+    "rangeInvalid": "تاريخ البداية بعد تاريخ النهاية."
+  },
+  "columns": {
+    "time": "الوقت",
+    "actor": "المنفّذ",
+    "action": "الإجراء",
+    "entityType": "النوع",
+    "entityId": "المعرّف",
+    "details": "التفاصيل",
+    "hide": "إخفاء"
+  },
+  "emptyTitle": "لا توجد سجلات",
+  "emptyText": "لا توجد نتائج مطابقة للفلاتر.",
+  "actions": {
+    "APPLICATION_SUBMITTED": "تقديم طلب",
+    "APPLICATION_REVIEW_STARTED": "بدء مراجعة طلب",
+    "APPLICATION_APPROVED": "قبول طلب",
+    "APPLICATION_REJECTED": "رفض طلب",
+    "APPLICATION_CANCELLED": "إلغاء طلب",
+    "CREDENTIAL_ISSUED": "إصدار بطاقة",
+    "CREDENTIAL_REVOKED": "إلغاء بطاقة",
+    "DELIVERY_CREATED": "إنشاء توصيل",
+    "DELIVERY_ASSIGNED": "تعيين مندوب",
+    "DELIVERY_OUT_FOR_DELIVERY": "بدء التوصيل",
+    "DELIVERY_FAILED": "محاولة توصيل فاشلة",
+    "DELIVERY_COMPLETED": "إتمام التوصيل",
+    "SERVICE_CREATED": "إنشاء خدمة",
+    "SERVICE_UPDATED": "تعديل خدمة",
+    "SERVICE_PUBLISHED": "نشر خدمة",
+    "SERVICE_UNPUBLISHED": "إلغاء نشر خدمة",
+    "SERVICE_DELETED": "حذف خدمة",
+    "STAFF_CREATED": "إنشاء موظف",
+    "STAFF_UPDATED": "تعديل موظف",
+    "CITIZEN_DEACTIVATED": "إيقاف مواطن",
+    "CITIZEN_REACTIVATED": "إعادة تفعيل مواطن",
+    "PAYMENT_MARKED_PAID_MOCK": "دفع تجريبي",
+    "PASSWORD_RESET_COMPLETED": "إعادة تعيين كلمة مرور",
+    "SETTINGS_UPDATED": "تعديل الإعدادات"
+  }
+}

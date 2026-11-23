@@ -1,0 +1,29 @@
+{
+  "nav": { "verify": "Verify a card" },
+  "enter": {
+    "title": "Verify a digital card",
+    "subtitle": "Paste the verification link or the code shown on the card.",
+    "label": "Verification link or code",
+    "hint": "Example: .../verify/abc123 or abc123",
+    "required": "Type the code or paste the link",
+    "submit": "Verify"
+  },
+  "result": {
+    "valid": "Valid card",
+    "validText": "This card is genuine and active.",
+    "REVOKED": "Revoked card",
+    "REVOKEDText": "This card was revoked and must not be accepted.",
+    "EXPIRED": "Expired card",
+    "EXPIREDText": "This card has expired.",
+    "notFoundTitle": "We could not find this card",
+    "notFoundText": "This code is not recognised. Check it and try again.",
+    "number": "Card number",
+    "service": "Service",
+    "holder": "Holder",
+    "issuedAt": "Issued on",
+    "expiresAt": "Expires on",
+    "noExpiry": "No expiry",
+    "tryAnother": "Verify another card"
+  },
+  "errors": { "CREDENTIAL_NOT_FOUND": "This code is not recognised." }
+}
