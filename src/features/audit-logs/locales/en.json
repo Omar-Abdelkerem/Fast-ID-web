@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "title": "Audit log"
+  },
+  "title": "Audit log",
+  "subtitle": "Everything that happened in the system, read only",
+  "system": "System",
+  "roles": {
+    "ADMIN": "Admin",
+    "AGENT": "Agent",
+    "CITIZEN": "Citizen"
+  },
+  "entityTypes": {
+    "APPLICATION": "Application",
+    "SERVICE": "Service",
+    "CREDENTIAL": "Credential",
+    "DELIVERY": "Delivery",
+    "USER": "User",
+    "SETTINGS": "Settings"
+  },
+  "filters": {
+    "title": "Filters",
+    "action": "Actions",
+    "entityType": "Entity type",
+    "entityId": "Entity ID",
+    "actorId": "Actor ID",
+    "from": "From date",
+    "to": "To date",
+    "all": "All",
+    "reset": "Reset filters",
+    "rangeInvalid": "The start date is after the end date."
+  },
+  "columns": {
+    "time": "Time",
+    "actor": "Actor",
+    "action": "Action",
+    "entityType": "Type",
+    "entityId": "ID",
+    "details": "Details",
+    "hide": "Hide"
+  },
+  "emptyTitle": "No log entries",
+  "emptyText": "No results match the filters.",
+  "actions": {
+    "APPLICATION_SUBMITTED": "Application submitted",
+    "APPLICATION_REVIEW_STARTED": "Review started",
+    "APPLICATION_APPROVED": "Application approved",
+    "APPLICATION_REJECTED": "Application rejected",
+    "APPLICATION_CANCELLED": "Application cancelled",
+    "CREDENTIAL_ISSUED": "Credential issued",
+    "CREDENTIAL_REVOKED": "Credential revoked",
+    "DELIVERY_CREATED": "Delivery created",
+    "DELIVERY_ASSIGNED": "Delivery assigned",
+    "DELIVERY_OUT_FOR_DELIVERY": "Out for delivery",
+    "DELIVERY_FAILED": "Delivery attempt failed",
+    "DELIVERY_COMPLETED": "Delivery completed",
+    "SERVICE_CREATED": "Service created",
+    "SERVICE_UPDATED": "Service updated",
+    "SERVICE_PUBLISHED": "Service published",
+    "SERVICE_UNPUBLISHED": "Service unpublished",
+    "SERVICE_DELETED": "Service deleted",
+    "STAFF_CREATED": "Staff created",
+    "STAFF_UPDATED": "Staff updated",
+    "CITIZEN_DEACTIVATED": "Citizen deactivated",
+    "CITIZEN_REACTIVATED": "Citizen reactivated",
+    "PAYMENT_MARKED_PAID_MOCK": "Mock payment",
+    "PASSWORD_RESET_COMPLETED": "Password reset",
+    "SETTINGS_UPDATED": "Settings updated"
+  }
+}
