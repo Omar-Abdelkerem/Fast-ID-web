@@ -1,4 +1,4 @@
-import { http } from "msw";
+import { http, HttpResponse } from "msw";
 import { ok, fail } from "@/mocks/helpers";
 import { db, nextId } from "@/mocks/store";
 import { mockUsers } from "@/mocks/fixtures";
@@ -143,6 +143,33 @@ function nextApplicationNumber() {
   appCounter += 1;
   return `APP-2026-${String(appCounter).padStart(6, "0")}`;
 }
+
+// GET /api/v1/applications/:id/attachments/:attachmentId/file — the demo has no stored files,
+// so it serves a small placeholder (a PDF for .pdf documents, a PNG otherwise) with the right type.
+const PLACEHOLDER_PNG =
+  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
+const PLACEHOLDER_PDF = [
+  "%PDF-1.1",
+  "1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj",
+  "2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj",
+  "3 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 200 100]>>endobj",
+  "trailer<</Root 1 0 R>>",
+  "%%EOF",
+].join(String.fromCharCode(10));
+
+const attachmentFileHandler = http.get(
+  "/api/v1/applications/:id/attachments/:attachmentId/file",
+  ({ params }) => {
+    const app = db.applications.find((a) => a.id === params.id);
+    const attachment = (app?.attachments || []).find((a) => a.id === params.attachmentId);
+    if (!attachment) return fail("ATTACHMENT_NOT_FOUND", "Attachment not found.", 404);
+    if (attachment.mimeType === "application/pdf") {
+      return new HttpResponse(PLACEHOLDER_PDF, { headers: { "Content-Type": "application/pdf" } });
+    }
+    const bytes = Uint8Array.from(atob(PLACEHOLDER_PNG), (c) => c.charCodeAt(0));
+    return new HttpResponse(bytes, { headers: { "Content-Type": "image/png" } });
+  }
+);
 
 export const handlers = [
   // POST /api/v1/applications — create a new DRAFT
@@ -507,4 +534,5 @@ export const handlers = [
 
     return ok(app);
   }),
+  attachmentFileHandler,
 ];
