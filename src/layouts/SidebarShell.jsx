@@ -225,7 +225,7 @@ export function SidebarShell({ layout, homePath, children }) {
                   aria-expanded={userMenuOpen}
                   aria-haspopup="menu"
                   aria-label={t("nav.userMenu")}
-                  className="inline-flex items-center gap-2 rounded-full border border-line bg-page py-1 pe-3 ps-1.5 text-xs font-semibold text-navy transition-colors hover:bg-sky"
+                  className="inline-flex items-center gap-2 rounded-full border border-line bg-page py-1 pe-3 ps-1.5 text-xs font-semibold text-navy transition-colors hover:bg-sky dark:border-[#2f3670] dark:bg-[#232963] dark:text-[#e8f0fe] dark:hover:bg-[#2f3670]"
                 >
                   <span
                     aria-hidden="true"
@@ -253,11 +253,11 @@ export function SidebarShell({ layout, homePath, children }) {
                 {userMenuOpen ? (
                   <div
                     role="menu"
-                    className="absolute end-0 mt-2 w-56 rounded-2xl border border-line bg-white p-1.5 shadow-xl"
+                    className="absolute end-0 mt-2 w-56 rounded-2xl border border-line bg-white p-1.5 shadow-xl dark:border-[#2f3670] dark:bg-[#1b2048] dark:text-[#e8f0fe]"
                   >
                     {user ? (
-                      <div className="border-b border-line px-3 py-2 text-start">
-                        <p className="truncate text-sm font-bold text-navy">
+                      <div className="border-b border-line dark:border-[#2f3670] px-3 py-2 text-start">
+                        <p className="truncate text-sm font-bold text-navy dark:text-[#e8f0fe]">
                           {user.fullName}
                         </p>
                         <p className="text-xs text-muted">
@@ -270,7 +270,7 @@ export function SidebarShell({ layout, homePath, children }) {
                       <Link
                         to="/profile"
                         role="menuitem"
-                        className="mt-1 block rounded-xl px-3 py-2 text-start text-sm font-medium text-navy hover:bg-sky"
+                        className="mt-1 block rounded-xl px-3 py-2 text-start text-sm font-medium text-navy dark:text-[#e8f0fe] hover:bg-sky dark:hover:bg-[#232963]"
                       >
                         {t("buttons.profile")}
                       </Link>
@@ -279,7 +279,7 @@ export function SidebarShell({ layout, homePath, children }) {
                     <Link
                       to="/change-password"
                       role="menuitem"
-                      className="block rounded-xl px-3 py-2 text-start text-sm font-medium text-navy hover:bg-sky"
+                      className="block rounded-xl px-3 py-2 text-start text-sm font-medium text-navy dark:text-[#e8f0fe] hover:bg-sky dark:hover:bg-[#232963]"
                     >
                       {t("buttons.changePassword")}
                     </Link>
@@ -313,7 +313,7 @@ export function SidebarShell({ layout, homePath, children }) {
           {children || <Outlet />}
         </main>
 
-        <footer className="border-t border-line bg-white">
+        <footer className="border-t border-line bg-white dark:border-[#2f3670] dark:bg-[#181d42]">
           <OptionalDevRoleSwitcher />
         </footer>
       </div>

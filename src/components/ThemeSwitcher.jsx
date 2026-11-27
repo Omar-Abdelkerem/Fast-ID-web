@@ -14,6 +14,11 @@ export function ThemeSwitcher({ className = "" }) {
   function toggleTheme() {
     const nextDark = !isDark;
     document.documentElement.classList.toggle("dark", nextDark);
+    try {
+      localStorage.setItem("theme", nextDark ? "dark" : "light"); // restored by the script in index.html
+    } catch {
+      // private mode: the choice just lasts until the page is reloaded
+    }
     setIsDark(nextDark);
   }
 
