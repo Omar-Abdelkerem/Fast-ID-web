@@ -37,10 +37,10 @@ export function DevRoleSwitcher() {
   }
 
   return (
-    <div className="border-t border-line bg-sky/60 px-4 py-2.5 text-xs text-navy">
+    <div className="border-t border-line bg-sky/60 px-4 py-2.5 text-xs text-navy dark:border-[#2f3670] dark:bg-[#1b2048] dark:text-[#e8f0fe]">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-bold text-navy">
+          <span className="font-bold text-navy dark:text-[#e8f0fe]">
             {t("app.devMode")} · {t("app.mockRole")}:
           </span>
           {ROLES.map((role) => {
