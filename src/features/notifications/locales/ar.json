@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "title": "الإشعارات"
+  },
+  "title": "الإشعارات",
+  "subtitle": "تابع آخر التحديثات على طلباتك ومهام التوصيل.",
+  "bell": {
+    "label": "الإشعارات",
+    "unreadCount": "{{count}} إشعارات غير مقروءة",
+    "viewAll": "عرض الكل",
+    "empty": "لا توجد إشعارات بعد.",
+    "loadError": "تعذر تحميل الإشعارات.",
+    "retry": "إعادة المحاولة"
+  },
+  "filters": {
+    "all": "الكل",
+    "unread": "غير مقروء"
+  },
+  "actions": {
+    "markRead": "تحديد كمقروء",
+    "markAllRead": "تحديد الكل كمقروء",
+    "markingAll": "جاري التحديث..."
+  },
+  "status": {
+    "unread": "غير مقروء",
+    "read": "مقروء"
+  },
+  "empty": {
+    "allTitle": "لا توجد إشعارات بعد",
+    "allText": "ستظهر هنا تحديثات الطلبات والتوصيل فور حدوثها.",
+    "unreadTitle": "لا توجد إشعارات غير مقروءة",
+    "unreadText": "لقد اطلعت على جميع إشعاراتك."
+  },
+  "types": {
+    "APPLICATION_SUBMITTED": "تم تقديم الطلب",
+    "APPLICATION_CANCELLED": "تم إلغاء الطلب",
+    "APPLICATION_UNDER_REVIEW": "قيد المراجعة",
+    "APPLICATION_APPROVED": "تمت الموافقة",
+    "APPLICATION_REJECTED": "تم رفض الطلب",
+    "CREDENTIAL_REVOKED": "تم إلغاء البطاقة",
+    "DELIVERY_ASSIGNED": "تم تعيين توصيل",
+    "DELIVERY_OUT_FOR_DELIVERY": "في الطريق للتوصيل",
+    "DELIVERY_FAILED_ATTEMPT": "تعذر التوصيل",
+    "DELIVERY_COMPLETED": "تم التسليم",
+    "OTHER": "تحديث"
+  },
+  "toasts": {
+    "allRead": "تم تحديد جميع الإشعارات كمقروءة."
+  },
+  "errors": {
+    "NOTIFICATION_NOT_FOUND": "الإشعار غير موجود."
+  }
+}

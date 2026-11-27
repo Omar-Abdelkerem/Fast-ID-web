@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "title": "Notifications"
+  },
+  "title": "Notifications",
+  "subtitle": "Stay updated on your applications and delivery tasks.",
+  "bell": {
+    "label": "Notifications",
+    "unreadCount": "{{count}} unread notifications",
+    "viewAll": "View all",
+    "empty": "No notifications yet.",
+    "loadError": "Could not load notifications.",
+    "retry": "Try again"
+  },
+  "filters": {
+    "all": "All",
+    "unread": "Unread"
+  },
+  "actions": {
+    "markRead": "Mark as read",
+    "markAllRead": "Mark all as read",
+    "markingAll": "Updating..."
+  },
+  "status": {
+    "unread": "Unread",
+    "read": "Read"
+  },
+  "empty": {
+    "allTitle": "No notifications yet",
+    "allText": "Application and delivery updates will appear here.",
+    "unreadTitle": "No unread notifications",
+    "unreadText": "You are all caught up."
+  },
+  "types": {
+    "APPLICATION_SUBMITTED": "Application submitted",
+    "APPLICATION_CANCELLED": "Application cancelled",
+    "APPLICATION_UNDER_REVIEW": "Under review",
+    "APPLICATION_APPROVED": "Application approved",
+    "APPLICATION_REJECTED": "Application rejected",
+    "CREDENTIAL_REVOKED": "Credential revoked",
+    "DELIVERY_ASSIGNED": "Delivery assigned",
+    "DELIVERY_OUT_FOR_DELIVERY": "Out for delivery",
+    "DELIVERY_FAILED_ATTEMPT": "Delivery attempt failed",
+    "DELIVERY_COMPLETED": "Delivered",
+    "OTHER": "Update"
+  },
+  "toasts": {
+    "allRead": "All notifications marked as read."
+  },
+  "errors": {
+    "NOTIFICATION_NOT_FOUND": "Notification not found."
+  }
+}

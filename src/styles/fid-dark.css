@@ -1,0 +1,44 @@
+/* Dark mode for every Fast ID feature that uses the "fid-theme" class on its root element.
+   One place for the dark palette, so the features only describe their own layout.
+   The "dark" class is set on <html> by the theme switch (src/components/Switchers.jsx). */
+.dark .fid-theme {
+  --fid-navy: #e8f0fe;
+  --fid-blue: #8da0ff;
+  --fid-blue-hover: #a9b8ff;
+  --fid-border: #2f3670;
+  --fid-surface: #0f1226;
+  --fid-soft: #232963;
+  --fid-muted: #a9b0d6;
+}
+.dark .fid-apply,
+.dark .fid-notifications { background: #0f1226; border-color: #2f3670; }
+
+.dark .fid-theme .card,
+.dark .fid-theme .bg-white { background-color: #1b2048; }
+.dark .fid-theme .input,
+.dark .fid-theme .select,
+.dark .fid-theme .textarea { background-color: #0f1226; }
+
+.dark .fid-theme .btn-primary { background-color: #4765f4; border-color: #4765f4; color: #fff; }
+.dark .fid-theme .btn-primary:hover:not(:disabled) { background-color: #5a76ff; border-color: #5a76ff; }
+.dark .fid-theme .btn-secondary { background-color: transparent; color: #e8f0fe; border-color: #8da0ff; }
+.dark .fid-theme .btn-secondary:hover:not(:disabled) { background-color: #232963; }
+
+.dark .fid-theme h1,
+.dark .fid-theme h2,
+.dark .fid-theme h3,
+.dark .fid-theme .page-title { color: #e8f0fe; }
+
+/* the fixed palette colours used as Tailwind arbitrary values in the components */
+.dark .fid-theme .text-\[\#252C68\],
+.dark .fid-theme .hover\:text-\[\#252C68\]:hover { color: #e8f0fe; }
+.dark .fid-theme .text-\[\#68769D\] { color: #a9b0d6; }
+.dark .fid-theme .text-\[\#4765F4\] { color: #8da0ff; }
+.dark .fid-theme .border-\[\#D9E1F4\],
+.dark .fid-theme .divide-\[\#D9E1F4\] > :not([hidden]) ~ :not([hidden]) { border-color: #2f3670; }
+.dark .fid-theme .bg-\[\#E7EEFC\] { background-color: #232963; }
+.dark .fid-theme .bg-\[\#E7EEFC\]\/30,
+.dark .fid-theme .bg-\[\#E7EEFC\]\/35,
+.dark .fid-theme .bg-\[\#E7EEFC\]\/50,
+.dark .fid-theme .hover\:bg-\[\#E7EEFC\]\/50:hover,
+.dark .fid-theme .hover\:bg-\[\#E7EEFC\]:hover { background-color: rgba(35, 41, 99, .7); }

@@ -1,0 +1,152 @@
+{
+  "title": "New Application",
+  "loading": "Preparing your application...",
+  "steps": {
+    "1": "Details",
+    "2": "Documents",
+    "3": "Delivery address",
+    "4": "Review & submit"
+  },
+  "actions": {
+    "saveDraft": "Save draft",
+    "saving": "Saving...",
+    "saved": "Saved",
+    "unsaved": "Unsaved changes",
+    "previous": "Previous",
+    "next": "Next",
+    "backToServices": "Back to services"
+  },
+  "form": {
+    "selectPlaceholder": "Select an option...",
+    "noFields": "No additional form fields are required for this service.",
+    "requiredHint": "Fields marked with * are required before submission."
+  },
+  "states": {
+    "serviceNotFoundTitle": "Service not found",
+    "serviceNotFoundText": "We could not find the requested service.",
+    "serviceUnavailableTitle": "Service not available right now",
+    "serviceUnavailableText": "This service is currently unpublished and cannot accept new applications."
+  },
+  "validation": {
+    "required": "This field is required.",
+    "invalidNumber": "Please enter a valid number.",
+    "invalidDate": "Please enter a valid date.",
+    "minLength": "Minimum length is {{min}} characters.",
+    "maxLength": "Maximum length is {{max}} characters.",
+    "min": "Minimum value is {{min}}.",
+    "max": "Maximum value is {{max}}.",
+    "minDate": "Date must be on or after {{minDate}}.",
+    "maxDate": "Date must be on or before {{maxDate}}.",
+    "pattern": "Invalid format.",
+    "invalidOption": "Please choose a valid option."
+  },
+  "documents": {
+    "title": "Required Documents",
+    "subtitle": "Upload each document in an allowed format and size. Uploading again replaces the previous file.",
+    "empty": "No documents are required for this service.",
+    "required": "Required",
+    "optional": "Optional",
+    "allowedMeta": "Allowed: {{types}} · Max size: {{maxMb}} MB",
+    "chooseFile": "Choose file",
+    "replaceFile": "Replace file",
+    "deleteFile": "Delete",
+    "uploading": "Uploading ({{percent}}%)...",
+    "uploaded": "Uploaded",
+    "replaceHint": "Uploading a new file will replace the current one.",
+    "clientErrors": {
+      "unsupportedType": "Unsupported file type. Allowed: {{types}}.",
+      "tooLarge": "File exceeds the maximum size ({{maxMb}} MB)."
+    },
+    "toasts": {
+      "uploaded": "Document uploaded successfully.",
+      "deleted": "Document removed."
+    }
+  },
+  "delivery": {
+    "title": "Delivery Address",
+    "subtitle": "Enter the address where your issued credential should be delivered.",
+    "governorate": "Governorate",
+    "governoratePlaceholder": "Select governorate...",
+    "city": "City / District",
+    "addressLine": "Street address",
+    "addressHint": "Street name, building number, floor, apartment",
+    "phone": "Contact phone",
+    "phoneHint": "Egyptian mobile number (e.g. 01012345678)",
+    "notes": "Additional notes (optional)",
+    "notesHint": "Landmark or preferred delivery time",
+    "saveAddress": "Save address",
+    "validation": {
+      "governorateRequired": "Please select a governorate.",
+      "cityMin": "City must be at least 2 characters.",
+      "cityMax": "City must be at most 60 characters.",
+      "addressMin": "Address must be at least 5 characters.",
+      "addressMax": "Address must be at most 200 characters.",
+      "phoneInvalid": "Please enter a valid Egyptian mobile number (010 / 011 / 012 / 015).",
+      "notesMax": "Notes must be at most 300 characters."
+    },
+    "toasts": {
+      "saved": "Delivery address saved."
+    }
+  },
+  "review": {
+    "title": "Review & Submit",
+    "subtitle": "Review your answers, uploaded documents, and delivery address before submitting.",
+    "edit": "Edit",
+    "emptyValue": "—",
+    "yes": "Yes",
+    "no": "No",
+    "sections": {
+      "details": "Application Details",
+      "documents": "Uploaded Documents",
+      "delivery": "Delivery Address",
+      "payment": "Service Fee & Payment"
+    },
+    "noDocumentsUploaded": "No documents uploaded yet.",
+    "missingDocument": "Required document missing",
+    "noAddress": "No delivery address entered yet.",
+    "feeLabel": "Service fee",
+    "noFee": "No fee",
+    "paymentDemoHint": "Demo payment mode for MVP testing only (no real charges).",
+    "payDemo": "Pay (demo)",
+    "paying": "Processing payment...",
+    "paidBadge": "Paid",
+    "paymentReference": "Reference: {{ref}}",
+    "paymentDate": "Paid on: {{date}}",
+    "paymentNotEnabled": "Online payment is not available in this environment.",
+    "submit": "Submit application",
+    "submitting": "Submitting...",
+    "discardDraft": "Discard draft",
+    "discardTitle": "Discard this draft?",
+    "discardMessage": "This draft and all its uploaded documents will be permanently deleted. Continue?",
+    "discardConfirm": "Yes, discard draft",
+    "toasts": {
+      "paid": "Demo payment completed.",
+      "submitted": "Application submitted successfully.",
+      "discarded": "Draft discarded."
+    }
+  },
+  "toasts": {
+    "draftSaved": "Draft saved.",
+    "notEditable": "This application can no longer be edited."
+  },
+  "errors": {
+    "SERVICE_NOT_FOUND": "The requested service was not found.",
+    "SERVICE_NOT_AVAILABLE": "This service is not available right now.",
+    "ACTIVE_APPLICATION_EXISTS": "You already have an active application for this service.",
+    "APPLICATION_NOT_FOUND": "Application not found.",
+    "APPLICATION_NOT_EDITABLE": "This application can no longer be edited.",
+    "UNKNOWN_FIELD": "An unknown field was sent.",
+    "FILE_REQUIRED": "Please select a file to upload.",
+    "UNKNOWN_REQUIREMENT_KEY": "Unknown document requirement for this service.",
+    "FILE_TOO_LARGE": "The file exceeds the maximum allowed size.",
+    "UNSUPPORTED_FILE_TYPE": "This file type is not allowed for this document.",
+    "FILE_CONTENT_MISMATCH": "The file content does not match its declared type.",
+    "ATTACHMENT_NOT_FOUND": "Attachment not found.",
+    "PAYMENT_NOT_ENABLED": "Online payment is not available in this environment.",
+    "PAYMENT_NOT_REQUIRED": "No payment is required for this service.",
+    "PAYMENT_ALREADY_COMPLETED": "Payment has already been completed.",
+    "PAYMENT_NOT_COMPLETED": "Please complete payment before submitting.",
+    "MISSING_REQUIRED_FIELDS": "Please complete all required fields before submitting.",
+    "MISSING_REQUIRED_DOCUMENTS": "Please upload all required documents before submitting."
+  }
+}
