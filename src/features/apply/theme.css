@@ -1,0 +1,93 @@
+@import "../../styles/fid-dark.css";
+
+/* Fast ID admin-reference palette, scoped to this feature only.
+   No shared Tailwind config, layout, or other teammate's files are changed. */
+.fid-apply {
+  --fid-navy: #252c68;
+  --fid-blue: #4765f4;
+  --fid-blue-hover: #3653df;
+  --fid-border: #d9e1f4;
+  --fid-surface: #f5f6fb;
+  --fid-soft: #e7eefc;
+  --fid-muted: #68769d;
+  color: var(--fid-navy);
+  font-family: "Poppins", sans-serif;
+}
+.fid-apply .card {
+  background: #fff;
+  border: 1px solid var(--fid-border);
+  border-radius: 16px;
+  box-shadow: 0 5px 22px rgba(37, 44, 104, 0.04);
+}
+.fid-apply .btn {
+  border-radius: 10px;
+  font-weight: 700;
+  transition: background-color .15s, box-shadow .15s;
+}
+.fid-apply .btn-primary {
+  background-color: var(--fid-blue);
+  border-color: var(--fid-blue);
+  color: white;
+}
+.fid-apply .btn-primary:hover:not(:disabled) {
+  background-color: var(--fid-blue-hover);
+  border-color: var(--fid-blue-hover);
+}
+.fid-apply .btn-secondary {
+  background-color: white;
+  border: 1px solid var(--fid-border);
+  color: var(--fid-navy);
+}
+.fid-apply .btn-secondary:hover:not(:disabled) {
+  background-color: var(--fid-soft);
+  border-color: var(--fid-blue);
+}
+.fid-apply .btn:focus-visible,
+.fid-apply .input:focus-visible,
+.fid-apply .select:focus-visible,
+.fid-apply .textarea:focus-visible,
+.fid-apply button:focus-visible,
+.fid-apply a:focus-visible {
+  outline: 2px solid var(--fid-blue);
+  outline-offset: 2px;
+}
+.fid-apply .input,
+.fid-apply .select,
+.fid-apply .textarea {
+  background: #fff;
+  color: var(--fid-navy);
+  border: 1px solid var(--fid-border);
+  border-radius: 10px;
+  max-width: 100%;
+}
+.fid-apply .input:focus,
+.fid-apply .select:focus,
+.fid-apply .textarea:focus {
+  border-color: var(--fid-blue);
+  --tw-ring-color: rgba(71, 101, 244, .22);
+}
+.fid-apply .link {
+  color: var(--fid-blue);
+  font-weight: 700;
+}
+.fid-apply .link:hover {
+  color: var(--fid-blue-hover);
+}
+@media (max-width: 640px) {
+  .fid-apply .card { border-radius: 13px; }
+}
+
+.fid-apply {
+  background: #f5f6fb;
+  padding: clamp(12px, 2.6vw, 26px);
+  border: 1px solid #d9e1f4;
+  border-radius: 20px;
+}
+.fid-apply .page-title,
+.fid-apply h1,
+.fid-apply h2,
+.fid-apply h3 { color: #252c68; }
+.fid-apply .fid-step-current { background: #4765f4; color: #fff; }
+.fid-apply .fid-step-current:hover { background: #3653df; }
+
+html[dir="rtl"] .fid-apply { font-family: "Cairo", sans-serif; }

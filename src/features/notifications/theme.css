@@ -1,0 +1,166 @@
+@import "../../styles/fid-dark.css";
+
+/* Fast ID admin-reference palette, scoped to this feature only.
+   No shared Tailwind config, layout, or other teammate's files are changed. */
+.fid-notifications {
+  --fid-navy: #252c68;
+  --fid-blue: #4765f4;
+  --fid-blue-hover: #3653df;
+  --fid-border: #d9e1f4;
+  --fid-surface: #f5f6fb;
+  --fid-soft: #e7eefc;
+  --fid-muted: #68769d;
+  color: var(--fid-navy);
+  font-family: "Poppins", sans-serif;
+}
+.fid-notifications .card {
+  background: #fff;
+  border: 1px solid var(--fid-border);
+  border-radius: 16px;
+  box-shadow: 0 5px 22px rgba(37, 44, 104, 0.04);
+}
+.fid-notifications .btn {
+  border-radius: 10px;
+  font-weight: 700;
+  transition: background-color .15s, box-shadow .15s;
+}
+.fid-notifications .btn-primary {
+  background-color: var(--fid-blue);
+  border-color: var(--fid-blue);
+  color: white;
+}
+.fid-notifications .btn-primary:hover:not(:disabled) {
+  background-color: var(--fid-blue-hover);
+  border-color: var(--fid-blue-hover);
+}
+.fid-notifications .btn-secondary {
+  background-color: white;
+  border: 1px solid var(--fid-border);
+  color: var(--fid-navy);
+}
+.fid-notifications .btn-secondary:hover:not(:disabled) {
+  background-color: var(--fid-soft);
+  border-color: var(--fid-blue);
+}
+.fid-notifications .btn:focus-visible,
+.fid-notifications .input:focus-visible,
+.fid-notifications .select:focus-visible,
+.fid-notifications .textarea:focus-visible,
+.fid-notifications button:focus-visible,
+.fid-notifications a:focus-visible {
+  outline: 2px solid var(--fid-blue);
+  outline-offset: 2px;
+}
+.fid-notifications .input,
+.fid-notifications .select,
+.fid-notifications .textarea {
+  background: #fff;
+  color: var(--fid-navy);
+  border: 1px solid var(--fid-border);
+  border-radius: 10px;
+  max-width: 100%;
+}
+.fid-notifications .input:focus,
+.fid-notifications .select:focus,
+.fid-notifications .textarea:focus {
+  border-color: var(--fid-blue);
+  --tw-ring-color: rgba(71, 101, 244, .22);
+}
+.fid-notifications .link {
+  color: var(--fid-blue);
+  font-weight: 700;
+}
+.fid-notifications .link:hover {
+  color: var(--fid-blue-hover);
+}
+@media (max-width: 640px) {
+  .fid-notifications .card { border-radius: 13px; }
+}
+
+/* Fast ID admin-reference palette, scoped to this feature only.
+   No shared Tailwind config, layout, or other teammate's files are changed. */
+.fid-notification-bell {
+  --fid-navy: #252c68;
+  --fid-blue: #4765f4;
+  --fid-blue-hover: #3653df;
+  --fid-border: #d9e1f4;
+  --fid-surface: #f5f6fb;
+  --fid-soft: #e7eefc;
+  --fid-muted: #68769d;
+  color: var(--fid-navy);
+  font-family: "Poppins", sans-serif;
+}
+.fid-notification-bell .card {
+  background: #fff;
+  border: 1px solid var(--fid-border);
+  border-radius: 16px;
+  box-shadow: 0 5px 22px rgba(37, 44, 104, 0.04);
+}
+.fid-notification-bell .btn {
+  border-radius: 10px;
+  font-weight: 700;
+  transition: background-color .15s, box-shadow .15s;
+}
+.fid-notification-bell .btn-primary {
+  background-color: var(--fid-blue);
+  border-color: var(--fid-blue);
+  color: white;
+}
+.fid-notification-bell .btn-primary:hover:not(:disabled) {
+  background-color: var(--fid-blue-hover);
+  border-color: var(--fid-blue-hover);
+}
+.fid-notification-bell .btn-secondary {
+  background-color: white;
+  border: 1px solid var(--fid-border);
+  color: var(--fid-navy);
+}
+.fid-notification-bell .btn-secondary:hover:not(:disabled) {
+  background-color: var(--fid-soft);
+  border-color: var(--fid-blue);
+}
+.fid-notification-bell .btn:focus-visible,
+.fid-notification-bell .input:focus-visible,
+.fid-notification-bell .select:focus-visible,
+.fid-notification-bell .textarea:focus-visible,
+.fid-notification-bell button:focus-visible,
+.fid-notification-bell a:focus-visible {
+  outline: 2px solid var(--fid-blue);
+  outline-offset: 2px;
+}
+.fid-notification-bell .input,
+.fid-notification-bell .select,
+.fid-notification-bell .textarea {
+  background: #fff;
+  color: var(--fid-navy);
+  border: 1px solid var(--fid-border);
+  border-radius: 10px;
+  max-width: 100%;
+}
+.fid-notification-bell .input:focus,
+.fid-notification-bell .select:focus,
+.fid-notification-bell .textarea:focus {
+  border-color: var(--fid-blue);
+  --tw-ring-color: rgba(71, 101, 244, .22);
+}
+.fid-notification-bell .link {
+  color: var(--fid-blue);
+  font-weight: 700;
+}
+.fid-notification-bell .link:hover {
+  color: var(--fid-blue-hover);
+}
+@media (max-width: 640px) {
+  .fid-notification-bell .card { border-radius: 13px; }
+}
+
+.fid-notifications {
+  background: #f5f6fb;
+  padding: clamp(12px, 2.6vw, 26px);
+  border: 1px solid #d9e1f4;
+  border-radius: 20px;
+}
+.fid-notifications h1, .fid-notifications h2 { color: #252c68; }
+
+html[dir="rtl"] .fid-notifications,
+html[dir="rtl"] .fid-notification-bell { font-family: "Cairo", sans-serif; }
