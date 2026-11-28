@@ -3,7 +3,7 @@ export function BrandLogo({ variant = "light" }) {
 
   return (
     <span className="inline-flex items-center gap-1.5 font-heading text-lg font-bold tracking-tight ltr-value">
-      <span className={isDark ? "text-white" : "text-navy"}>Fast</span>
+      <span className={isDark ? "text-white" : "text-navy dark:text-white"}>Fast</span>
       <span
         className={
           isDark

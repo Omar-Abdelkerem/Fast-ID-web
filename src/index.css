@@ -68,7 +68,7 @@
   }
 
   .btn-danger {
-    @apply btn border-[1.5px] border-danger bg-white text-danger hover:bg-danger hover:text-white dark:bg-transparent;
+    @apply btn border-[1.5px] border-danger bg-white text-danger hover:bg-danger hover:text-white dark:border-[#ff8a80] dark:bg-transparent dark:text-[#ff8a80] dark:hover:bg-[#4a1f24];
   }
 
   .btn-sm {
@@ -138,7 +138,7 @@
   }
 
   .link {
-    @apply font-semibold text-blue-dark hover:underline;
+    @apply font-semibold text-blue-dark hover:underline dark:text-[#8da0ff];
   }
 
   .ltr-value {
@@ -150,4 +150,9 @@
   .brand-gradient {
     background: linear-gradient(135deg, #232963 0%, #34449e 55%, #4966f0 100%);
   }
+}
+
+/* red text (required stars, errors) must stay readable on the dark background */
+.dark .text-danger {
+  color: #ff8a80;
 }

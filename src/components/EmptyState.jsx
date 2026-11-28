@@ -19,7 +19,7 @@ export function EmptyState({ title, text, action }) {
           />
         </svg>
       </div>
-      <h2 className="font-heading text-base font-bold text-navy">{title}</h2>
+      <h2 className="font-heading text-base font-bold text-navy dark:text-white">{title}</h2>
       {text ? <p className="mt-1 max-w-md text-sm text-muted">{text}</p> : null}
       {action ? <div className="mt-4">{action}</div> : null}
     </div>

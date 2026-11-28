@@ -92,8 +92,8 @@ export function PublicLayout({ children }) {
                 className={({ isActive }) =>
                   `rounded-xl px-3 py-1.5 text-sm font-semibold transition-colors ${
                     isActive
-                      ? "bg-sky text-blue-dark"
-                      : "text-navy hover:bg-page"
+                      ? "bg-sky text-blue-dark dark:bg-[#232963] dark:text-[#a9b8ff]"
+                      : "text-navy hover:bg-page dark:text-[#e8f0fe] dark:hover:bg-[#232963]"
                   }`
                 }
               >
@@ -104,8 +104,8 @@ export function PublicLayout({ children }) {
                 className={({ isActive }) =>
                   `rounded-xl px-3 py-1.5 text-sm font-semibold transition-colors ${
                     isActive
-                      ? "bg-sky text-blue-dark"
-                      : "text-navy hover:bg-page"
+                      ? "bg-sky text-blue-dark dark:bg-[#232963] dark:text-[#a9b8ff]"
+                      : "text-navy hover:bg-page dark:text-[#e8f0fe] dark:hover:bg-[#232963]"
                   }`
                 }
               >
